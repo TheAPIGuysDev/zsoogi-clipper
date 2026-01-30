@@ -1,4 +1,12 @@
 <?php
+/**
+ * Zsoogi Clips Post Type
+ *
+ * Registers the custom post type and taxonomy for Zsoogi Clips.
+ *
+ * @package Zsoogi_Clipper
+ * @since 1.0.0
+ */
 
 namespace Zsoogi;
 
@@ -68,38 +76,39 @@ class Zsoogi_Clips {
 		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 
 		$labels = array(
-			'name'                  => _x( 'Zsoogi Clips', 'Post Type General Name', self::TEXT_DOMAIN ),
-			'singular_name'         => _x( 'Zsoogi Clip', 'Post Type Singular Name', self::TEXT_DOMAIN ),
+			'name'                  => _x( 'Zsoogi Clips', 'Post Type General Name', 'zsoogi-clipper' ),
+			'singular_name'         => _x( 'Zsoogi Clip', 'Post Type Singular Name', 'zsoogi-clipper' ),
 			'menu_name'             => $label_name,
-			'name_admin_bar'        => __( 'Zsoogi Clip', self::TEXT_DOMAIN ),
-			'archives'              => __( 'Zsoogi Clip Archives', self::TEXT_DOMAIN ),
-			'attributes'            => __( 'Zsoogi Clip Attributes', self::TEXT_DOMAIN ),
-			'parent_item_colon'     => __( 'Parent Zsoogi Clip:', self::TEXT_DOMAIN ),
-			'all_items'             => sprintf( __( 'All %s', self::TEXT_DOMAIN ), $label_name ),
-			'add_new_item'          => __( 'Add New Zsoogi Clip', self::TEXT_DOMAIN ),
-			'add_new'               => __( 'Add New Zsoogi Clip', self::TEXT_DOMAIN ),
-			'new_item'              => __( 'New Zsoogi Clip', self::TEXT_DOMAIN ),
-			'edit_item'             => __( 'Edit Zsoogi Clip', self::TEXT_DOMAIN ),
-			'update_item'           => __( 'Update Zsoogi Clip', self::TEXT_DOMAIN ),
-			'view_item'             => __( 'View Zsoogi Clip', self::TEXT_DOMAIN ),
-			'view_items'            => __( 'View Zsoogi Clips', self::TEXT_DOMAIN ),
-			'search_items'          => __( 'Search Zsoogi Clips', self::TEXT_DOMAIN ),
-			'not_found'             => __( 'Zsoogi Clip not found', self::TEXT_DOMAIN ),
-			'not_found_in_trash'    => __( 'Zsoogi Clip not found in Trash', self::TEXT_DOMAIN ),
-			'featured_image'        => __( 'Featured Image', self::TEXT_DOMAIN ),
-			'set_featured_image'    => __( 'Set featured image', self::TEXT_DOMAIN ),
-			'remove_featured_image' => __( 'Remove featured image', self::TEXT_DOMAIN ),
-			'use_featured_image'    => __( 'Use as featured image', self::TEXT_DOMAIN ),
-			'insert_into_item'      => __( 'Insert into Zsoogi Clip', self::TEXT_DOMAIN ),
-			'uploaded_to_this_item' => __( 'Uploaded to this Zsoogi Clip', self::TEXT_DOMAIN ),
-			'items_list'            => __( 'Zsoogi Clips list', self::TEXT_DOMAIN ),
-			'items_list_navigation' => __( 'Zsoogi Clips list navigation', self::TEXT_DOMAIN ),
-			'filter_items_list'     => __( 'Filter wikis list', self::TEXT_DOMAIN ),
+			'name_admin_bar'        => __( 'Zsoogi Clip', 'zsoogi-clipper' ),
+			'archives'              => __( 'Zsoogi Clip Archives', 'zsoogi-clipper' ),
+			'attributes'            => __( 'Zsoogi Clip Attributes', 'zsoogi-clipper' ),
+			'parent_item_colon'     => __( 'Parent Zsoogi Clip:', 'zsoogi-clipper' ),
+			/* translators: %s: Post type label name (e.g. "Zsoogi Clips") */
+			'all_items'             => sprintf( __( 'All %s', 'zsoogi-clipper' ), $label_name ),
+			'add_new_item'          => __( 'Add New Zsoogi Clip', 'zsoogi-clipper' ),
+			'add_new'               => __( 'Add New Zsoogi Clip', 'zsoogi-clipper' ),
+			'new_item'              => __( 'New Zsoogi Clip', 'zsoogi-clipper' ),
+			'edit_item'             => __( 'Edit Zsoogi Clip', 'zsoogi-clipper' ),
+			'update_item'           => __( 'Update Zsoogi Clip', 'zsoogi-clipper' ),
+			'view_item'             => __( 'View Zsoogi Clip', 'zsoogi-clipper' ),
+			'view_items'            => __( 'View Zsoogi Clips', 'zsoogi-clipper' ),
+			'search_items'          => __( 'Search Zsoogi Clips', 'zsoogi-clipper' ),
+			'not_found'             => __( 'Zsoogi Clip not found', 'zsoogi-clipper' ),
+			'not_found_in_trash'    => __( 'Zsoogi Clip not found in Trash', 'zsoogi-clipper' ),
+			'featured_image'        => __( 'Featured Image', 'zsoogi-clipper' ),
+			'set_featured_image'    => __( 'Set featured image', 'zsoogi-clipper' ),
+			'remove_featured_image' => __( 'Remove featured image', 'zsoogi-clipper' ),
+			'use_featured_image'    => __( 'Use as featured image', 'zsoogi-clipper' ),
+			'insert_into_item'      => __( 'Insert into Zsoogi Clip', 'zsoogi-clipper' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this Zsoogi Clip', 'zsoogi-clipper' ),
+			'items_list'            => __( 'Zsoogi Clips list', 'zsoogi-clipper' ),
+			'items_list_navigation' => __( 'Zsoogi Clips list navigation', 'zsoogi-clipper' ),
+			'filter_items_list'     => __( 'Filter wikis list', 'zsoogi-clipper' ),
 		);
 
 		$args = array(
-			'label'               => __( 'Zsoogi Clips', self::TEXT_DOMAIN ),
-			'description'         => __( 'Zsoogi articles.', self::TEXT_DOMAIN ),
+			'label'               => __( 'Zsoogi Clips', 'zsoogi-clipper' ),
+			'description'         => __( 'Zsoogi articles.', 'zsoogi-clipper' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'thumbnail', 'author', 'comments', 'revisions' ),
 			'hierarchical'        => false,
@@ -133,26 +142,26 @@ class Zsoogi_Clips {
 	public static function register_taxonomy() {
 
 		$labels = array(
-			'name'                       => _x( 'Zsoogi Type', 'Taxonomy General Name', self::TEXT_DOMAIN ),
-			'singular_name'              => _x( 'Zsoogi Type', 'Taxonomy Singular Name', self::TEXT_DOMAIN ),
-			'menu_name'                  => __( 'Zsoogi Type', self::TEXT_DOMAIN ),
-			'all_items'                  => __( 'All Types', self::TEXT_DOMAIN ),
-			'parent_item'                => __( 'Parent Type', self::TEXT_DOMAIN ),
-			'parent_item_colon'          => __( 'Parent Type:', self::TEXT_DOMAIN ),
-			'new_item_name'              => __( 'New Type Name', self::TEXT_DOMAIN ),
-			'add_new_item'               => __( 'Add New Type', self::TEXT_DOMAIN ),
-			'edit_item'                  => __( 'Edit Type', self::TEXT_DOMAIN ),
-			'update_item'                => __( 'Update Type', self::TEXT_DOMAIN ),
-			'view_item'                  => __( 'View Type', self::TEXT_DOMAIN ),
-			'separate_items_with_commas' => __( 'Separate types with commas', self::TEXT_DOMAIN ),
-			'add_or_remove_items'        => __( 'Add or remove types', self::TEXT_DOMAIN ),
-			'choose_from_most_used'      => __( 'Choose from the most used types', self::TEXT_DOMAIN ),
-			'popular_items'              => __( 'Popular Types', self::TEXT_DOMAIN ),
-			'search_items'               => __( 'Search Types', self::TEXT_DOMAIN ),
-			'not_found'                  => __( 'Type Not Found', self::TEXT_DOMAIN ),
-			'no_terms'                   => __( 'No items', self::TEXT_DOMAIN ),
-			'items_list'                 => __( 'Types list', self::TEXT_DOMAIN ),
-			'items_list_navigation'      => __( 'Types list navigation', self::TEXT_DOMAIN ),
+			'name'                       => _x( 'Zsoogi Type', 'Taxonomy General Name', 'zsoogi-clipper' ),
+			'singular_name'              => _x( 'Zsoogi Type', 'Taxonomy Singular Name', 'zsoogi-clipper' ),
+			'menu_name'                  => __( 'Zsoogi Type', 'zsoogi-clipper' ),
+			'all_items'                  => __( 'All Types', 'zsoogi-clipper' ),
+			'parent_item'                => __( 'Parent Type', 'zsoogi-clipper' ),
+			'parent_item_colon'          => __( 'Parent Type:', 'zsoogi-clipper' ),
+			'new_item_name'              => __( 'New Type Name', 'zsoogi-clipper' ),
+			'add_new_item'               => __( 'Add New Type', 'zsoogi-clipper' ),
+			'edit_item'                  => __( 'Edit Type', 'zsoogi-clipper' ),
+			'update_item'                => __( 'Update Type', 'zsoogi-clipper' ),
+			'view_item'                  => __( 'View Type', 'zsoogi-clipper' ),
+			'separate_items_with_commas' => __( 'Separate types with commas', 'zsoogi-clipper' ),
+			'add_or_remove_items'        => __( 'Add or remove types', 'zsoogi-clipper' ),
+			'choose_from_most_used'      => __( 'Choose from the most used types', 'zsoogi-clipper' ),
+			'popular_items'              => __( 'Popular Types', 'zsoogi-clipper' ),
+			'search_items'               => __( 'Search Types', 'zsoogi-clipper' ),
+			'not_found'                  => __( 'Type Not Found', 'zsoogi-clipper' ),
+			'no_terms'                   => __( 'No items', 'zsoogi-clipper' ),
+			'items_list'                 => __( 'Types list', 'zsoogi-clipper' ),
+			'items_list_navigation'      => __( 'Types list navigation', 'zsoogi-clipper' ),
 		);
 
 		$args = array(
@@ -248,7 +257,7 @@ class Zsoogi_Clips {
 				'Research',
 				self::TAXONOMY,
 				array(
-					'description' => __( 'Research and documentation articles', self::TEXT_DOMAIN ),
+					'description' => __( 'Research and documentation articles', 'zsoogi-clipper' ),
 					'slug'        => 'research',
 				)
 			);
@@ -264,10 +273,10 @@ class Zsoogi_Clips {
 	 * @since 2.2.0
 	 *
 	 * @param int     $post_id The post ID.
-	 * @param WP_Post $post    The post object.
+	 * @param WP_Post $post    The post object (unused but required by hook signature).
 	 * @return void
 	 */
-	public static function set_default_term( $post_id, $post ) {
+	public static function set_default_term( $post_id, $post ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
 		// Skip if this is an autosave or revision.
 		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
 			return;

@@ -6,6 +6,7 @@
  * with both classic and block themes (like Twenty Twenty-Five).
  *
  * .wp-block-navigation.items-justified-right
+ *
  * @package Zsoogi\Zsoogi_Clips
  * @since 2.3.0
  */
@@ -62,10 +63,10 @@ $is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
 
 if ( $is_block_theme ) {
 	// For block themes, manually construct HTML structure with proper WordPress hooks.
-/**
- * Create a block-backed shim for classic header templates.
- */
-?>
+	/**
+	 * Create a block-backed shim for classic header templates.
+	 */
+	?>
 	<!DOCTYPE html>
 	<html <?php language_attributes(); ?>>
 	<head>

@@ -31,6 +31,7 @@ function zsoogi_clipper_multisite_uninstall() {
 	global $wpdb;
 
 	if ( is_multisite() ) {
+		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Direct query acceptable for uninstall.
 		$blog_ids = $wpdb->get_col( "SELECT blog_id FROM {$wpdb->blogs}" );
 
 		foreach ( $blog_ids as $blog_id ) {

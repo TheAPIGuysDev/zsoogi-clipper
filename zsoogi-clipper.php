@@ -72,12 +72,10 @@ function zsoogi_clipper_load_includes() {
 
 		if ( file_exists( $file_path ) ) {
 			require_once $file_path;
-		} else {
+		} elseif ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// Log error only if WP_DEBUG is enabled.
-			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-				error_log( 'Zsoogi Clipper: Required file not found - ' . $file );
-			}
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'Zsoogi Clipper: Required file not found - ' . $file );
 		}
 	}
 }

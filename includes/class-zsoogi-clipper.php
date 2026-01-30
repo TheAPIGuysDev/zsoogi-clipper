@@ -1,4 +1,12 @@
 <?php
+/**
+ * Zsoogi Clipper Handler
+ *
+ * Processes content captured from the Zsoogi Clipper bookmarklet.
+ *
+ * @package Zsoogi_Clipper
+ * @since 2.1.4
+ */
 
 namespace Zsoogi;
 
@@ -60,6 +68,8 @@ class Zsoogi_Clipper {
 			return;
 		}
 
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Bookmarklets cannot use nonces as they are user-initiated from external sites. Security maintained through capability checks.
+
 		// Check if we have bookmarklet data.
 		if ( ! isset( $_GET['url'] ) && ! isset( $_GET['title'] ) ) {
 			return;
@@ -81,6 +91,7 @@ class Zsoogi_Clipper {
 		if ( isset( $_GET['image'] ) && ! empty( $_GET['image'] ) ) {
 			$GLOBALS['zsoogi_clipper_image'] = esc_url_raw( wp_unslash( $_GET['image'] ) );
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -133,8 +144,8 @@ class Zsoogi_Clipper {
 		$selection = isset( $GLOBALS['zsoogi_clipper_selection'] ) ? $GLOBALS['zsoogi_clipper_selection'] : '';
 
 		// Get settings.
-		$citation_format    = get_option( 'zsoogi_clipper_citation_format', 'detailed' );
-		$include_metadata   = get_option( 'zsoogi_clipper_include_metadata', false );
+		$citation_format  = get_option( 'zsoogi_clipper_citation_format', 'detailed' );
+		$include_metadata = get_option( 'zsoogi_clipper_include_metadata', false );
 
 		// Build the content.
 		$new_content = '';

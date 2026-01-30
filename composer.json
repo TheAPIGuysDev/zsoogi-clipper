@@ -21,8 +21,8 @@
 		"build-zip": "./build.sh",
         "deploy": "bash deploy.sh",
         "deploy-sftp": "bash deploy.sh sftp",
-		"lint": "phpcs",
-		"lint-fix": "phpcbf",
+		"lint": "phpcs -d memory_limit=512M",
+		"lint-fix": "phpcbf -d memory_limit=512M",
 		"post-install-cmd": [
 			"vendor/bin/phpcs --config-set installed_paths vendor/phpcsstandards/phpcsextra,vendor/phpcsstandards/phpcsutils,vendor/wp-coding-standards/wpcs"
 		],
