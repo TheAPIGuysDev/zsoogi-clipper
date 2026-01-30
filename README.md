@@ -10,8 +10,6 @@ Zsoogi Clipper enables administrators to create, organize, and manage wiki artic
 
 Perfect for teams building internal documentation, knowledge bases, API documentation, or any content that benefits from wiki-style organization and quick content capture from external sources.
 
-![Screencast showing use and privacy](./assets/images/screencasts/zsoogi-clipper-demo.gif)
-
 ## Features
 
 ### 📚 Zsoogi Management
