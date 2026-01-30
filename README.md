@@ -1,8 +1,8 @@
-<img src="./assets/images/zsoogi.png" alt="ZsoogiNotes Logo" align="left" width="130" style="margin-right: 20px; margin-bottom: 20px;">
-
 # Zsoogi Clipper
 
-A modern WordPress plugin for creating and managing wiki-style documentation with a jQuery-free bookmarklet for quick content capture from external sources.
+<img src="./assets/images/zsoogi.png" alt="ZsoogiNotes Logo" align="left" width="130" style="margin-right: 20px; margin-bottom: 20px;">
+
+A modern WordPress plugin for creating and managing wiki-style research documentation with a jQuery-free bookmarklet for quick content capture into admin-only post type from external internet sources.
 
 ## Description
 
