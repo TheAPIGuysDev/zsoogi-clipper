@@ -6,7 +6,7 @@ namespace Zsoogi;
  * Zsoogi - Custom Post Type and Taxonomy Registration.
  *
  * This class handles the registration of the Zsoogi custom post type
- * and its associated taxonomy for organizing wiki content.
+ * and its associated taxonomy for organizing Zsoogi Clip content.
  *
  * @package Zsoogi\Zsoogi_Clips
  */
@@ -24,7 +24,7 @@ class Zsoogi_Clips {
 	 *
 	 * @var string
 	 */
-	const TAXONOMY = 'api_guys_type';
+	const TAXONOMY = 'zsoogi_type';
 
 	/**
 	 * Text domain for translations.
@@ -56,7 +56,7 @@ class Zsoogi_Clips {
 	/**
 	 * Register the Zsoogi custom post type.
 	 *
-	 * Creates a custom post type for wiki articles with support for
+	 * Creates a custom post type for Zsoogi Clip articles with support for
 	 * title, editor, thumbnail, comments, and revisions.
 	 *
 	 * @since 1.0.0
@@ -68,14 +68,14 @@ class Zsoogi_Clips {
 		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 
 		$labels = array(
-			'name'                  => _x( $label_name . ' Zsoogi Clips', 'Post Type General Name', self::TEXT_DOMAIN ),
+			'name'                  => _x( 'Zsoogi Clips', 'Post Type General Name', self::TEXT_DOMAIN ),
 			'singular_name'         => _x( 'Zsoogi Clip', 'Post Type Singular Name', self::TEXT_DOMAIN ),
-			'menu_name'             => __( $label_name . ' Zsoogi Clips', self::TEXT_DOMAIN ),
-			'name_admin_bar'        => __( 'Zsoogi Clips', self::TEXT_DOMAIN ),
-			'archives'              => __( 'Zsoogi Clips Archives', self::TEXT_DOMAIN ),
+			'menu_name'             => $label_name,
+			'name_admin_bar'        => __( 'Zsoogi Clip', self::TEXT_DOMAIN ),
+			'archives'              => __( 'Zsoogi Clip Archives', self::TEXT_DOMAIN ),
 			'attributes'            => __( 'Zsoogi Clip Attributes', self::TEXT_DOMAIN ),
 			'parent_item_colon'     => __( 'Parent Zsoogi Clip:', self::TEXT_DOMAIN ),
-			'all_items'             => __( 'All ' . $label_name . ' Zsoogi Clips', self::TEXT_DOMAIN ),
+			'all_items'             => sprintf( __( 'All %s', self::TEXT_DOMAIN ), $label_name ),
 			'add_new_item'          => __( 'Add New Zsoogi Clip', self::TEXT_DOMAIN ),
 			'add_new'               => __( 'Add New Zsoogi Clip', self::TEXT_DOMAIN ),
 			'new_item'              => __( 'New Zsoogi Clip', self::TEXT_DOMAIN ),
@@ -90,7 +90,7 @@ class Zsoogi_Clips {
 			'set_featured_image'    => __( 'Set featured image', self::TEXT_DOMAIN ),
 			'remove_featured_image' => __( 'Remove featured image', self::TEXT_DOMAIN ),
 			'use_featured_image'    => __( 'Use as featured image', self::TEXT_DOMAIN ),
-			'insert_into_item'      => __( 'Insert into wiki', self::TEXT_DOMAIN ),
+			'insert_into_item'      => __( 'Insert into Zsoogi Clip', self::TEXT_DOMAIN ),
 			'uploaded_to_this_item' => __( 'Uploaded to this Zsoogi Clip', self::TEXT_DOMAIN ),
 			'items_list'            => __( 'Zsoogi Clips list', self::TEXT_DOMAIN ),
 			'items_list_navigation' => __( 'Zsoogi Clips list navigation', self::TEXT_DOMAIN ),
@@ -124,7 +124,7 @@ class Zsoogi_Clips {
 	/**
 	 * Register the ZsoogiType taxonomy.
 	 *
-	 * Creates a hierarchical taxonomy for categorizing wiki articles by type.
+	 * Creates a hierarchical taxonomy for categorizing Zsoogi Clip articles by type.
 	 *
 	 * @since 1.0.0
 	 *
@@ -170,9 +170,9 @@ class Zsoogi_Clips {
 	}
 
 	/**
-	 * Register built-in taxonomies for the wiki post type.
+	 * Register built-in taxonomies for the Zsoogi Clip post type.
 	 *
-	 * Adds support for categories and tags to wiki posts. This is done
+	 * Adds support for categories and tags to Zsoogi Clips. This is done
 	 * after post type registration to avoid race conditions on Multisite.
 	 *
 	 * @since 2.4.1
@@ -185,17 +185,17 @@ class Zsoogi_Clips {
 	}
 
 	/**
-	 * Restrict frontend access to wiki posts.
+	 * Restrict frontend access to Zsoogi Clips.
 	 *
 	 * Redirects non-administrator users to the homepage when attempting to
-	 * view wiki posts, archives, or taxonomy pages on the frontend.
+	 * view Zsoogi Clips, archives, or taxonomy pages on the frontend.
 	 *
 	 * @since 2.3.0
 	 *
 	 * @return void
 	 */
 	public static function restrict_frontend_access() {
-		// Check if we're viewing a wiki post (single, archive, or taxonomy).
+		// Check if we're viewing a Zsoogi Clip post (single, archive, or taxonomy).
 		if ( is_singular( self::POST_TYPE ) || is_post_type_archive( self::POST_TYPE ) || is_tax( self::TAXONOMY ) ) {
 			// Allow access only for logged-in administrators.
 			if ( ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
@@ -207,9 +207,9 @@ class Zsoogi_Clips {
 	}
 
 	/**
-	 * Load custom template for wiki posts.
+	 * Load custom template for Zsoogi Clips.
 	 *
-	 * Provides a custom single post template for wiki posts that integrates
+	 * Provides a custom single post template for Zsoogi Clips that integrates
 	 * with modern WordPress themes.
 	 *
 	 * @since 2.3.0
@@ -231,7 +231,7 @@ class Zsoogi_Clips {
 	/**
 	 * Ensure the default "Research" term exists.
 	 *
-	 * Creates the "Research" term in the wiki type taxonomy if it doesn't exist.
+	 * Creates the "Research" term in the Zsoogi type taxonomy if it doesn't exist.
 	 * Runs on init with priority 20 to ensure taxonomy is registered first.
 	 *
 	 * @since 2.2.0
@@ -256,10 +256,10 @@ class Zsoogi_Clips {
 	}
 
 	/**
-	 * Set default term for new wiki posts.
+	 * Set default term for new Zsoogi Clips.
 	 *
-	 * Automatically assigns the "Research" term to new wiki posts that don't
-	 * have any terms set in the wiki type taxonomy.
+	 * Automatically assigns the "Research" term to new Zsoogi Clips that don't
+	 * have any terms set in the Zsoogi type taxonomy.
 	 *
 	 * @since 2.2.0
 	 *

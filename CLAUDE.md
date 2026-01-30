@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Zsoogi Clipper is a WordPress plugin that creates an administrator-only custom post type for wiki-style documentation, integrated with a modern jQuery-free bookmarklet for capturing content from external sources. The plugin follows WordPress Coding Standards and uses object-oriented architecture with PSR-4 autoloading.
+Zsoogi Clipper (https://github.com/TheAPIGuysDev/zsoogi-clipper) is a WordPress plugin that creates an administrator-only custom post type for wiki-style documentation, integrated with a modern jQuery-free bookmarklet for capturing content from external sources. The plugin follows WordPress Coding Standards and uses object-oriented architecture with PSR-4 autoloading. 
+
+The plugin was originally developed as Wiki Clipper (https://github.com/pbrocks/wiki-clipper), but was renamed and may need some ehlp double-checking the renaming process for inconsistencies.
 
 ## Development Commands
 
@@ -46,7 +48,7 @@ The plugin follows a modular architecture with clear separation of concerns:
 - **Namespace**: All classes use the `Zsoogi` namespace with PSR-4 autoloading via `includes/` directory
 
 - **Key Classes**:
-  - `Zsoogi\Zsoogi_Clips`: Registers the custom post type (`zsoogiclips`) and taxonomy (`api_guys_type`) - keeping original names for backward compatibility
+  - `Zsoogi\Zsoogi_Clips`: Registers the custom post type (`zsoogiclips`) and taxonomy (`zsoogi_type`) - keeping original names for backward compatibility
   - `Zsoogi\Admin_Menu`: Manages the settings page under the custom post type menu
   - `Zsoogi\Zsoogi_Clipper`: Handles bookmarklet content capture and processing
 
@@ -69,7 +71,7 @@ ZSOOGI_CLIPS_PLUGIN_URL    // Plugin URL
   - Public, has archive, searchable
   - Menu icon: `dashicons-rest-api`
 
-- **Taxonomy Slug**: `api_guys_type`
+- **Taxonomy Slug**: `zsoogi_type`
   - Hierarchical (like categories)
   - REST API enabled
   - Public, show in admin column
@@ -149,7 +151,7 @@ This is a Local development environment (LocalWP):
 ## Notes
 
 - **Composer dependencies are optional**: Only needed for development (PHPCS linting). The plugin runs perfectly in production without the vendor/ directory.
-- **Backward Compatibility**: Post type slug (`zsoogiclips`), taxonomy slug (`api_guys_type`), option names (`zsoogi_clipper_*`), and text domains are kept from the original "Zsoogi Clipper" plugin to maintain compatibility with existing installations
+- **Backward Compatibility**: Post type slug (`zsoogiclips`), taxonomy slug (`zsoogi_type`), option names (`zsoogi_clipper_*`), and text domains are kept from the original "Zsoogi Clipper" plugin to maintain compatibility with existing installations
 - Zsoogi Clipper bookmarklet uses pure vanilla JavaScript with no dependencies
 - The plugin registers activation/deactivation hooks that flush rewrite rules
 - When modifying post type or taxonomy registration, flush rewrite rules (visit Settings → Permalinks)

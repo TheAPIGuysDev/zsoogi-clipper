@@ -1,3 +1,3 @@
-<?phhp
+<?php
 
 // Silence is golden.

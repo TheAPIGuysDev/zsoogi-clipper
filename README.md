@@ -1,14 +1,14 @@
 # Zsoogi Clipper
 
-A modern WordPress plugin for creating and managing wiki-style documentation with a jQuery-free bookmarklet for quick content capture from external sources.
+<img src="./assets/images/zsoogi.png" alt="ZsoogiNotes Logo" align="left" width="90" style="margin-right: 20px; margin-bottom: 20px;">
+
+A modern WordPress plugin for creating and managing wiki-style research documentation with a jQuery-free bookmarklet for quick content capture into admin-only post type from external internet sources.
 
 ## Description
 
 Zsoogi Clipper enables administrators to create, organize, and manage wiki articles within WordPress. The plugin combines a custom post type for wikis with a modern bookmarklet, allowing you to easily capture and curate content from anywhere on the web.
 
 Perfect for teams building internal documentation, knowledge bases, API documentation, or any content that benefits from wiki-style organization and quick content capture from external sources.
-
-![Screencast showing use and privacy](./assets/screencasts/zsoogi-clipper-demo.gif)
 
 ## Features
 
@@ -111,7 +111,7 @@ Navigate to the wiki settings page:
 - **REST API**: Enabled
 
 ### Taxonomy
-- **Slug**: `api_guys_type`
+- **Slug**: `zsoogi_type`
 - **Hierarchical**: Yes (like categories)
 - **Public**: Yes
 - **REST API**: Enabled

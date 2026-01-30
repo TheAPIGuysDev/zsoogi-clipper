@@ -50,10 +50,15 @@ class Admin_Menu {
 	 * @return void
 	 */
 	public static function add_admin_menu() {
+		$plugin_version = ZSOOGI_CLIPS_VERSION;
 		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
-			__( $label_name  . ' Zsoogi Clipper - Install Bookmarklet', 'zsoogi-clipper' ),
+			sprintf(
+				/* translators: %s: Post type label name */
+				__( '%s - Install Bookmarklet', 'zsoogi-clipper' ),
+				$label_name
+			),
 			__( 'Grab Zsoogi', 'zsoogi-clipper' ),
 			'manage_options',
 			'zsoogi-clipper-bookmarklet',
@@ -61,7 +66,12 @@ class Admin_Menu {
 		);
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
-			__( $label_name  . ' Zsoogi Settings', 'zsoogi-clipper' ),
+			sprintf(
+				/* translators: 1: Post type label name, 2: Plugin version */
+				__( '%1$s Settings - v%2$s', 'zsoogi-clipper' ),
+				$label_name,
+				$plugin_version
+			),
 			__( 'Settings', 'zsoogi-clipper' ),
 			'manage_options',
 			self::PAGE_SLUG,
@@ -258,7 +268,7 @@ class Admin_Menu {
 	 */
 	public static function render_general_section() {
 		?>
-		<p><?php esc_html_e( 'Configure the display name and general settings for your wiki post type.', 'zsoogi-clipper' ); ?></p>
+		<p><?php esc_html_e( 'Configure the display name and general settings for your Zsoogi Clip post type.', 'zsoogi-clipper' ); ?></p>
 		<?php
 	}
 
@@ -297,8 +307,8 @@ class Admin_Menu {
 		<p><?php esc_html_e( 'Configure how the Zsoogi Clipper bookmarklet formats captured content.', 'zsoogi-clipper' ); ?></p>
 
 		<div style="background: #f0f6fc; border: 1px solid #0c5460; border-left: 4px solid #2271b1; padding: 15px; margin: 15px 0;">
-			<h4 style="margin-top: 0;"><?php esc_html_e( '📚 Install the Zsoogi Clipper Bookmarklet', 'zsoogi-clipper' ); ?></h4>
-			<p><?php esc_html_e( 'The Zsoogi Clipper bookmarklet lets you capture content from any webpage directly into your wiki.', 'zsoogi-clipper' ); ?></p>
+			<h4 style="margin-top: 0;">📚 <?php esc_html_e( 'Install the Zsoogi Clipper Bookmarklet', 'zsoogi-clipper' ); ?></h4>
+			<p><?php esc_html_e( 'The Zsoogi Clipper bookmarklet lets you capture content from any webpage directly into your Zsoogi Clips.', 'zsoogi-clipper' ); ?></p>
 
 			<p style="margin-bottom: 10px;">
 				<strong><?php esc_html_e( 'To install:', 'zsoogi-clipper' ); ?></strong>
@@ -403,6 +413,41 @@ class Admin_Menu {
 	}
 
 	/**
+	 * Generate the bookmarklet JavaScript code.
+	 *
+	 * Reads the bookmarklet.js file and replaces placeholders with actual values.
+	 *
+	 * @since 2.4.2
+	 *
+	 * @param string $site_url       The site URL.
+	 * @param string $plugin_version The plugin version.
+	 * @return string The minified bookmarklet code.
+	 */
+	private static function get_bookmarklet_code( $site_url, $plugin_version ) {
+		// Read the bookmarklet JavaScript file.
+		$js_file = ZSOOGI_CLIPS_PLUGIN_DIR . 'assets/js/bookmarklet.js';
+
+		if ( ! file_exists( $js_file ) ) {
+			return '';
+		}
+
+		$js_code = file_get_contents( $js_file );
+
+		// Replace placeholders with actual values.
+		$js_code = str_replace( '__VERSION__', $plugin_version, $js_code );
+		$js_code = str_replace( '__SITE_URL__', $site_url, $js_code );
+
+		// Remove comments and extra whitespace to minify.
+		$js_code = preg_replace( '/\/\*[\s\S]*?\*\//', '', $js_code ); // Remove multi-line comments.
+		$js_code = preg_replace( '/\/\/.*$/m', '', $js_code ); // Remove single-line comments.
+		$js_code = preg_replace( '/\s+/', ' ', $js_code ); // Collapse whitespace.
+		$js_code = preg_replace( '/\s*([{}();,:])\s*/', '$1', $js_code ); // Remove spaces around operators.
+		$js_code = trim( $js_code );
+
+		return $js_code;
+	}
+
+	/**
 	 * Render the bookmarklet installation page.
 	 *
 	 * @since 2.2.3
@@ -416,10 +461,13 @@ class Admin_Menu {
 		}
 
 		$label_name     = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
-		$site_name      = $label_name  ?? get_option( 'blogname' );
+		$site_name      = get_option( 'blogname' );
 		$site_url       = esc_url( admin_url( 'post-new.php' ) );
 		$site_url       = str_replace( '/wp-admin/post-new.php', '', $site_url );
 		$plugin_version = ZSOOGI_CLIPS_VERSION;
+
+		// Generate the bookmarklet code.
+		$bookmarklet_code = self::get_bookmarklet_code( $site_url, $plugin_version );
 		?>
 		<div class="wrap">
 			<style>
@@ -456,9 +504,9 @@ class Admin_Menu {
 			</style>
 
 			<div class="bookmarklet-page">
-				<h1>📚 <?php echo esc_html( $site_name ); ?> Zsoogi Clipper - v<?php echo esc_html( $plugin_version ); ?></h1>
+				<h1>📚 <?php echo esc_html( $label_name ); ?> - v<?php echo esc_html( $plugin_version ); ?></h1>
 
-				<p><?php esc_html_e( 'A modern, jQuery-free bookmarklet for capturing web research into your Zsoogi.', 'zsoogi-clipper' ); ?></p>
+				<p><?php printf( esc_html__( 'A modern, jQuery-free bookmarklet for capturing web research into your %s, an admin-only post-type. Others trying to view will be redirected to the homepage, keeping your research private.', 'zsoogi-clipper' ), esc_html( $label_name ) ); ?></p>
 
 				<h2><?php esc_html_e( 'Installation', 'zsoogi-clipper' ); ?></h2>
 				<div class="bookmarklet-instructions">
@@ -469,8 +517,8 @@ class Admin_Menu {
 				</div>
 
 				<div style="text-align: center; margin: 30px 0;">
-					<a href="javascript:(function(){const u=encodeURIComponent(location.href);const rawTitle=location.href.includes('youtube')?document.title.replace(/^\(\d+\)\s*/,'').replace(/\s*-\s*YouTube\s*$/,''):document.title;const t=encodeURIComponent(rawTitle);const s=encodeURIComponent(window.getSelection().toString());const v='<?php echo esc_js( $plugin_version ); ?>';let img='';const ytRegex=/(?:youtube(?:-nocookie)?\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|live)\/|.*[?&amp;]v=)|youtu\.be\/)([^&amp;?\/\s]{11})/i;const match=location.href.match(ytRegex);if(match&amp;&amp;match[1]){img=encodeURIComponent('https://i.ytimg.com/vi/'+match[1]+'/maxresdefault.jpg');}else{const images=Array.from(document.querySelectorAll('img')).filter(i=>i.naturalWidth>200&amp;&amp;i.naturalHeight>200&amp;&amp;!i.src.includes('icon')&amp;&amp;!i.src.includes('logo')&amp;&amp;!i.src.includes('avatar'));if(images.length>0){img=encodeURIComponent(images[0].src);}}const w=window.open('<?php echo esc_js( $site_url ); ?>/wp-admin/post-new.php?post_type=zsoogiclips&amp;title='+t+'&amp;url='+u+'&amp;selection='+s+(img?'&amp;image='+img:'')+'&amp;clipper_version='+v,'_blank','width=900,height=700,menubar=no,toolbar=no,location=no,status=no');if(!w){alert('Please allow popups for this site to use Zsoogi Clipper');}})();" class="bookmarklet-link">
-						🔖 <?php esc_html_e(  $site_name . ' Zsoogi', 'zsoogi-clipper' ); ?>
+					<a href="javascript:<?php echo esc_js( $bookmarklet_code ); ?>" class="bookmarklet-link">
+						🔖 <?php echo esc_html( $site_name ); ?> ZsoogiClips
 					</a>
 				</div>
 
@@ -479,7 +527,7 @@ class Admin_Menu {
 					<ol>
 						<li><strong><?php esc_html_e( 'On any webpage:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'Select text you want to capture (optional)', 'zsoogi-clipper' ); ?></li>
 						<li><strong><?php esc_html_e( 'Click the bookmarklet', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'in your bookmarks bar', 'zsoogi-clipper' ); ?></li>
-						<li><strong><?php esc_html_e( 'A new window opens', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'with a new wiki post pre-filled with:', 'zsoogi-clipper' ); ?>
+						<li><strong><?php esc_html_e( 'A new window opens', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'with a new Zsoogi Clip pre-filled with:', 'zsoogi-clipper' ); ?>
 							<ul>
 								<li><?php esc_html_e( 'The page title', 'zsoogi-clipper' ); ?></li>
 								<li><?php esc_html_e( 'Your selected text (as a blockquote)', 'zsoogi-clipper' ); ?></li>
@@ -518,11 +566,11 @@ class Admin_Menu {
 				<p><?php esc_html_e( 'The bookmarklet captures:', 'zsoogi-clipper' ); ?></p>
 				<ul>
 					<li><strong><?php esc_html_e( 'URL:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'The current page URL', 'zsoogi-clipper' ); ?></li>
-					<li><strong><?php esc_html_e( 'Title:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'The page title (used as your wiki post title)', 'zsoogi-clipper' ); ?></li>
+					<li><strong><?php esc_html_e( 'Title:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'The page title (used as your Zsoogi Clip title)', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Selection:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'Any text you\'ve selected on the page', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Image:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'First meaningful image (>200px, excludes icons/logos)', 'zsoogi-clipper' ); ?></li>
 				</ul>
-				<p><?php esc_html_e( 'Then it opens a new window to create a wiki post with these details passed as URL parameters. The Zsoogi Clipper plugin processes them with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
+				<p><?php esc_html_e( 'Then it opens a new window to create a Zsoogi Clip with these details passed as URL parameters. The Zsoogi Clipper plugin processes them with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
 
 				<h2><?php esc_html_e( 'Troubleshooting', 'zsoogi-clipper' ); ?></h2>
 				<h3><?php esc_html_e( 'Popup Blocked?', 'zsoogi-clipper' ); ?></h3>

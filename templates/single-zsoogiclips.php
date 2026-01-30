@@ -1,8 +1,8 @@
 <?php
 /**
- * Template for displaying single wiki posts
+ * Template for displaying single Zsoogi Clips
  *
- * This template provides a custom display for wiki posts that is compatible
+ * This template provides a custom display for Zsoogi Clips that is compatible
  * with both classic and block themes (like Twenty Twenty-Five).
  *
  * .wp-block-navigation.items-justified-right
@@ -10,25 +10,31 @@
  * @since 2.3.0
  */
 
-// Enqueue custom styles for wiki posts.
+// Enqueue custom styles for Zsoogi Clips.
 add_action(
 	'wp_enqueue_scripts',
 	function () {
 		if ( is_singular( 'zsoogiclips' ) ) {
-			wp_enqueue_style('twentytwentyfive');
-			wp_add_inline_style(
-				'wp-block-library',
-				'
-				.wiki-content-wrapper { max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
-				.wiki-post-content .entry-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0; }
-				.wiki-post-content .entry-title { margin-bottom: 1rem; font-size: 2.5rem; line-height: 1.2; }
-				.wiki-post-content .entry-meta { color: #666; font-size: 0.9rem; }
-				.wiki-post-content .entry-meta a { color: inherit; text-decoration: none; }
-				.wiki-post-content .entry-meta a:hover { text-decoration: underline; }
-				.wiki-post-content .entry-featured-image { margin-bottom: 2rem; }
-				.wiki-post-content .entry-featured-image img { width: 100%; height: auto; border-radius: 8px; }
-				.wiki-post-content .entry-content { line-height: 1.8; font-size: 1.1rem; }
-				.wiki-post-content .entry-footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; }
+			// Only enqueue Twenty Twenty-Five theme styles if registered.
+			if ( wp_style_is( 'twentytwentyfive', 'registered' ) ) {
+				wp_enqueue_style( 'twentytwentyfive' );
+			}
+
+			// Add inline styles to wp-block-library (guaranteed to exist in block themes).
+			if ( wp_style_is( 'wp-block-library', 'registered' ) ) {
+				wp_add_inline_style(
+					'wp-block-library',
+					'
+				.zsoogi-content-wrapper { max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
+				.zsoogi-post-content .entry-header { margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0; }
+				.zsoogi-post-content .entry-title { margin-bottom: 1rem; font-size: 2.5rem; line-height: 1.2; }
+				.zsoogi-post-content .entry-meta { color: #666; font-size: 0.9rem; }
+				.zsoogi-post-content .entry-meta a { color: inherit; text-decoration: none; }
+				.zsoogi-post-content .entry-meta a:hover { text-decoration: underline; }
+				.zsoogi-post-content .entry-featured-image { margin-bottom: 2rem; }
+				.zsoogi-post-content .entry-featured-image img { width: 100%; height: auto; border-radius: 8px; }
+				.zsoogi-post-content .entry-content { line-height: 1.8; font-size: 1.1rem; }
+				.zsoogi-post-content .entry-footer { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #e0e0e0; }
 				.comments-area { margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e0e0e0; }
 				div.wp-site-blocks > div.wp-block-group > div > div.wp-block-group.is-content-justification-space-between,
 				div.wp-site-blocks > header > div > div > div { justify-content: space-between; }
@@ -40,12 +46,13 @@ add_action(
 				.comment-metadata { font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
 				.comment-form-comment textarea, .comment-form-author input, .comment-form-email input, .comment-form-url input { width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px; }
 				@media (max-width: 768px) {
-					.wiki-content-wrapper { padding: 0 1rem; }
-					.wiki-post-content .entry-title { font-size: 2rem; }
+					.zsoogi-content-wrapper { padding: 0 1rem; }
+					.zsoogi-post-content .entry-title { font-size: 2rem; }
 					.comment-list .children { margin-left: 1rem; }
 				}
 				'
-			);
+				);
+			}
 		}
 	}
 );
@@ -70,20 +77,19 @@ if ( $is_block_theme ) {
 	<?php wp_body_open(); ?>
 	<div class="wp-site-blocks">
 	<header class="wp-block-template-part">
-		<?php 
-		// block_template_part( 'header' );
-		block_header_area();
+		<?php
+		block_template_part( 'header' );
 		?>
 	</header>
 		<div class="wp-block-group">
 			<div class="wp-block-group has-global-padding is-layout-constrained">
-				<main class="wiki-content-wrapper">
+				<main class="zsoogi-content-wrapper">
 	<?php
 } else {
 	// For classic themes, use get_header().
 	get_header();
 	?>
-	<div class="wiki-content-wrapper">
+	<div class="zsoogi-content-wrapper">
 		<main class="site-main">
 	<?php
 }
@@ -93,7 +99,7 @@ while ( have_posts() ) :
 	the_post();
 	?>
 
-	<article id="post-<?php the_ID(); ?>" <?php post_class( 'wiki-post-content' ); ?>>
+	<article id="post-<?php the_ID(); ?>" <?php post_class( 'zsoogi-post-content' ); ?>>
 
 		<header class="entry-header">
 			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
@@ -115,9 +121,9 @@ while ( have_posts() ) :
 				);
 
 				// Zsoogi Type taxonomy.
-				$terms = get_the_terms( get_the_ID(), 'api_guys_type' );
+				$terms = get_the_terms( get_the_ID(), 'zsoogi_type' );
 				if ( $terms && ! is_wp_error( $terms ) ) {
-					echo '<span class="wiki-types"> &bull; ';
+					echo '<span class="zsoogi-types"> &bull; ';
 					$term_links = array();
 					foreach ( $terms as $term ) {
 						$term_links[] = sprintf(
@@ -233,7 +239,7 @@ if ( $is_block_theme ) {
 				</main>
 			</div>
 		</div>
-		<?php block_footer_area(); ?>
+		<?php block_template_part( 'footer' ); ?>
 	</div>
 	<?php wp_footer(); ?>
 	</body>

@@ -15,7 +15,7 @@ class Zsoogi_Clipper {
 	/**
 	 * Initialize the Zsoogi Clipper functionality.
 	 *
-	 * Sets up hooks to process bookmarklet data when creating new wiki posts.
+	 * Sets up hooks to process bookmarklet data when creating new Zsoogi Clips.
 	 *
 	 * @since 2.1.4
 	 *
@@ -38,11 +38,21 @@ class Zsoogi_Clipper {
 	 *
 	 * Validates and sanitizes URL parameters from the Zsoogi Clipper bookmarklet.
 	 *
+	 * Note: This processes GET parameters without nonce verification because
+	 * bookmarklets are user-initiated actions from external sites where nonces
+	 * cannot be reliably generated. Security is maintained through capability
+	 * checks (manage_options) in the init function.
+	 *
 	 * @since 2.1.4
 	 *
 	 * @return void
 	 */
 	public static function process_bookmarklet() {
+		// Verify user has administrator capabilities.
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		global $typenow;
 
 		// Only process for zsoogiclips post type.
@@ -57,19 +67,19 @@ class Zsoogi_Clipper {
 
 		// Sanitize and store in globals for use in filters.
 		if ( isset( $_GET['title'] ) ) {
-			$GLOBALS['wiki_clipper_title'] = sanitize_text_field( wp_unslash( $_GET['title'] ) );
+			$GLOBALS['zsoogi_clipper_title'] = sanitize_text_field( wp_unslash( $_GET['title'] ) );
 		}
 
 		if ( isset( $_GET['url'] ) ) {
-			$GLOBALS['wiki_clipper_url'] = esc_url_raw( wp_unslash( $_GET['url'] ) );
+			$GLOBALS['zsoogi_clipper_url'] = esc_url_raw( wp_unslash( $_GET['url'] ) );
 		}
 
 		if ( isset( $_GET['selection'] ) && ! empty( $_GET['selection'] ) ) {
-			$GLOBALS['wiki_clipper_selection'] = wp_kses_post( wp_unslash( $_GET['selection'] ) );
+			$GLOBALS['zsoogi_clipper_selection'] = wp_kses_post( wp_unslash( $_GET['selection'] ) );
 		}
 
 		if ( isset( $_GET['image'] ) && ! empty( $_GET['image'] ) ) {
-			$GLOBALS['wiki_clipper_image'] = esc_url_raw( wp_unslash( $_GET['image'] ) );
+			$GLOBALS['zsoogi_clipper_image'] = esc_url_raw( wp_unslash( $_GET['image'] ) );
 		}
 	}
 
@@ -89,8 +99,8 @@ class Zsoogi_Clipper {
 		}
 
 		// Return captured title if available.
-		if ( isset( $GLOBALS['wiki_clipper_title'] ) ) {
-			return $GLOBALS['wiki_clipper_title'];
+		if ( isset( $GLOBALS['zsoogi_clipper_title'] ) ) {
+			return $GLOBALS['zsoogi_clipper_title'];
 		}
 
 		return $title;
@@ -114,13 +124,13 @@ class Zsoogi_Clipper {
 		}
 
 		// Check if we have bookmarklet data.
-		if ( ! isset( $GLOBALS['wiki_clipper_url'] ) ) {
+		if ( ! isset( $GLOBALS['zsoogi_clipper_url'] ) ) {
 			return $content;
 		}
 
-		$url       = $GLOBALS['wiki_clipper_url'];
-		$title     = isset( $GLOBALS['wiki_clipper_title'] ) ? $GLOBALS['wiki_clipper_title'] : $url;
-		$selection = isset( $GLOBALS['wiki_clipper_selection'] ) ? $GLOBALS['wiki_clipper_selection'] : '';
+		$url       = $GLOBALS['zsoogi_clipper_url'];
+		$title     = isset( $GLOBALS['zsoogi_clipper_title'] ) ? $GLOBALS['zsoogi_clipper_title'] : $url;
+		$selection = isset( $GLOBALS['zsoogi_clipper_selection'] ) ? $GLOBALS['zsoogi_clipper_selection'] : '';
 
 		// Get settings.
 		$citation_format    = get_option( 'zsoogi_clipper_citation_format', 'detailed' );
@@ -196,11 +206,12 @@ class Zsoogi_Clipper {
 	 * @since 2.1.4
 	 *
 	 * @param int      $post_id Post ID.
-	 * @param \WP_Post $post    Post object.
-	 * @param bool     $update  Whether this is an update.
+	 * @param \WP_Post $post    Post object (unused but required by hook signature).
+	 * @param bool     $update  Whether this is an update (unused but required by hook signature).
 	 * @return void
 	 */
-	public static function set_featured_image( $post_id, $post, $update ) {
+	public static function set_featured_image( $post_id, $post, $update ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
+		// Note: $post and $update parameters are required by save_post hook but not used in this function.
 		// Don't run on autosave or if already has featured image.
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
@@ -217,11 +228,11 @@ class Zsoogi_Clipper {
 		}
 
 		// Check if we have an image URL.
-		if ( ! isset( $GLOBALS['wiki_clipper_image'] ) || empty( $GLOBALS['wiki_clipper_image'] ) ) {
+		if ( ! isset( $GLOBALS['zsoogi_clipper_image'] ) || empty( $GLOBALS['zsoogi_clipper_image'] ) ) {
 			return;
 		}
 
-		$image_url = $GLOBALS['wiki_clipper_image'];
+		$image_url = $GLOBALS['zsoogi_clipper_image'];
 
 		// Download image and attach to post.
 		require_once ABSPATH . 'wp-admin/includes/media.php';
@@ -233,7 +244,7 @@ class Zsoogi_Clipper {
 		if ( ! is_wp_error( $image_id ) ) {
 			set_post_thumbnail( $post_id, $image_id );
 			// Clear the global to prevent multiple attempts.
-			unset( $GLOBALS['wiki_clipper_image'] );
+			unset( $GLOBALS['zsoogi_clipper_image'] );
 		}
 	}
 }
