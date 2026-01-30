@@ -1,0 +1,45 @@
+{
+    "name": "pbrocks/zsoogi-clipper",
+    "description": "WordPress plugin for creating admin-only wiki posts with bookmarklet for web research",
+    "autoload": {
+        "psr-4": {
+            "Zsoogi\\ZsoogiClipper\\": "includes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Paul Barthmaier (pbrocks)",
+            "email": "pbrocks@users.noreply.github.com"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    },
+	"scripts": {
+		"build-zip": "./build.sh",
+        "deploy": "bash deploy.sh",
+        "deploy-sftp": "bash deploy.sh sftp",
+		"lint": "phpcs",
+		"lint-fix": "phpcbf",
+		"post-install-cmd": [
+			"vendor/bin/phpcs --config-set installed_paths vendor/phpcsstandards/phpcsextra,vendor/phpcsstandards/phpcsutils,vendor/wp-coding-standards/wpcs"
+		],
+		"post-update-cmd": [
+			"vendor/bin/phpcs --config-set installed_paths vendor/phpcsstandards/phpcsextra,vendor/phpcsstandards/phpcsutils,vendor/wp-coding-standards/wpcs"
+		]
+	},
+	"require-dev": {
+		"squizlabs/php_codesniffer": "^3.12",
+		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+		"wp-coding-standards/wpcs": "^3.1"
+	},
+	"extra": {
+		"installer-paths": {
+			"vendor/wpcs": [
+				"wp-coding-standards/wpcs"
+			]
+		}
+	}
+}

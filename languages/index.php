@@ -1,0 +1,3 @@
+<?phhp
+
+// Silence is golden.
