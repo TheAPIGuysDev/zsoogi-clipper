@@ -180,6 +180,71 @@ class Admin_Menu {
 			self::PAGE_SLUG,
 			'zsoogi_clipper'
 		);
+
+		// Register YouTube Transcript Settings section.
+		add_settings_section(
+			'zsoogi_clipper_youtube',
+			__( 'YouTube Transcript Settings', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_section' ),
+			self::PAGE_SLUG
+		);
+
+		// Enable YouTube transcripts.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clipper_youtube_transcripts_enabled',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_checkbox' ),
+				'default'           => false,
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_youtube_transcripts_enabled',
+			__( 'Enable YouTube Transcript Capture', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_enabled_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_youtube'
+		);
+
+		// YouTube transcript excerpt length.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clipper_youtube_excerpt_length',
+			array(
+				'type'              => 'integer',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_excerpt_length' ),
+				'default'           => 500,
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_youtube_excerpt_length',
+			__( 'Transcript Excerpt Length', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_excerpt_length_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_youtube'
+		);
+
+		// YouTube transcript language.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clipper_youtube_language',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => 'en',
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_youtube_language',
+			__( 'Preferred Transcript Language', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_language_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_youtube'
+		);
 	}
 
 	/**
@@ -192,6 +257,21 @@ class Admin_Menu {
 	 */
 	public static function sanitize_checkbox( $value ) {
 		return ! empty( $value ) ? true : false;
+	}
+
+	/**
+	 * Sanitize excerpt length input.
+	 *
+	 * Ensures the value is an integer between 100 and 5000.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param mixed $value The input value to sanitize.
+	 * @return int Sanitized integer value between 100 and 5000.
+	 */
+	public static function sanitize_excerpt_length( $value ) {
+		$value = intval( $value );
+		return max( 100, min( 5000, $value ) );
 	}
 
 	/**
@@ -545,6 +625,7 @@ class Admin_Menu {
 					<li>✅ <?php esc_html_e( 'Smart image detection (filters out icons, logos, avatars)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Auto-set featured image (configurable in settings)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Customizable blockquote and citation formatting', 'zsoogi-clipper' ); ?></li>
+					<li>✅ <?php esc_html_e( 'YouTube transcript capture (when transcript panel is open)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Works with the 2025 theme (or any theme)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Creates posts as zsoogiclips post type', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Perfect for web research and note-taking', 'zsoogi-clipper' ); ?></li>
@@ -569,8 +650,9 @@ class Admin_Menu {
 					<li><strong><?php esc_html_e( 'Title:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'The page title (used as your Zsoogi Clip title)', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Selection:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'Any text you\'ve selected on the page', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Image:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'First meaningful image (>200px, excludes icons/logos)', 'zsoogi-clipper' ); ?></li>
+					<li><strong><?php esc_html_e( 'YouTube Transcripts:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'For YouTube videos, captures transcript text when the transcript panel is open (enable in settings)', 'zsoogi-clipper' ); ?></li>
 				</ul>
-				<p><?php esc_html_e( 'Then it opens a new window to create a Zsoogi Clip with these details passed as URL parameters. The Zsoogi Clipper plugin processes them with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
+				<p><?php esc_html_e( 'Then it opens a new window to create a Zsoogi Clip with these details. For large data (like transcripts), the window.name bridge is used to avoid URL length limits. The Zsoogi Clipper plugin processes everything with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
 
 				<h2><?php esc_html_e( 'Troubleshooting', 'zsoogi-clipper' ); ?></h2>
 				<h3><?php esc_html_e( 'Popup Blocked?', 'zsoogi-clipper' ); ?></h3>
@@ -588,6 +670,99 @@ class Admin_Menu {
 				</p>
 			</div>
 		</div>
+		<?php
+	}
+
+	/**
+	 * Render the YouTube settings section description.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_section() {
+		?>
+		<p><?php esc_html_e( 'Configure how the Zsoogi Clipper handles YouTube video transcripts.', 'zsoogi-clipper' ); ?></p>
+		<div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0;">
+			<p style="margin: 0;">
+				<strong><?php esc_html_e( 'Note:', 'zsoogi-clipper' ); ?></strong>
+				<?php esc_html_e( 'For YouTube videos, you must open the transcript panel (click "Show transcript" button) before using the bookmarklet to capture transcripts.', 'zsoogi-clipper' ); ?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the YouTube transcripts enabled field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_enabled_field() {
+		$value = get_option( 'zsoogi_clipper_youtube_transcripts_enabled', false );
+		?>
+		<label>
+			<input
+				type="checkbox"
+				name="zsoogi_clipper_youtube_transcripts_enabled"
+				value="1"
+				<?php checked( 1, $value ); ?>
+			/>
+			<?php esc_html_e( 'Automatically capture YouTube video transcripts when available', 'zsoogi-clipper' ); ?>
+		</label>
+		<p class="description">
+			<?php esc_html_e( 'When enabled, the bookmarklet will capture transcript text from YouTube videos (if the transcript panel is open). The full transcript is saved to post metadata and an excerpt is shown in the post content.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the YouTube excerpt length field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_excerpt_length_field() {
+		$value = get_option( 'zsoogi_clipper_youtube_excerpt_length', 500 );
+		?>
+		<input
+			type="number"
+			name="zsoogi_clipper_youtube_excerpt_length"
+			value="<?php echo esc_attr( $value ); ?>"
+			min="100"
+			max="5000"
+			step="50"
+			class="small-text"
+		/>
+		<?php esc_html_e( 'characters', 'zsoogi-clipper' ); ?>
+		<p class="description">
+			<?php esc_html_e( 'Maximum length of the transcript excerpt shown in post content (100-5000 characters). The full transcript is always saved to post metadata.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the YouTube language field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_language_field() {
+		$value = get_option( 'zsoogi_clipper_youtube_language', 'en' );
+		?>
+		<input
+			type="text"
+			name="zsoogi_clipper_youtube_language"
+			value="<?php echo esc_attr( $value ); ?>"
+			class="small-text"
+			placeholder="en"
+		/>
+		<p class="description">
+			<?php esc_html_e( 'Preferred language code for transcripts (e.g., "en" for English, "es" for Spanish). This is stored as metadata but does not affect which transcript is captured - YouTube shows the currently selected transcript.', 'zsoogi-clipper' ); ?>
+		</p>
 		<?php
 	}
 }
