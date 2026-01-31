@@ -94,12 +94,12 @@ class Zsoogi_Clips {
 			'uploaded_to_this_item' => __( 'Uploaded to this Zsoogi Clip', self::TEXT_DOMAIN ),
 			'items_list'            => __( 'Zsoogi Clips list', self::TEXT_DOMAIN ),
 			'items_list_navigation' => __( 'Zsoogi Clips list navigation', self::TEXT_DOMAIN ),
-			'filter_items_list'     => __( 'Filter wikis list', self::TEXT_DOMAIN ),
+			'filter_items_list'     => __( 'Filter Zsoogi clips list', self::TEXT_DOMAIN ),
 		);
 
 		$args = array(
 			'label'               => __( 'Zsoogi Clips', self::TEXT_DOMAIN ),
-			'description'         => __( 'Zsoogi articles.', self::TEXT_DOMAIN ),
+			'description'         => __( 'Zsoogi Clips.', self::TEXT_DOMAIN ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'thumbnail', 'author', 'comments', 'revisions' ),
 			'hierarchical'        => false,

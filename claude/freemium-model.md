@@ -359,7 +359,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 ### Direct Competitors
 | Product | Price | Key Features | Advantages Over |
 |---------|-------|-------------|-----------------|
-| Evernote Web Clipper | Free-$15/mo | General web clipper | More specialized for wikis |
+| Evernote Web Clipper | Free-$15/mo | General web clipper | More specialized for Zsoogi clips |
 | Notion Web Clipper | Free-$10/mo | Knowledge management | Better WordPress integration |
 | Zotero | Free | Research management | Better citation tools needed |
 
