@@ -84,7 +84,7 @@ ZSOOGI_CLIPS_PLUGIN_URL    // Plugin URL
   - Automatically cleans YouTube titles (removes view count prefix and "- YouTube" suffix)
   - Fetches high-quality thumbnails from YouTube API (`maxresdefault.jpg`)
   - Example: `(153) Video Title - YouTube` → `Video Title`
-- Pre-fills new wiki posts with formatted content
+- Pre-fills new Zsoogi clips with formatted content
 - Supports customizable citation formats
 - Auto-sets featured images from captured content
 
@@ -104,7 +104,7 @@ The plugin restricts functionality to administrators:
 - Press This features: Only loaded if `is_user_logged_in()` AND `current_user_can('manage_options')`
 - Settings page: Uses `manage_options` capability
 - Custom post type: Uses `page` capability type (edit_pages, delete_pages, etc.)
-- Admin-only visibility: Non-logged-in users and non-administrators cannot view wiki content on the frontend
+- Admin-only visibility: Non-logged-in users and non-administrators cannot view Zsoogi clip content on the frontend
 
 ### Settings System
 
