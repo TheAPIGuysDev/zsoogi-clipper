@@ -9,7 +9,7 @@ Get help with Zsoogi Clipper based on your edition.
 ### WordPress.org Support Forum
 The best place for free users to get help from the community.
 
-[:fontawesome-brands-wordpress: WordPress.org Forum](https://wordpress.org/support/plugin/zsoogi-clipper/){ .md-button .md-button--primary }
+[WordPress.org Forum](https://wordpress.org/support/plugin/zsoogi-clipper/)
 
 **Response Time:** Community-driven (typically 1-3 days)
 
@@ -24,7 +24,7 @@ The best place for free users to get help from the community.
 ### GitHub Issues
 Report bugs and feature requests on GitHub.
 
-[:fontawesome-brands-github: GitHub Issues](https://github.com/TheAPIGuysDev/zsoogi-clipper/issues){ .md-button }
+[GitHub Issues](https://github.com/TheAPIGuysDev/zsoogi-clipper/issues)
 
 **Best for:**
 - Bug reports with technical details
@@ -72,7 +72,7 @@ Direct email access to our support team.
 ### Customer Portal
 Access your licenses, downloads, and account.
 
-[:fontawesome-solid-user: Customer Portal](https://theapiguys.com/account){ .md-button }
+[Customer Portal](https://theapiguys.com/account)
 
 **Portal Features:**
 - Download Premium plugin
@@ -84,7 +84,7 @@ Access your licenses, downloads, and account.
 ### Video Tutorials
 Premium customers get access to our video library.
 
-[:fontawesome-solid-video: Video Tutorials](https://theapiguys.com/videos){ .md-button }
+[Video Tutorials](https://theapiguys.com/videos)
 
 **Topics Covered:**
 - Installation walkthrough
@@ -198,7 +198,7 @@ Interested in reselling or partnering?
 ### Vote on Features
 See what features are being considered and vote for your favorites.
 
-[:fontawesome-brands-github: Feature Roadmap](https://github.com/TheAPIGuysDev/zsoogi-clipper/projects){ .md-button }
+[Feature Roadmap](https://github.com/TheAPIGuysDev/zsoogi-clipper/projects)
 
 ### Submit New Ideas
 Have an idea for a new feature?
@@ -219,9 +219,9 @@ Have an idea for a new feature?
 
 ### Follow Us
 
-- [:fontawesome-brands-github: GitHub](https://github.com/TheAPIGuysDev)
-- [:fontawesome-brands-twitter: Twitter](https://twitter.com/theapiguys)
-- [:fontawesome-brands-linkedin: LinkedIn](https://linkedin.com/company/theapiguys)
+- [GitHub](https://github.com/TheAPIGuysDev)
+- [Twitter](https://twitter.com/theapiguys)
+- [LinkedIn](https://linkedin.com/company/theapiguys)
 
 ### Community
 
@@ -364,4 +364,4 @@ We love feedback! Tell us:
 
 **Need Help Right Now?**
 
-[Check FAQ](faq.md){ .md-button } [WordPress.org Forum](https://wordpress.org/support/plugin/zsoogi-clipper/){ .md-button .md-button--primary } [Email Support](mailto:premium@theapiguys.com){ .md-button }
+[Check FAQ](faq.md) [WordPress.org Forum](https://wordpress.org/support/plugin/zsoogi-clipper/) [Email Support](mailto:premium@theapiguys.com)

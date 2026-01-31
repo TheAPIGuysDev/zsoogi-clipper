@@ -231,5 +231,5 @@ After installing, complete these steps:
 
 ## What's Next?
 
-[Quick Start Guide →](quickstart.md){ .md-button .md-button--primary }
-[View Settings →](../support/faq.md){ .md-button }
+[Quick Start Guide →](quickstart.md)
+[View Settings →](../support/faq.md)

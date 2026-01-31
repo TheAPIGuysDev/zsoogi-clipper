@@ -99,4 +99,4 @@ Zsoogi Clipper is available in three editions:
 
 Ready to get started?
 
-[Install Zsoogi Clipper →](installation.md){ .md-button .md-button--primary }
+[Install Zsoogi Clipper →](installation.md)

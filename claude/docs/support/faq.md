@@ -344,4 +344,4 @@ Yes! Enterprise customers get priority for custom feature development at $150/ho
 
 ## Still Have Questions?
 
-[Contact Support →](contact.md){ .md-button .md-button--primary }
+[Contact Support →](contact.md)

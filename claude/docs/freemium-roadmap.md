@@ -170,8 +170,10 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 - [ ] Full REST API for custom integrations
 - [ ] API rate limiting controls
+- [ ] Asyncthing integration
 - [ ] Zapier integration
 - [ ] Make.com integration
+- [ ] N8N integration
 - [ ] Custom webhook endpoints
 - [ ] GraphQL API (optional)
 
