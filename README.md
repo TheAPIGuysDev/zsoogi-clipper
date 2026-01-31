@@ -2,7 +2,7 @@
 
 <img src="./assets/images/zsoogi.png" alt="ZsoogiNotes Logo" align="left" width="90" style="margin-right: 20px; margin-bottom: 20px;">
 
-A modern WordPress plugin for creating and managing wiki-style research documentation with a jQuery-free bookmarklet for quick content capture into admin-only post type from external internet sources.
+A modern WordPress plugin for creating and managing wiki-style research documentation with a jQuery-free bookmarklet providing quick content capture from external internet sources into admin-only post type.
 
 ## Description
 
