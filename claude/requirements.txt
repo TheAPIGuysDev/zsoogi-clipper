@@ -1,0 +1,4 @@
+# MkDocs Requirements
+# Install with: pip install -r requirements.txt
+
+mkdocs>=1.5.0
