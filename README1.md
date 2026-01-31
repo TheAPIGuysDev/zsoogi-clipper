@@ -1,1 +1,0 @@
-# zsoogi-clipper
