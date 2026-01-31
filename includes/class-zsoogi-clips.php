@@ -65,17 +65,15 @@ class Zsoogi_Clips {
 	 */
 	public static function register_post_type() {
 
-		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
-
 		$labels = array(
 			'name'                  => _x( 'Zsoogi Clips', 'Post Type General Name', self::TEXT_DOMAIN ),
 			'singular_name'         => _x( 'Zsoogi Clip', 'Post Type Singular Name', self::TEXT_DOMAIN ),
-			'menu_name'             => $label_name,
+			'menu_name'             => __( 'Zsoogi Clips', self::TEXT_DOMAIN ),
 			'name_admin_bar'        => __( 'Zsoogi Clip', self::TEXT_DOMAIN ),
 			'archives'              => __( 'Zsoogi Clip Archives', self::TEXT_DOMAIN ),
 			'attributes'            => __( 'Zsoogi Clip Attributes', self::TEXT_DOMAIN ),
 			'parent_item_colon'     => __( 'Parent Zsoogi Clip:', self::TEXT_DOMAIN ),
-			'all_items'             => sprintf( __( 'All %s', self::TEXT_DOMAIN ), $label_name ),
+			'all_items'             => __( 'All Zsoogi Clips', self::TEXT_DOMAIN ),
 			'add_new_item'          => __( 'Add New Zsoogi Clip', self::TEXT_DOMAIN ),
 			'add_new'               => __( 'Add New Zsoogi Clip', self::TEXT_DOMAIN ),
 			'new_item'              => __( 'New Zsoogi Clip', self::TEXT_DOMAIN ),

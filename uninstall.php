@@ -18,9 +18,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
  * Delete plugin options.
  */
 function zsoogi_clipper_delete_options() {
-	delete_option( 'zsoogi_clips_label' );
 	delete_option( 'zsoogi_clipper_auto_featured_image' );
-	delete_option( 'zsoogi_clipper_citation_format' );
 	delete_option( 'zsoogi_clipper_include_metadata' );
 }
 

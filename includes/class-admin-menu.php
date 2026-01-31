@@ -51,14 +51,9 @@ class Admin_Menu {
 	 */
 	public static function add_admin_menu() {
 		$plugin_version = ZSOOGI_CLIPS_VERSION;
-		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
-			sprintf(
-				/* translators: %s: Post type label name */
-				__( '%s - Install Bookmarklet', 'zsoogi-clipper' ),
-				$label_name
-			),
+			__( 'Zsoogi Clips - Install Bookmarklet', 'zsoogi-clipper' ),
 			__( 'Grab Zsoogi', 'zsoogi-clipper' ),
 			'manage_options',
 			'zsoogi-clipper-bookmarklet',
@@ -67,9 +62,8 @@ class Admin_Menu {
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
 			sprintf(
-				/* translators: 1: Post type label name, 2: Plugin version */
-				__( '%1$s Settings - v%2$s', 'zsoogi-clipper' ),
-				$label_name,
+				/* translators: %s: Plugin version */
+				__( 'Zsoogi Clips Settings - v%s', 'zsoogi-clipper' ),
 				$plugin_version
 			),
 			__( 'Settings', 'zsoogi-clipper' ),
@@ -89,33 +83,6 @@ class Admin_Menu {
 	 * @return void
 	 */
 	public static function register_settings() {
-		// Register General Settings section.
-		add_settings_section(
-			'zsoogi_clipper_general',
-			__( 'General Settings', 'zsoogi-clipper' ),
-			array( __CLASS__, 'render_general_section' ),
-			self::PAGE_SLUG
-		);
-
-		// Custom label name.
-		register_setting(
-			self::OPTION_GROUP,
-			'zsoogi_clips_label',
-			array(
-				'type'              => 'string',
-				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => 'Zsoogi Clips',
-			)
-		);
-
-		add_settings_field(
-			'zsoogi_clips_label',
-			__( 'Menu Label', 'zsoogi-clipper' ),
-			array( __CLASS__, 'render_label_field' ),
-			self::PAGE_SLUG,
-			'zsoogi_clipper_general'
-		);
-
 		// Register Zsoogi Clipper settings section.
 		add_settings_section(
 			'zsoogi_clipper',
@@ -139,25 +106,6 @@ class Admin_Menu {
 			'zsoogi_clipper_auto_featured_image',
 			__( 'Auto-Set Featured Image', 'zsoogi-clipper' ),
 			array( __CLASS__, 'render_auto_featured_image_field' ),
-			self::PAGE_SLUG,
-			'zsoogi_clipper'
-		);
-
-		// Citation format.
-		register_setting(
-			self::OPTION_GROUP,
-			'zsoogi_clipper_citation_format',
-			array(
-				'type'              => 'string',
-				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => 'simple',
-			)
-		);
-
-		add_settings_field(
-			'zsoogi_clipper_citation_format',
-			__( 'Citation Format', 'zsoogi-clipper' ),
-			array( __CLASS__, 'render_citation_format_field' ),
 			self::PAGE_SLUG,
 			'zsoogi_clipper'
 		);
@@ -260,41 +208,6 @@ class Admin_Menu {
 	}
 
 	/**
-	 * Render the General settings section description.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return void
-	 */
-	public static function render_general_section() {
-		?>
-		<p><?php esc_html_e( 'Configure the display name and general settings for your Zsoogi Clip post type.', 'zsoogi-clipper' ); ?></p>
-		<?php
-	}
-
-	/**
-	 * Render the label field.
-	 *
-	 * @since 2.2.0
-	 *
-	 * @return void
-	 */
-	public static function render_label_field() {
-		$value = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
-		?>
-		<input
-			type="text"
-			name="zsoogi_clips_label"
-			value="<?php echo esc_attr( $value ); ?>"
-			class="regular-text"
-		/>
-		<p class="description">
-			<?php esc_html_e( 'This name will appear in the admin menu and post type labels (e.g., "Zsoogi Clips" becomes "Zsoogi Clipper").', 'zsoogi-clipper' ); ?>
-		</p>
-		<?php
-	}
-
-	/**
 	 * Render the Zsoogi Clipper settings section description.
 	 *
 	 * @since 2.1.4
@@ -352,38 +265,6 @@ class Admin_Menu {
 		<p class="description">
 			<?php esc_html_e( 'When enabled, the first image captured by the bookmarklet will be set as the post\'s featured image.', 'zsoogi-clipper' ); ?>
 		</p>
-		<?php
-	}
-
-	/**
-	 * Render the citation format field.
-	 *
-	 * @since 2.1.4
-	 *
-	 * @return void
-	 */
-	public static function render_citation_format_field() {
-		$value = get_option( 'zsoogi_clipper_citation_format', 'simple' );
-		?>
-		<fieldset>
-			<label>
-				<input type="radio" name="zsoogi_clipper_citation_format" value="simple" <?php checked( 'simple', $value ); ?> />
-				<strong><?php esc_html_e( 'Simple', 'zsoogi-clipper' ); ?></strong> -
-				<?php esc_html_e( 'Source: [Title](URL)', 'zsoogi-clipper' ); ?>
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="zsoogi_clipper_citation_format" value="detailed" <?php checked( 'detailed', $value ); ?> />
-				<strong><?php esc_html_e( 'Detailed', 'zsoogi-clipper' ); ?></strong> -
-				<?php esc_html_e( 'Source: [Title](URL) - Captured on [Date]', 'zsoogi-clipper' ); ?>
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="zsoogi_clipper_citation_format" value="academic" <?php checked( 'academic', $value ); ?> />
-				<strong><?php esc_html_e( 'Academic', 'zsoogi-clipper' ); ?></strong> -
-				<?php esc_html_e( 'Title. URL. Accessed: [Date]', 'zsoogi-clipper' ); ?>
-			</label>
-		</fieldset>
 		<?php
 	}
 
@@ -460,7 +341,6 @@ class Admin_Menu {
 			return;
 		}
 
-		$label_name     = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 		$site_name      = get_option( 'blogname' );
 		$site_url       = esc_url( admin_url( 'post-new.php' ) );
 		$site_url       = str_replace( '/wp-admin/post-new.php', '', $site_url );
@@ -504,9 +384,9 @@ class Admin_Menu {
 			</style>
 
 			<div class="bookmarklet-page">
-				<h1>📚 <?php echo esc_html( $label_name ); ?> - v<?php echo esc_html( $plugin_version ); ?></h1>
+				<h1>📚 <?php esc_html_e( 'Zsoogi Clips', 'zsoogi-clipper' ); ?> - v<?php echo esc_html( $plugin_version ); ?></h1>
 
-				<p><?php printf( esc_html__( 'A modern, jQuery-free bookmarklet for capturing web research into your %s, an admin-only post-type. Others trying to view will be redirected to the homepage, keeping your research private.', 'zsoogi-clipper' ), esc_html( $label_name ) ); ?></p>
+				<p><?php esc_html_e( 'A modern, jQuery-free bookmarklet for capturing web research into your Zsoogi Clips, an admin-only post-type. Others trying to view will be redirected to the homepage, keeping your research private.', 'zsoogi-clipper' ); ?></p>
 
 				<h2><?php esc_html_e( 'Installation', 'zsoogi-clipper' ); ?></h2>
 				<div class="bookmarklet-instructions">

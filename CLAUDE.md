@@ -112,8 +112,9 @@ Settings registered via WordPress Settings API:
 - Option Group: `zsoogi_clipper_settings`
 - Options:
   - `zsoogi_clipper_auto_featured_image` (boolean, default: true)
-  - `zsoogi_clipper_citation_format` (string, default: 'simple') - Options: simple, detailed, academic
   - `zsoogi_clipper_include_metadata` (boolean, default: false)
+
+**Note:** Citation format is hardcoded to 'simple' format (`Source: [Title](URL)`) in the free version for consistent branding.
 
 ## Code Patterns
 

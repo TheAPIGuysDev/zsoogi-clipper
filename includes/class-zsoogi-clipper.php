@@ -133,7 +133,6 @@ class Zsoogi_Clipper {
 		$selection = isset( $GLOBALS['zsoogi_clipper_selection'] ) ? $GLOBALS['zsoogi_clipper_selection'] : '';
 
 		// Get settings.
-		$citation_format    = get_option( 'zsoogi_clipper_citation_format', 'detailed' );
 		$include_metadata   = get_option( 'zsoogi_clipper_include_metadata', false );
 
 		// Build the content.
@@ -148,9 +147,9 @@ class Zsoogi_Clipper {
 			$new_content .= "\n<!-- /wp:quote -->\n\n";
 		}
 
-		// Add source citation based on format setting.
+		// Add source citation (simple format: Source: [Title](URL)).
 		$new_content .= "<!-- wp:paragraph -->\n";
-		$new_content .= '<p>' . self::format_citation( $url, $title, $citation_format ) . '</p>';
+		$new_content .= '<p>' . self::format_citation( $url, $title, 'simple' ) . '</p>';
 		$new_content .= "\n<!-- /wp:paragraph -->\n\n";
 
 		// Add metadata if enabled.
