@@ -2,19 +2,19 @@
 
 <img src="./assets/images/zsoogi.png" alt="ZsoogiNotes Logo" align="left" width="90" style="margin-right: 20px; margin-bottom: 20px;">
 
-A modern WordPress plugin for creating and managing wiki-style research documentation with a jQuery-free bookmarklet providing quick content capture from external internet sources into admin-only post type.
+A modern WordPress plugin for creating and managing Zsoogi clip-style research documentation with a jQuery-free bookmarklet providing quick content capture from external internet sources into admin-only post type.
 
 ## Description
 
-Zsoogi Clipper enables administrators to create, organize, and manage wiki articles within WordPress. The plugin combines a custom post type for wikis with a modern bookmarklet, allowing you to easily capture and curate content from anywhere on the web.
+Zsoogi Clipper enables administrators to create, organize, and manage Zsoogi clips within WordPress. The plugin combines a custom post type for Zsoogi clips with a modern bookmarklet, allowing you to easily capture and curate content from anywhere on the web.
 
-Perfect for teams building internal documentation, knowledge bases, API documentation, or any content that benefits from wiki-style organization and quick content capture from external sources.
+Perfect for teams building internal documentation, knowledge bases, API documentation, or any content that benefits from Zsoogi clip-style organization and quick content capture from external sources.
 
 ## Features
 
 ### 📚 Zsoogi Management
-- **Custom Post Type**: Dedicated wiki post type optimized for documentation
-- **Hierarchical Taxonomy**: Organize wikis by type/category
+- **Custom Post Type**: Dedicated Zsoogi clip post type optimized for documentation
+- **Hierarchical Taxonomy**: Organize Zsoogi clips by type/category
 - **Full Editor Support**: Gutenberg block editor, classic editor, thumbnails, comments, and revisions
 - **REST API Ready**: Fully compatible with WordPress REST API
 
@@ -26,18 +26,18 @@ Perfect for teams building internal documentation, knowledge bases, API document
   - Fetches max resolution thumbnails from YouTube API
 - **Customizable Formatting**: Multiple citation format options (simple, detailed, academic)
 - **Media Capture**: Automatically extract and set featured images
-- **Quick Publishing**: Create wiki articles directly from web content
+- **Quick Publishing**: Create Zsoogi clips directly from web content
 - **Gutenberg Blocks**: Pre-formatted content with blockquotes and citations
 
 ### 🎛️ Admin Settings
-- **Settings Page**: Dedicated settings under the wiki menu
+- **Settings Page**: Dedicated settings under the Zsoogi clip menu
 - **Citation Formats**: Choose your preferred citation style
 - **Auto Featured Images**: Automatically set captured images as featured
 - **Metadata Options**: Include capture date and metadata in posts
 
 ### 🎨 User Experience
 - **Clean Interface**: WordPress-native admin experience
-- **Intuitive Navigation**: Settings and wikis organized in one menu
+- **Intuitive Navigation**: Settings and Zsoogi clips organized in one menu
 - **Administrator-Only**: Secure access restricted to admin users
 - **Cross-Browser Compatible**: Works in all modern browsers
 
@@ -55,7 +55,7 @@ Perfect for teams building internal documentation, knowledge bases, API document
 1. Download the plugin files
 2. Upload the `zsoogi-clipper` directory to `/wp-content/plugins/`
 3. Activate the plugin through the 'Plugins' menu in WordPress
-4. Navigate to the wiki settings to configure
+4. Navigate to the Zsoogi clip settings to configure
 
 ### Composer Installation (Optional)
 
@@ -68,13 +68,13 @@ composer install
 
 ## Usage
 
-### Creating a Zsoogi Article
+### Creating a Zsoogi Clip
 
 1. Go to your WordPress admin and click **Add New Zsoogi**
-2. Enter your wiki title and content
-3. Assign a wiki type/category
+2. Enter your Zsoogi clip title and content
+3. Assign a Zsoogi type/category
 4. Add a featured image (optional)
-5. Publish your wiki article
+5. Publish your Zsoogi clip
 
 ### Using the Zsoogi Clipper Bookmarklet
 
@@ -82,19 +82,19 @@ composer install
 2. Visit any webpage you want to capture content from
 3. Click the Zsoogi Clipper bookmarklet in your browser
 4. Selected text, images, and metadata are automatically captured
-5. Review and publish as a wiki article
+5. Review and publish as a Zsoogi clip
 
 ### Organizing Zsoogi Clips
 
-- **By Type**: Use the wiki type taxonomy to categorize your content
-- **Archives**: Access all wikis via the archive page
+- **By Type**: Use the Zsoogi type taxonomy to categorize your content
+- **Archives**: Access all Zsoogi clips via the archive page
 - **Search**: Zsoogi Clips are fully searchable within WordPress
 
 ## Configuration
 
 ### Settings Options
 
-Navigate to the wiki settings page:
+Navigate to the Zsoogi clip settings page:
 
 - **Citation Format**: Choose between simple, detailed, or academic citation styles
 - **Auto-Set Featured Image**: Automatically use captured images as featured images
