@@ -1,7 +1,7 @@
 #!/bin/bash
 # Deploy zsoogi-clipper plugin to Production
 # Usage: ./deploy.sh [sftp]
-#   No argument: Deploy via SSH (rsync)
+#   No argument: Deploy via SSH (rsync) 
 #   sftp: Deploy via SFTP (lftp)
 
 # Load environment variables
@@ -40,7 +40,7 @@ DEPLOY_MODE=${1:-ssh}
 # Extract plugin version from main file
 PLUGIN_VERSION=$(grep -i "Version:" zsoogi-clipper.php | head -1 | awk '{print $3}')
 
-echo -e "${GREEN}=== TAG Marketing Plugin Deployment ===${NC}"
+echo -e "${GREEN}=== Plugin Deployment ===${NC}"
 echo -e "Plugin Version: ${YELLOW}${PLUGIN_VERSION}${NC}"
 echo -e "Mode: ${YELLOW}${DEPLOY_MODE}${NC}"
 echo ""
