@@ -126,6 +126,7 @@ while ( have_posts() ) :
 				if ( $terms && ! is_wp_error( $terms ) ) {
 					echo '<span class="zsoogi-types"> &bull; ';
 					$term_links = array();
+				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Local variable in foreach loop, not overriding global.
 					foreach ( $terms as $term ) {
 						$term_links[] = sprintf(
 							'<a href="%s">%s</a>',
