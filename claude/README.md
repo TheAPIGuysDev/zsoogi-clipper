@@ -139,6 +139,19 @@ Edit `mkdocs.yml` to customize:
 
 ## Deployment
 
+### WordPress Subsite
+
+For deploying to `https://sites.theapiguys.com/zsoogi-clipper/`:
+
+```bash
+# Build the static site
+mkdocs build
+
+# Deploy to WordPress (see DEPLOYMENT.md for details)
+```
+
+**[Read Full Deployment Guide →](DEPLOYMENT.md)**
+
 ### GitHub Pages
 
 ```bash

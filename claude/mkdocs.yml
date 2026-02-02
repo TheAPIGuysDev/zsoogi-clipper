@@ -1,12 +1,15 @@
 site_name: Zsoogi Clipper Documentation
 site_description: WordPress plugin for capturing and organizing web research with a modern bookmarklet
 site_author: The API Guys
-site_url: https://theapiguys.com/zsoogi-clipper
+site_url: https://sites.theapiguys.com/zsoogi-clipper/documentation/
 
 # Repository
 repo_name: TheAPIGuysDev/zsoogi-clipper
 repo_url: https://github.com/TheAPIGuysDev/zsoogi-clipper
 edit_uri: edit/main/claude/docs/
+
+# Important: Use directory URLs for clean links
+use_directory_urls: true
 
 # Copyright
 copyright: Copyright &copy; 2026 The API Guys
