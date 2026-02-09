@@ -152,15 +152,25 @@ The plugin is built with WordPress best practices and provides several hooks for
 
 ### Constants
 ```php
-ZSOOGI_CLIPS_VERSION      // Plugin version
-ZSOOGI_CLIPS_PLUGIN_FILE  // Main plugin file path
-ZSOOGI_CLIPS_PLUGIN_DIR   // Plugin directory path
-ZSOOGI_CLIPS_PLUGIN_URL   // Plugin URL
+ZSOOGI_CLIPPER_VERSION      // Plugin version
+ZSOOGI_CLIPPER_PLUGIN_FILE  // Main plugin file path
+ZSOOGI_CLIPPER_PLUGIN_DIR   // Plugin directory path
+ZSOOGI_CLIPPER_PLUGIN_URL   // Plugin URL
 ```
 
 ## Changelog
 
-### Version 2.4.0
+### Version 0.9.0 (WordPress.org Beta Release)
+- **Initial Release on WordPress.org**: First public beta release
+- Modern jQuery-free bookmarklet for web content capture
+- Smart YouTube integration with title cleanup and thumbnail capture
+- Admin-only custom post type with hierarchical taxonomy
+- Auto-set featured images from captured content
+- Gutenberg and Classic Editor support
+- REST API enabled
+- GPLv2 or later license for WordPress.org compatibility
+
+### Version 2.4.0 (Development)
 - **YouTube Integration**: Smart title cleanup for YouTube videos
   - Automatically removes view count prefix (e.g., `(153)`)
   - Removes "- YouTube" suffix from titles
@@ -194,15 +204,15 @@ For issues, questions, or contributions:
 
 ## License
 
-This plugin is licensed under GPL v3 or later.
+This plugin is licensed under GPLv2 or later.
 
 ```
 Zsoogi Clipper
-Copyright (C) 2024-2025 pbrocks
+Copyright (C) 2024-2025 The API Guys, pbrocks
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
+the Free Software Foundation, either version 2 of the License, or
 (at your option) any later version.
 
 This program is distributed in the hope that it will be useful,

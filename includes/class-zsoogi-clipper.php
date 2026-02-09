@@ -1,4 +1,12 @@
 <?php
+/**
+ * Zsoogi Clipper - Bookmarklet Handler
+ *
+ * @package Zsoogi_Clipper
+ */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 namespace Zsoogi;
 
@@ -17,7 +25,7 @@ class Zsoogi_Clipper {
 	 *
 	 * Sets up hooks to process bookmarklet data when creating new Zsoogi Clips.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -43,7 +51,7 @@ class Zsoogi_Clipper {
 	 * cannot be reliably generated. Security is maintained through capability
 	 * checks (manage_options) in the init function.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -86,10 +94,10 @@ class Zsoogi_Clipper {
 	/**
 	 * Set the default title for new posts from bookmarklet.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
-	 * @param string   $title    Default post title.
-	 * @param \WP_Post $post     Post object.
+	 * @param string   $title Default post title.
+	 * @param \WP_Post $post  Post object.
 	 * @return string Modified post title.
 	 */
 	public static function default_title( $title, $post ) {
@@ -111,10 +119,10 @@ class Zsoogi_Clipper {
 	 *
 	 * Formats captured content with blockquote and citation.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
-	 * @param string   $content  Default post content.
-	 * @param \WP_Post $post     Post object.
+	 * @param string   $content Default post content.
+	 * @param \WP_Post $post    Post object.
 	 * @return string Modified post content.
 	 */
 	public static function default_content( $content, $post ) {
@@ -174,7 +182,7 @@ class Zsoogi_Clipper {
 	/**
 	 * Format citation based on selected format.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
 	 * @param string $url    Source URL.
 	 * @param string $title  Source title.
@@ -202,7 +210,7 @@ class Zsoogi_Clipper {
 	 *
 	 * Downloads the image and sets it as the post's featured image if enabled in settings.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
 	 * @param int      $post_id Post ID.
 	 * @param \WP_Post $post    Post object (unused but required by hook signature).
