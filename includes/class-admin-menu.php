@@ -1,4 +1,12 @@
 <?php
+/**
+ * Admin Menu - Settings Page
+ *
+ * @package Zsoogi_Clipper
+ */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 namespace Zsoogi;
 
@@ -31,7 +39,7 @@ class Admin_Menu {
 	 *
 	 * Hooks into WordPress admin_menu action to add the settings page.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -45,12 +53,12 @@ class Admin_Menu {
 	 *
 	 * Creates a submenu page under the Zsoogi Clipper custom post type.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
 	public static function add_admin_menu() {
-		$plugin_version = ZSOOGI_CLIPS_VERSION;
+		$plugin_version = ZSOOGI_CLIPPER_VERSION;
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
 			__( 'Zsoogi Clips - Install Bookmarklet', 'zsoogi-clipper' ),
@@ -78,7 +86,7 @@ class Admin_Menu {
 	 *
 	 * Registers settings, sections, and fields for the settings page.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -133,7 +141,7 @@ class Admin_Menu {
 	/**
 	 * Sanitize checkbox input.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @param mixed $value The input value to sanitize.
 	 * @return bool Sanitized boolean value.
@@ -147,7 +155,7 @@ class Admin_Menu {
 	 *
 	 * Outputs the HTML for the settings page including form and fields.
 	 *
-	 * @since 1.0.0
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -192,7 +200,7 @@ class Admin_Menu {
 				<h2><?php esc_html_e( 'Plugin Information', 'zsoogi-clipper' ); ?></h2>
 				<p>
 					<strong><?php esc_html_e( 'Version:', 'zsoogi-clipper' ); ?></strong>
-					<?php echo esc_html( ZSOOGI_CLIPS_VERSION ); ?>
+					<?php echo esc_html( ZSOOGI_CLIPPER_VERSION ); ?>
 				</p>
 				<p>
 					<strong><?php esc_html_e( 'Post Type:', 'zsoogi-clipper' ); ?></strong>
@@ -210,7 +218,7 @@ class Admin_Menu {
 	/**
 	 * Render the Zsoogi Clipper settings section description.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -246,7 +254,7 @@ class Admin_Menu {
 	/**
 	 * Render the auto-set featured image field.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -271,7 +279,7 @@ class Admin_Menu {
 	/**
 	 * Render the include metadata field.
 	 *
-	 * @since 2.1.4
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -298,7 +306,7 @@ class Admin_Menu {
 	 *
 	 * Reads the bookmarklet.js file and replaces placeholders with actual values.
 	 *
-	 * @since 2.4.2
+	 * @since 0.9.0
 	 *
 	 * @param string $site_url       The site URL.
 	 * @param string $plugin_version The plugin version.
@@ -306,7 +314,7 @@ class Admin_Menu {
 	 */
 	private static function get_bookmarklet_code( $site_url, $plugin_version ) {
 		// Read the bookmarklet JavaScript file.
-		$js_file = ZSOOGI_CLIPS_PLUGIN_DIR . 'assets/js/bookmarklet.js';
+		$js_file = ZSOOGI_CLIPPER_PLUGIN_DIR . 'assets/js/bookmarklet.js';
 
 		if ( ! file_exists( $js_file ) ) {
 			return '';
@@ -331,7 +339,7 @@ class Admin_Menu {
 	/**
 	 * Render the bookmarklet installation page.
 	 *
-	 * @since 2.2.3
+	 * @since 0.9.0
 	 *
 	 * @return void
 	 */
@@ -344,7 +352,7 @@ class Admin_Menu {
 		$site_name      = get_option( 'blogname' );
 		$site_url       = esc_url( admin_url( 'post-new.php' ) );
 		$site_url       = str_replace( '/wp-admin/post-new.php', '', $site_url );
-		$plugin_version = ZSOOGI_CLIPS_VERSION;
+		$plugin_version = ZSOOGI_CLIPPER_VERSION;
 
 		// Generate the bookmarklet code.
 		$bookmarklet_code = self::get_bookmarklet_code( $site_url, $plugin_version );
