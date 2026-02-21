@@ -2,3 +2,4 @@
 .env
 /vendor
 assets/zsoogi-clipper-php-20260205-135957.json
+*.zip
