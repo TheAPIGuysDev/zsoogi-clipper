@@ -237,7 +237,7 @@ while ( have_posts() ) :
 
 endwhile;
 
-if ( $is_block_theme ) {
+if ( $zsoogi_clipper_is_block_theme ) {
 	?>
 				</main>
 			</div>

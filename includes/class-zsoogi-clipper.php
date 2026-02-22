@@ -5,10 +5,10 @@
  * @package Zsoogi_Clipper
  */
 
+namespace Zsoogi;
+
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
-
-namespace Zsoogi;
 
 /**
  * Zsoogi Clipper - Handles bookmarklet content capture.
