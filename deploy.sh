@@ -1,20 +1,15 @@
 #!/bin/bash
 # Deploy zsoogi-clipper plugin to Production
-# Usage: ./deploy.sh [sftp]
-#   No argument: Deploy via SSH (rsync) 
-#   sftp: Deploy via SFTP (lftp)
-
-# Load environment variables
-source .env
-#!/bin/bash
+# Usage: ./deploy.sh [ssh|sftp]
+#   No argument: Deploy via SSH (rsync)
+#   sftp:        Deploy via SFTP (lftp)
 
 # Load environment variables from .env file
 if [ ! -f .env ]; then
     echo "Error: .env file not found"
-    exit 1 
+    exit 1
 fi
 
-# Export variables from .env
 export $(grep -v '^#' .env | xargs)
 
 # Plugin directory name
@@ -26,11 +21,11 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-echo -e "${YELLOW}Starting deployment to Production...${NC}"
+printf "${YELLOW}Starting deployment to Production...${NC}\n"
 
 # Check if SSH key exists
 if [ ! -f "$TAG_SSH_PRIVATE_KEY" ]; then
-    echo -e "${RED}Error: SSH private key not found at $TAG_SSH_PRIVATE_KEY${NC}"
+    printf "${RED}Error: SSH private key not found at $TAG_SSH_PRIVATE_KEY${NC}\n"
     exit 1
 fi
 
@@ -40,27 +35,28 @@ DEPLOY_MODE=${1:-ssh}
 # Extract plugin version from main file
 PLUGIN_VERSION=$(grep -i "Version:" zsoogi-clipper.php | head -1 | awk '{print $3}')
 
-echo -e "${GREEN}=== Plugin Deployment ===${NC}"
-echo -e "Plugin Version: ${YELLOW}${PLUGIN_VERSION}${NC}"
-echo -e "Mode: ${YELLOW}${DEPLOY_MODE}${NC}"
-echo ""
+printf "${GREEN}=== Plugin Deployment ===${NC}\n"
+printf "Plugin Version: ${YELLOW}${PLUGIN_VERSION}${NC}\n"
+printf "Mode: ${YELLOW}${DEPLOY_MODE}${NC}\n"
+printf "\n"
 
 # Function to deploy via SSH/rsync
 deploy_ssh() {
-    echo -e "${GREEN}Deploying via SSH (rsync)...${NC}"
+    printf "${GREEN}Deploying via SSH (rsync)...${NC}\n"
 
     # Check if SSH key exists
     if [ ! -f "$TAG_SSH_PRIVATE_KEY" ]; then
-        echo -e "${RED}Error: SSH key not found at $TAG_SSH_PRIVATE_KEY${NC}"
+        printf "${RED}Error: SSH key not found at $TAG_SSH_PRIVATE_KEY${NC}\n"
         exit 1
     fi
 
     # Build SSH command with key
     SSH_CMD="ssh -i $TAG_SSH_PRIVATE_KEY -p ${TAG_SSH_PORT:-22}"
 
-    # Execute rsync (use Homebrew rsync for protocol compatibility)
-    echo -e "${YELLOW}Syncing files to $TAG_SSH_HOST...${NC}"
-    /usr/local/bin/rsync -avz --delete --delete-excluded \
+    # Execute rsync (prefer Homebrew rsync for protocol compatibility)
+    RSYNC=$(command -v /usr/local/bin/rsync || command -v /opt/homebrew/bin/rsync || command -v rsync)
+    printf "${YELLOW}Syncing files to $TAG_SSH_HOST...${NC}\n"
+    "$RSYNC" -avz --delete --delete-excluded \
         --exclude='.git' \
         --exclude='.env' \
         --exclude='.env.bak' \
@@ -73,21 +69,25 @@ deploy_ssh() {
         --exclude='composer.lock' \
         --exclude='vendor' \
         --exclude='phpcs.xml.dist' \
+        --exclude='claude/site' \
+        --exclude='claude/__pycache__' \
+        --exclude='claude/samples' \
+        --exclude='assets/*.json' \
         -e "$SSH_CMD" \
         ./ \
         "${TAG_SSH_USER}@${TAG_SSH_HOST}:${TAG_SSH_PATH}/"
 
     if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓ Deployment successful via SSH${NC}"
+        printf "${GREEN}✓ Deployment successful via SSH${NC}\n"
     else
-        echo -e "${RED}✗ Deployment failed${NC}"
+        printf "${RED}✗ Deployment failed${NC}\n"
         exit 1
     fi
 }
 
 # Function to deploy via SFTP
 deploy_sftp() {
-    echo -e "${GREEN}Deploying via SFTP...${NC}"
+    printf "${GREEN}Deploying via SFTP...${NC}\n"
 
     # Create a temporary batch file for SFTP commands
     BATCH_FILE=$(mktemp)
@@ -104,7 +104,7 @@ put CLAUDE.md
 quit
 EOF
 
-    echo -e "${YELLOW}Uploading files to $TAG_SFTP_HOST...${NC}"
+    printf "${YELLOW}Uploading files to $TAG_SFTP_HOST...${NC}\n"
 
     # Execute SFTP with batch file
     sshpass -p "$TAG_SFTP_PASSWORD" sftp -b $BATCH_FILE "${TAG_SFTP_USER}@${TAG_SFTP_HOST}"
@@ -113,9 +113,9 @@ EOF
     rm -f $BATCH_FILE
 
     if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓ Deployment successful via SFTP${NC}"
+        printf "${GREEN}✓ Deployment successful via SFTP${NC}\n"
     else
-        echo -e "${RED}✗ Deployment failed${NC}"
+        printf "${RED}✗ Deployment failed${NC}\n"
         exit 1
     fi
 }
@@ -129,18 +129,18 @@ case $DEPLOY_MODE in
         deploy_sftp
         ;;
     *)
-        echo -e "${RED}Invalid deployment mode: $DEPLOY_MODE${NC}"
+        printf "${RED}Invalid deployment mode: $DEPLOY_MODE${NC}\n"
         echo "Usage: ./deploy.sh [ssh|sftp]"
         exit 1
         ;;
 esac
 
-echo ""
-echo -e "${GREEN}=== Deployment Complete ===${NC}"
-echo -e "Plugin Version: ${YELLOW}${PLUGIN_VERSION}${NC}"
+printf "\n"
+printf "${GREEN}=== Deployment Complete ===${NC}\n"
+printf "Plugin Version: ${YELLOW}${PLUGIN_VERSION}${NC}\n"
 
 if [ "$DEPLOY_MODE" = "ssh" ]; then
-    echo -e "Plugin deployed to: ${YELLOW}${TAG_SSH_PATH}${NC}"
+    printf "Plugin deployed to: ${YELLOW}${TAG_SSH_PATH}${NC}\n"
 else
-    echo -e "Plugin deployed to: ${YELLOW}${TAG_SFTP_PATH}${NC}"
+    printf "Plugin deployed to: ${YELLOW}${TAG_SFTP_PATH}${NC}\n"
 fi
