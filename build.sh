@@ -1,5 +1,5 @@
 #!/bin/bash
-# Build script for TAG Pressable Teamwork plugin
+# Build script for Zsoogi Clipper plugin
 
 # Extract version from plugin file
 VERSION=$(grep 'Version:' zsoogi-clipper.php | head -1 | sed 's/.*Version:[[:space:]]*\([0-9.]*\).*/\1/')
@@ -9,7 +9,7 @@ if [ -z "$VERSION" ]; then
     exit 1
 fi
 
-echo "Building DOK WP v${VERSION}..."
+echo "Building Zsoogi Clipper v${VERSION}..."
 
 # Clean up previous builds
 rm -rf build
