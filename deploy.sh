@@ -83,6 +83,17 @@ deploy_ssh() {
         printf "${RED}✗ Deployment failed${NC}\n"
         exit 1
     fi
+
+    # Regenerate physical PWA static files (manifest.json + sw.js) at document root.
+    # Required because SiteGround nginx intercepts requests before WordPress rewrite rules run.
+    printf "${YELLOW}Regenerating PWA static files...${NC}\n"
+    WP_PATH=$(dirname "${TAG_SSH_PATH}")
+    WP_PATH=$(dirname "${WP_PATH}")
+    ssh -i "$TAG_SSH_PRIVATE_KEY" -p "${TAG_SSH_PORT:-22}" \
+        "${TAG_SSH_USER}@${TAG_SSH_HOST}" \
+        "wp zsoogi pwa-files --path=${WP_PATH} 2>&1" && \
+        printf "${GREEN}✓ PWA files regenerated${NC}\n" || \
+        printf "${YELLOW}⚠ PWA file regeneration failed (run manually: wp zsoogi pwa-files)${NC}\n"
 }
 
 # Function to deploy via SFTP

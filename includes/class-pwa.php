@@ -105,20 +105,19 @@ class PWA {
 	}
 
 	/**
-	 * Build and serve the Web App Manifest JSON.
+	 * Build the Web App Manifest data array.
 	 *
 	 * Icons fall back to zsoogi.png if the correctly-sized PNGs
 	 * (icon-192.png / icon-512.png) have not yet been generated.
 	 *
 	 * @since 0.9.2
 	 *
-	 * @return void
+	 * @return array<string, mixed> Manifest data.
 	 */
-	private static function serve_manifest() {
+	public static function get_manifest_data() {
 		$plugin_url = ZSOOGI_CLIPPER_PLUGIN_URL;
 		$site_name  = get_bloginfo( 'name' );
 
-		// Build icon list, falling back to zsoogi.png if sized icons are missing.
 		$icons = array();
 		foreach ( array( '192', '512' ) as $size ) {
 			$icon_file = ZSOOGI_CLIPPER_PLUGIN_DIR . 'assets/images/icon-' . $size . '.png';
@@ -134,7 +133,7 @@ class PWA {
 			);
 		}
 
-		$manifest = array(
+		return array(
 			'name'             => $site_name . ' — Zsoogi Clips',
 			'short_name'       => 'Zsoogi',
 			'description'      => 'Admin-only research clips for ' . $site_name,
@@ -146,39 +145,96 @@ class PWA {
 			'scope'            => '/',
 			'icons'            => $icons,
 		);
+	}
 
+	/**
+	 * Get the service worker JS content with version placeholder replaced.
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return string|\WP_Error JS content or WP_Error on failure.
+	 */
+	public static function get_sw_content() {
+		$js_file = ZSOOGI_CLIPPER_PLUGIN_DIR . 'assets/js/sw.js';
+
+		if ( ! file_exists( $js_file ) ) {
+			return new \WP_Error( 'missing_file', 'sw.js source not found at ' . $js_file );
+		}
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$js = file_get_contents( $js_file );
+		return str_replace( '__VERSION__', ZSOOGI_CLIPPER_VERSION, $js );
+	}
+
+	/**
+	 * Write physical manifest.json and sw.js files to the WordPress root.
+	 *
+	 * Physical files are served directly by nginx, bypassing PHP entirely.
+	 * This is required on hosts (e.g. SiteGround) where nginx intercepts
+	 * requests to non-existent paths before WordPress rewrite rules run.
+	 *
+	 * Called by the WP-CLI `wp zsoogi pwa-files` command after each deploy.
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return true|\WP_Error True on success, WP_Error on failure.
+	 */
+	public static function write_static_files() {
+		$manifest_json = wp_json_encode( self::get_manifest_data(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		if ( false === file_put_contents( ABSPATH . 'manifest.json', $manifest_json ) ) {
+			return new \WP_Error( 'write_failed', 'Could not write manifest.json to ' . ABSPATH );
+		}
+
+		$sw_content = self::get_sw_content();
+		if ( is_wp_error( $sw_content ) ) {
+			return $sw_content;
+		}
+
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		if ( false === file_put_contents( ABSPATH . 'sw.js', $sw_content ) ) {
+			return new \WP_Error( 'write_failed', 'Could not write sw.js to ' . ABSPATH );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Serve the Web App Manifest JSON via WordPress rewrite.
+	 *
+	 * Falls back to this path when physical files are not present.
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return void
+	 */
+	private static function serve_manifest() {
 		header( 'Content-Type: application/manifest+json; charset=utf-8' );
 		header( 'Cache-Control: public, max-age=86400' );
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo wp_json_encode( $manifest, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+		echo wp_json_encode( self::get_manifest_data(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
 		exit;
 	}
 
 	/**
-	 * Serve the service worker JavaScript from assets/js/sw.js.
-	 *
-	 * Replaces the __VERSION__ placeholder at serve-time so the cache
-	 * name stays in sync with the plugin version without a build step.
+	 * Serve the service worker JavaScript via WordPress rewrite.
 	 *
 	 * The Service-Worker-Allowed: / header extends the scope beyond the
-	 * plugin's subdirectory, which is required when serving from a path
-	 * that differs from the intended scope.
+	 * plugin's subdirectory. Falls back to this path when sw.js is not
+	 * present as a physical file at the document root.
 	 *
 	 * @since 0.9.2
 	 *
 	 * @return void
 	 */
 	private static function serve_service_worker() {
-		$js_file = ZSOOGI_CLIPPER_PLUGIN_DIR . 'assets/js/sw.js';
+		$js = self::get_sw_content();
 
-		if ( ! file_exists( $js_file ) ) {
+		if ( is_wp_error( $js ) ) {
 			status_header( 404 );
 			exit;
 		}
-
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-		$js = file_get_contents( $js_file );
-		$js = str_replace( '__VERSION__', ZSOOGI_CLIPPER_VERSION, $js );
 
 		header( 'Content-Type: application/javascript; charset=utf-8' );
 		header( 'Service-Worker-Allowed: /' );

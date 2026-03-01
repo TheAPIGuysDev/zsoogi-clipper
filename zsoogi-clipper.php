@@ -70,6 +70,7 @@ function zsoogi_clipper_load_includes() {
 		'includes/class-admin-menu.php',
 		'includes/class-zsoogi-clipper.php',
 		'includes/class-pwa.php',
+		'includes/class-cli.php',
 	);
 
 	foreach ( $includes as $file ) {
@@ -171,6 +172,13 @@ zsoogi_clipper_load_includes();
 
 // Initialize plugin on 'plugins_loaded' hook.
 add_action( 'plugins_loaded', 'zsoogi_clipper_init' );
+
+// Register WP-CLI commands.
+if ( defined( 'WP_CLI' ) && WP_CLI ) {
+	if ( class_exists( 'Zsoogi\CLI' ) ) {
+		\WP_CLI::add_command( 'zsoogi', 'Zsoogi\CLI' );
+	}
+}
 
 // Register activation and deactivation hooks.
 register_activation_hook( ZSOOGI_CLIPPER_PLUGIN_FILE, 'zsoogi_clipper_activate' );

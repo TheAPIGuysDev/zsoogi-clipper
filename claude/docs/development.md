@@ -132,6 +132,35 @@ Then:
 ./claude/mkdocs-deploy.sh --deploy  # deploy only
 ```
 
+## WP-CLI Commands
+
+The plugin registers custom WP-CLI commands under the `wp zsoogi` namespace.
+
+### `wp zsoogi pwa-files`
+
+Writes physical `manifest.json` and `sw.js` files to the WordPress document root (`ABSPATH`).
+
+```bash
+wp zsoogi pwa-files
+```
+
+**When to run:** After every plugin deployment to a host where nginx intercepts requests before WordPress rewrite rules run (e.g. SiteGround). Without physical files, requests to `/manifest.json` and `/sw.js` trigger nginx bot-protection challenges before WordPress can serve them dynamically.
+
+**What it does:**
+
+1. Builds the Web App Manifest from live site data (site name, plugin URL, icon paths)
+2. Reads `assets/js/sw.js` and replaces the `__VERSION__` placeholder with the current plugin version
+3. Writes both files to `ABSPATH` (e.g. `/home/user/www/site/public_html/`)
+
+**Output example:**
+
+```
+Writing PWA static files to /home/u86-s1n4ntfvg4md/www/laterist.site/public_html/ ...
+Success: manifest.json and sw.js written to /home/.../public_html/ (plugin v0.9.3)
+```
+
+> `deploy.sh` calls this automatically after a successful rsync. If it fails, run it manually via SSH.
+
 ## Known Issues / Watch Out For
 
 - **Text domains:** Internal code uses `zsoogi-clipss` and `zsoogi-clips` in some legacy spots alongside the current `zsoogi-clipper` domain. Keep backward-compatible.
