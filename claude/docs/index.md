@@ -33,4 +33,5 @@ Zsoogi Clipper lets administrators capture and curate web content into private r
 - [Bookmarklet](bookmarklet.md) — JavaScript, YouTube handling, image capture
 - [Post Type & Taxonomy](post-type.md) — CPT/taxonomy registration, frontend access
 - [Settings & Admin](settings.md) — settings page, options, admin menu
+- [Progressive Web App](progressive-web-app.md) — PWA install, iOS auth persistence, manifest/SW
 - [Development](development.md) — Composer, PHPCS, build process

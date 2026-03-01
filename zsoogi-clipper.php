@@ -69,6 +69,7 @@ function zsoogi_clipper_load_includes() {
 		'includes/class-zsoogi-clips.php',
 		'includes/class-admin-menu.php',
 		'includes/class-zsoogi-clipper.php',
+		'includes/class-pwa.php',
 	);
 
 	foreach ( $includes as $file ) {
@@ -107,6 +108,11 @@ function zsoogi_clipper_init() {
 		\Zsoogi\Admin_Menu::init();
 	}
 
+	// Initialize PWA support for all users (manifest.json and sw.js must be publicly accessible).
+	if ( class_exists( 'Zsoogi\PWA' ) ) {
+		\Zsoogi\PWA::init();
+	}
+
 	// Only initialize Zsoogi Clipper for logged-in administrators.
 	if ( ! is_user_logged_in() || ! current_user_can( 'manage_options' ) ) {
 		return;
@@ -133,6 +139,11 @@ function zsoogi_clipper_activate() {
 	if ( class_exists( 'Zsoogi\Zsoogi_Clips' ) ) {
 		\Zsoogi\Zsoogi_Clips::register_post_type();
 		\Zsoogi\Zsoogi_Clips::register_taxonomy();
+	}
+
+	// Register PWA rewrite rules so they are included in the flush below.
+	if ( class_exists( 'Zsoogi\PWA' ) ) {
+		\Zsoogi\PWA::register_endpoints();
 	}
 
 	// Flush rewrite rules after registration.
