@@ -1,0 +1,22 @@
+site_name: Zsoogi Clipper - Documentation
+hooks:
+  - hooks.py
+
+theme:
+  name: readthedocs
+  highlightjs: true
+
+docs_dir: docs
+
+markdown_extensions:
+  - admonition
+  - tables
+  - fenced_code
+
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Bookmarklet: bookmarklet.md
+  - Post Type & Taxonomy: post-type.md
+  - Settings & Admin: settings.md
+  - Development: development.md

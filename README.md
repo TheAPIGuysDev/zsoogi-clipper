@@ -41,6 +41,23 @@ Perfect for teams building internal documentation, knowledge bases, API document
 - **Administrator-Only**: Secure access restricted to admin users
 - **Cross-Browser Compatible**: Works in all modern browsers
 
+## Documentation
+
+Full developer documentation is in [`claude/docs/`](claude/docs/):
+
+- [Architecture](claude/docs/architecture.md) — class structure, initialization flow, security model
+- [Bookmarklet](claude/docs/bookmarklet.md) — JS details, YouTube integration, image capture
+- [Post Type & Taxonomy](claude/docs/post-type.md) — CPT/taxonomy registration, frontend access
+- [Settings & Admin](claude/docs/settings.md) — settings options, admin menu
+- [Development](claude/docs/development.md) — Composer, PHPCS, build, MkDocs
+
+**Local docs preview:**
+
+```bash
+./claude/mkdocs-serve.sh
+# Visit http://127.0.0.1:8000
+```
+
 ## Requirements
 
 - **WordPress**: 5.0 or higher
@@ -120,12 +137,20 @@ Navigate to the Zsoogi clip settings page:
 
 ```
 zsoogi-clipper/
-├── zsoogi-clipper.php             # Main plugin file
+├── zsoogi-clipper.php              # Main plugin file
 ├── includes/
-│   ├── class-zsoogi-clips.php  # CPT/Taxonomy registration
-│   ├── class-admin-menu.php     # Settings page
-│   └── class-zsoogi-clipper.php   # Bookmarklet handler
-├── bookmarklet.html             # Bookmarklet installation guide
+│   ├── class-zsoogi-clips.php      # CPT/Taxonomy registration
+│   ├── class-admin-menu.php        # Settings page + bookmarklet install
+│   └── class-zsoogi-clipper.php    # Bookmarklet handler
+├── assets/
+│   └── js/bookmarklet.js           # Vanilla JS bookmarklet source
+├── templates/
+│   └── single-zsoogiclips.php      # Custom single-post template
+├── claude/
+│   ├── mkdocs.yml                  # MkDocs config
+│   ├── mkdocs-serve.sh             # Local docs preview
+│   ├── mkdocs-deploy.sh            # Build + deploy docs
+│   └── docs/                       # Developer documentation
 └── README.md
 ```
 
