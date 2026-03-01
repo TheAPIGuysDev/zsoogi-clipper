@@ -4,3 +4,4 @@
 assets/zsoogi-clipper-php-20260205-135957.json
 *.zip
 /claude/samples
+claude/__pycache__/hooks.cpython-314.pyc
