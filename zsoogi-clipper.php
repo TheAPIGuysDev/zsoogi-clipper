@@ -109,7 +109,8 @@ function zsoogi_clipper_init() {
 	}
 
 	// Initialize PWA support for all users (manifest.json and sw.js must be publicly accessible).
-	if ( class_exists( 'Zsoogi\PWA' ) ) {
+	// Only runs when the PWA setting is enabled in the settings page.
+	if ( class_exists( 'Zsoogi\PWA' ) && get_option( 'zsoogi_clipper_pwa_enabled', true ) ) {
 		\Zsoogi\PWA::init();
 	}
 

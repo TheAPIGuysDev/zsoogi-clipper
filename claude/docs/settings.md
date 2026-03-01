@@ -75,6 +75,15 @@ The settings page also displays a read-only info panel:
 - **Post Type:** `zsoogiclips`
 - **Taxonomy:** `zsoogi_type`
 
+#### `zsoogi_clipper_pwa_enabled`
+
+- **Type:** boolean
+- **Default:** `true`
+- **Effect:** When enabled, `Zsoogi\PWA::init()` runs — serving `/manifest.json` and `/sw.js`, and injecting PWA head tags on every page. When disabled, none of that loads; the site behaves as a normal WordPress install with no PWA surfaces.
+- **Sanitize:** `sanitize_checkbox()` — returns `true`/`false`
+
+Disabling this is useful on multisite installations or sites where another plugin already manages the web app manifest.
+
 ## Notes on Citation Format
 
 The free version hardcodes citation format to `simple`:

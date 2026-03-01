@@ -136,6 +136,25 @@ class Admin_Menu {
 			self::PAGE_SLUG,
 			'zsoogi_clipper'
 		);
+
+		// Enable PWA.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clipper_pwa_enabled',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_checkbox' ),
+				'default'           => true,
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_pwa_enabled',
+			__( 'Enable Progressive Web App', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_pwa_enabled_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper'
+		);
 	}
 
 	/**
@@ -297,6 +316,31 @@ class Admin_Menu {
 		</label>
 		<p class="description">
 			<?php esc_html_e( 'Adds capture date and time to help track when research was gathered.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the Enable PWA field.
+	 *
+	 * @since 0.9.2
+	 *
+	 * @return void
+	 */
+	public static function render_pwa_enabled_field() {
+		$value = get_option( 'zsoogi_clipper_pwa_enabled', true );
+		?>
+		<label>
+			<input
+				type="checkbox"
+				name="zsoogi_clipper_pwa_enabled"
+				value="1"
+				<?php checked( 1, $value ); ?>
+			/>
+			<?php esc_html_e( 'Enable PWA (manifest.json, service worker, and home screen install)', 'zsoogi-clipper' ); ?>
+		</label>
+		<p class="description">
+			<?php esc_html_e( 'When enabled, the site can be added to a mobile home screen as an app. Recommended for fixing iOS Safari auth expiry on mobile.', 'zsoogi-clipper' ); ?>
 		</p>
 		<?php
 	}
