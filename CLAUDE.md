@@ -8,6 +8,21 @@ Zsoogi Clipper (https://github.com/TheAPIGuysDev/zsoogi-clipper) is a WordPress 
 
 The plugin was originally developed as Wiki Clipper (https://github.com/pbrocks/wiki-clipper), but was renamed and may need some ehlp double-checking the renaming process for inconsistencies.
 
+## Documentation
+
+Project docs live in `claude/docs/` (MkDocs). Key references:
+
+- `claude/docs/index.md` — project overview, quick start, key slugs
+- `claude/docs/architecture.md` — class structure, initialization flow, hooks, security model
+- `claude/docs/bookmarklet.md` — JS source, YouTube handling, image capture, PHP processing
+- `claude/docs/post-type.md` — CPT/taxonomy registration, frontend access, REST API
+- `claude/docs/settings.md` — settings options, admin menu, bookmarklet install page
+- `claude/docs/development.md` — Composer, PHPCS, build process, MkDocs serve/deploy
+
+When starting a new session on an unfamiliar area, read the relevant doc first.
+
+Local preview: `./claude/mkdocs-serve.sh` → http://127.0.0.1:8000
+
 ## Development Commands
 
 ### Composer Commands

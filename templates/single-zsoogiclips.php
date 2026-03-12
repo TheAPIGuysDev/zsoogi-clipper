@@ -5,10 +5,12 @@
  * This template provides a custom display for Zsoogi Clips that is compatible
  * with both classic and block themes (like Twenty Twenty-Five).
  *
- * .wp-block-navigation.items-justified-right
- * @package Zsoogi\Zsoogi_Clips
- * @since 2.3.0
+ * @package Zsoogi_Clipper
+ * @since 0.9.0
  */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 // Enqueue custom styles for Zsoogi Clips.
 add_action(
@@ -58,9 +60,9 @@ add_action(
 );
 
 // Check if this is a block theme.
-$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+$zsoogi_clipper_is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
 
-if ( $is_block_theme ) {
+if ( $zsoogi_clipper_is_block_theme ) {
 	// For block themes, manually construct HTML structure with proper WordPress hooks.
 /**
  * Create a block-backed shim for classic header templates.
@@ -109,7 +111,7 @@ while ( have_posts() ) :
 				// Author.
 				printf(
 					'<span class="byline">%s <a href="%s">%s</a></span>',
-					esc_html__( 'By', 'zsoogi-clips' ),
+					esc_html__( 'By', 'zsoogi-clipper' ),
 					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 					esc_html( get_the_author() )
 				);
@@ -121,18 +123,18 @@ while ( have_posts() ) :
 				);
 
 				// Zsoogi Type taxonomy.
-				$terms = get_the_terms( get_the_ID(), 'zsoogi_type' );
-				if ( $terms && ! is_wp_error( $terms ) ) {
+				$zsoogi_clipper_terms = get_the_terms( get_the_ID(), 'zsoogi_type' );
+				if ( $zsoogi_clipper_terms && ! is_wp_error( $zsoogi_clipper_terms ) ) {
 					echo '<span class="zsoogi-types"> &bull; ';
-					$term_links = array();
-					foreach ( $terms as $term ) {
-						$term_links[] = sprintf(
+					$zsoogi_clipper_term_links = array();
+					foreach ( $zsoogi_clipper_terms as $term ) {
+						$zsoogi_clipper_term_links[] = sprintf(
 							'<a href="%s">%s</a>',
 							esc_url( get_term_link( $term ) ),
 							esc_html( $term->name )
 						);
 					}
-					echo implode( ', ', $term_links );
+					echo wp_kses_post( implode( ', ', $zsoogi_clipper_term_links ) );
 					echo '</span>';
 				}
 				?>
@@ -151,7 +153,7 @@ while ( have_posts() ) :
 
 			wp_link_pages(
 				array(
-					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'zsoogi-clips' ),
+					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'zsoogi-clipper' ),
 					'after'  => '</div>',
 				)
 			);
@@ -165,7 +167,7 @@ while ( have_posts() ) :
 			edit_post_link(
 				sprintf(
 					/* translators: %s: Post title. Only visible to screen readers. */
-					esc_html__( 'Edit %s', 'zsoogi-clips' ),
+					esc_html__( 'Edit %s', 'zsoogi-clipper' ),
 					'<span class="screen-reader-text">' . get_the_title() . '</span>'
 				),
 				'<span class="edit-link">',
@@ -184,14 +186,15 @@ while ( have_posts() ) :
 			<?php if ( have_comments() ) : ?>
 				<h2 class="comments-title">
 					<?php
-					$comments_number = get_comments_number();
-					if ( 1 === $comments_number ) {
-						printf( esc_html__( 'One comment on &ldquo;%s&rdquo;', 'zsoogi-clips' ), esc_html( get_the_title() ) );
+					$zsoogi_clipper_comments_number = get_comments_number();
+					if ( 1 === $zsoogi_clipper_comments_number ) {
+						/* translators: %s: post title */
+						printf( esc_html__( 'One comment on &ldquo;%s&rdquo;', 'zsoogi-clipper' ), esc_html( get_the_title() ) );
 					} else {
 						printf(
 							/* translators: 1: number of comments, 2: post title */
-							esc_html( _n( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $comments_number, 'zsoogi-clips' ) ),
-							esc_html( number_format_i18n( $comments_number ) ),
+							esc_html( _n( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $zsoogi_clipper_comments_number, 'zsoogi-clipper' ) ),
+							esc_html( number_format_i18n( $zsoogi_clipper_comments_number ) ),
 							esc_html( get_the_title() )
 						);
 					}
@@ -217,7 +220,7 @@ while ( have_posts() ) :
 			<?php endif; ?>
 
 			<?php if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
-				<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'zsoogi-clips' ); ?></p>
+				<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'zsoogi-clipper' ); ?></p>
 			<?php endif; ?>
 
 			<?php
@@ -234,7 +237,7 @@ while ( have_posts() ) :
 
 endwhile;
 
-if ( $is_block_theme ) {
+if ( $zsoogi_clipper_is_block_theme ) {
 	?>
 				</main>
 			</div>

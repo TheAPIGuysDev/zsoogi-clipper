@@ -6,7 +6,7 @@
  * Removes all plugin data from the database.
  *
  * @package Zsoogi_Clipper
- * @since 2.4.2
+ * @since 0.9.0
  */
 
 // Exit if accessed directly or not called by WordPress.
@@ -16,6 +16,10 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 
 /**
  * Delete plugin options.
+ *
+ * @since 0.9.0
+ *
+ * @return void
  */
 function zsoogi_clipper_delete_options() {
 	delete_option( 'zsoogi_clipper_auto_featured_image' );
@@ -24,6 +28,10 @@ function zsoogi_clipper_delete_options() {
 
 /**
  * Delete plugin data for multisite.
+ *
+ * @since 0.9.0
+ *
+ * @return void
  */
 function zsoogi_clipper_multisite_uninstall() {
 	global $wpdb;
