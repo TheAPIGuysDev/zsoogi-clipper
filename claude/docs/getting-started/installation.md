@@ -63,6 +63,7 @@ Get Zsoogi Clipper up and running in minutes.
 
 ### Step 5: Clean Up (Optional)
 After confirming everything works:
+
 1. Go to **Plugins**
 2. Delete the free version (your clips are safe - they're preserved)
 
@@ -75,6 +76,7 @@ After confirming everything works:
 
 ### Installation Steps
 Follow the same steps as Premium, but:
+
 - Download `zsoogi-clipper-enterprise.zip` from your customer portal
 - Use your Enterprise license key for activation
 
@@ -94,12 +96,14 @@ After activation, configure Enterprise features:
 
 #### 3. Integrations (Optional)
 Set up integrations as needed:
+
 - **Slack:** Install Slack app and configure webhook
 - **Microsoft Teams:** Configure Teams connector
 - **Zapier/Make.com:** Set up webhook triggers
 
 #### 4. SSO (Optional)
 For Single Sign-On:
+
 1. Contact enterprise@theapiguys.com for SSO setup assistance
 2. Provide your SAML/OAuth provider details
 3. We'll help configure the integration
@@ -129,6 +133,7 @@ For Single Sign-On:
 ## Browser Requirements
 
 To use the bookmarklet, you need:
+
 - Modern browser (Chrome, Firefox, Safari, or Edge)
 - Bookmarks bar visible
 - JavaScript enabled
@@ -147,8 +152,8 @@ After installing, complete these steps:
 ### 2. Configure Settings
 1. Go to **Zsoogi Clips → Settings**
 2. Configure options:
-   - Auto-set featured images (recommended: on)
-   - Include capture metadata (optional)
+    - Auto-set featured images (recommended: on)
+    - Include capture metadata (optional)
 
 ### 3. Create Your First Clip
 1. Visit any webpage
@@ -162,18 +167,20 @@ After installing, complete these steps:
 ## Troubleshooting
 
 ### Bookmarklet Won't Install?
-**Problem:** Can't drag bookmarklet to bookmarks bar
+**Problem:** Can't drag bookmarklet to bookmarks bar  
 
-**Solution:**
+**Solution:**  
+
 - Make your bookmarks bar visible:
   - **Chrome/Edge:** Press `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
   - **Firefox:** Press `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
   - **Safari:** View → Show Favorites Bar
 
 ### License Won't Activate?
-**Problem:** "Invalid license key" error
+**Problem:** "Invalid license key" error  
 
-**Solutions:**
+**Solutions:**  
+
 1. Double-check you copied the entire key (no extra spaces)
 2. Ensure you're using the correct tier (Premium key won't work on Free version)
 3. Check your license hasn't expired
@@ -181,18 +188,20 @@ After installing, complete these steps:
 5. Contact support: premium@theapiguys.com
 
 ### Plugin Conflicts?
-**Problem:** Plugin doesn't work after activation
+**Problem:** Plugin doesn't work after activation  
 
-**Solutions:**
+**Solutions:**  
+
 1. Deactivate other plugins one by one to find conflicts
 2. Switch to a default WordPress theme temporarily
 3. Check PHP error logs for specific errors
 4. Contact support with error details
 
 ### Can't See Bookmarklet Page?
-**Problem:** 404 error on "Grab Zsoogi" page
+**Problem:** 404 error on "Grab Zsoogi" page  
 
-**Solution:**
+**Solution:**  
+
 1. Go to **Settings → Permalinks**
 2. Click **Save Changes** (this flushes rewrite rules)
 3. Try accessing the page again
@@ -217,7 +226,7 @@ After installing, complete these steps:
 5. Enter Enterprise license key
 6. Configure new Enterprise features
 
-**Data Safety:** All your clips, taxonomies, and metadata are preserved when upgrading. The custom post type stays the same across all tiers.
+**Data Safety:** All your clips, taxonomies, and metadata are preserved when upgrading. The custom post type stays the same across all tiers.  
 
 ---
 

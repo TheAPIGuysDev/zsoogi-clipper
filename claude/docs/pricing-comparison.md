@@ -1,7 +1,7 @@
 # Zsoogi Clipper - Pricing Comparison & Delivery Guide
 
-**Last Updated:** 2026-01-31
-**Document Version:** 1.0
+**Last Updated:** 2026-01-31  
+**Document Version:** 1.0  
 
 ---
 
@@ -18,27 +18,31 @@
 ## How Features Are Delivered
 
 ### Free (Community) Edition
-**Distribution:** WordPress.org Plugin Repository
+**Distribution:** WordPress.org Plugin Repository  
 
-**How You Get It:**
+**How You Get It:**  
+
 1. Install directly from WordPress admin (Plugins → Add New → Search "Zsoogi Clipper")
 2. OR download from wordpress.org/plugins/zsoogi-clipper
 3. No account, no license key, no activation needed
 
-**Updates:**
+**Updates:**  
+
 - Automatic via WordPress update system
 - No authentication required
 
-**Source Code:**
+**Source Code:**  
+
 - Open source GPL v2+
 - Available on GitHub (main branch)
 
 ---
 
 ### Premium Edition
-**Distribution:** Direct sale from theapiguys.com
+**Distribution:** Direct sale from theapiguys.com  
 
-**How You Get It:**
+**How You Get It:**  
+
 1. **Purchase license** at theapiguys.com/zsoogi-clipper/premium
 2. **Receive license key** via email immediately
 3. **Download plugin** from customer dashboard (theapiguys.com/account)
@@ -46,19 +50,22 @@
 5. **Activate plugin** and **enter license key** in Settings → License
 6. Premium features unlock instantly
 
-**Plugin Details:**
+**Plugin Details:**  
+
 - **Plugin Slug:** `zsoogi-clipper-premium`
 - **Separate Plugin:** Not an add-on, replaces free version
 - **License Validation:** Contacts theapiguys.com API on activation
 - **Cannot Coexist:** Deactivate free version before installing Premium
 
-**Updates:**
+**Updates:**  
+
 - Automatic updates via built-in update checker
 - Checks theapiguys.com update server twice daily
 - Active license required for updates
 - One-click updates from WordPress Plugins page
 
-**License Management:**
+**License Management:**  
+
 - Managed via theapiguys.com API
 - Validate on activation, cache for 24 hours
 - Can deactivate license to move between sites
@@ -67,36 +74,40 @@
 ---
 
 ### Enterprise Edition
-**Distribution:** Direct sale from theapiguys.com
+**Distribution:** Direct sale from theapiguys.com  
 
-**How You Get It:**
+**How You Get It:**  
+
 1. **Purchase license** at theapiguys.com/zsoogi-clipper/enterprise
-   - Single-site, multi-site, or agency licenses available
-   - Invoice billing available (Net-30)
+    - Single-site, multi-site, or agency licenses available
+    - Invoice billing available (Net-30)
 2. **Receive license key** via email + customer portal access
 3. **Download plugin** from enterprise portal (theapiguys.com/account)
 4. **Upload to WordPress**
 5. **Activate & enter license key**
 6. **Configure Enterprise features:**
-   - Invite team members to WordPress
-   - Set up role-based access control
-   - Configure integrations (Slack, Teams, etc.)
-   - Add AI API keys (optional - your OpenAI/Anthropic keys)
+    - Invite team members to WordPress
+    - Set up role-based access control
+    - Configure integrations (Slack, Teams, etc.)
+    - Add AI API keys (optional - your OpenAI/Anthropic keys)
 7. **Optional:** Schedule onboarding call with support team
 
-**Plugin Details:**
+**Plugin Details:**  
+
 - **Plugin Slug:** `zsoogi-clipper-enterprise`
 - **Separate Plugin:** Enterprise-grade version
 - **Replaces:** Free and Premium (cannot run simultaneously)
 - **Multi-Site Support:** Single license can activate on multiple sites (depending on license tier)
 
-**Updates:**
+**Updates:**  
+
 - Priority automatic updates
 - Beta access to new features
 - More stable release channel
 - Rollback capability
 
-**External API Requirements:**
+**External API Requirements:**  
+
 - **Included (No extra cost):**
   - License validation API (theapiguys.com)
   - Update server (theapiguys.com)
@@ -118,6 +129,7 @@
 
 ### Features via Plugin Code
 ✅ **Included in plugin download (no external dependencies):**
+
 - Basic content capture
 - YouTube title cleanup and thumbnails
 - YouTube transcript capture (Premium+)
@@ -132,6 +144,7 @@
 
 ### Features via External APIs
 🔌 **Requires external services (you provide API keys):**
+
 - **AI Summarization** (Enterprise): OpenAI or Anthropic API key
 - **Smart Tag Suggestions** (Enterprise): OpenAI/Anthropic API
 - **Slack Integration** (Enterprise): Your Slack workspace
@@ -140,6 +153,7 @@
 
 ### Features via theapiguys.com API
 🔐 **Requires active license & internet connection:**
+
 - License validation
 - Automatic updates
 - REST API access (Enterprise)
@@ -152,24 +166,27 @@
 
 ### How License Validation Works
 
-**On Activation:**
+**On Activation:**  
+
 1. You enter license key in Settings → License
 2. Plugin contacts `api.theapiguys.com/v1/licenses/validate`
 3. API returns:
-   - License validity (active/expired/invalid)
-   - Tier (Premium or Enterprise)
-   - Enabled features
-   - Expiration date
+    - License validity (active/expired/invalid)
+    - Tier (Premium or Enterprise)
+    - Enabled features
+    - Expiration date
 4. Response cached locally for 24 hours
 5. Features unlocked based on tier
 
-**Daily Background Check:**
+**Daily Background Check:**  
+
 - Plugin checks license status once per 24 hours
 - If expired: Features disabled, notice shown
 - If valid: Features remain active
 - **Offline grace period:** 7 days before disabling features
 
-**What Happens If License Expires:**
+**What Happens If License Expires:**  
+
 - Premium/Enterprise features stop working
 - All your clips and data remain intact
 - Automatically reverts to free version features
@@ -187,6 +204,7 @@
 
 ### Free → Premium
 ✅ **Seamless migration:**
+
 - All clips preserved (same custom post type)
 - All taxonomies and metadata intact
 - No manual export/import needed
@@ -194,12 +212,14 @@
 
 ### Premium → Enterprise
 ✅ **Seamless migration:**
+
 - All Premium data preserved
 - Enterprise features immediately available
 - Just deactivate Premium, activate Enterprise
 
 ### Downgrading (Premium/Enterprise → Free)
 ⚠️ **Some feature data lost:**
+
 - **Preserved:**
   - All clips (custom post type)
   - Basic taxonomies
@@ -377,15 +397,15 @@ Enterprise tier includes white-label options. Contact partners@theapiguys.com fo
 
 ## Contact & Sales
 
-**General Inquiries:** info@theapiguys.com
-**Sales Questions:** sales@theapiguys.com
-**Premium Support:** premium@theapiguys.com
-**Enterprise Support:** enterprise@theapiguys.com
-**Partnership Inquiries:** partners@theapiguys.com
+**General Inquiries:** info@theapiguys.com  
+**Sales Questions:** sales@theapiguys.com  
+**Premium Support:** premium@theapiguys.com  
+**Enterprise Support:** enterprise@theapiguys.com  
+**Partnership Inquiries:** partners@theapiguys.com  
 
-**Website:** [theapiguys.com/zsoogi-clipper](https://theapiguys.com/zsoogi-clipper)
-**Documentation:** [theapiguys.com/docs](https://theapiguys.com/docs)
-**Customer Portal:** [theapiguys.com/account](https://theapiguys.com/account)
+**Website:** [theapiguys.com/zsoogi-clipper](https://theapiguys.com/zsoogi-clipper)  
+**Documentation:** [theapiguys.com/docs](https://theapiguys.com/docs)  
+**Customer Portal:** [theapiguys.com/account](https://theapiguys.com/account)  
 
 ---
 

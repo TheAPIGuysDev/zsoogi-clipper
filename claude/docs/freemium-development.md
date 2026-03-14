@@ -15,8 +15,8 @@ This approach was chosen over separate branches or repos because:
 
 ## The `License` Class
 
-**File:** `includes/class-license.php`
-**Namespace:** `Zsoogi\License`
+**File:** `includes/class-license.php`  
+**Namespace:** `Zsoogi\License`  
 
 The single source of truth for feature gating. All premium checks go through this class — never check options or constants directly in feature code.
 
@@ -50,7 +50,7 @@ private static $features = array(
 );
 ```
 
-**To add a new premium feature:** add it to `$features`, then gate all its code with `License::has_feature('your_feature')`.
+**To add a new premium feature:** add it to `$features`, then gate all its code with `License::has_feature('your_feature')`.  
 
 ---
 
@@ -79,7 +79,7 @@ Remove this line before deploying to production. Never commit it.
 
 ## Adding a New Premium Feature
 
-**Step 1 — Register it in `License::$features`:**
+**Step 1 — Register it in `License::$features`:**  
 
 ```php
 private static $features = array(
@@ -90,7 +90,7 @@ private static $features = array(
 );
 ```
 
-**Step 2 — Gate the backend logic:**
+**Step 2 — Gate the backend logic:**  
 
 ```php
 // In the relevant class method:
@@ -99,7 +99,7 @@ if ( License::has_feature( 'your_feature' ) ) {
 }
 ```
 
-**Step 3 — Gate the settings UI in `Admin_Menu::register_settings()`:**
+**Step 3 — Gate the settings UI in `Admin_Menu::register_settings()`:**  
 
 ```php
 if ( License::has_feature( 'your_feature' ) ) {
@@ -118,25 +118,25 @@ if ( License::has_feature( 'your_feature' ) ) {
 
 ### `citation_formats` — Multiple citation styles
 
-**Files affected:**
+**Files affected:**  
 
 - `includes/class-zsoogi-clipper.php` — `default_content()` reads `zsoogi_clipper_citation_format` option only when licensed; falls back to `'simple'` for free users
 - `includes/class-admin-menu.php` — citation format radio buttons shown only when licensed
 
-**Free behaviour:** always uses `simple` format (`Source: [Title](URL)`)
+**Free behaviour:** always uses `simple` format (`Source: [Title](URL)`)  
 
-**Premium behaviour:** user chooses `simple`, `detailed`, or `academic` in Settings
+**Premium behaviour:** user chooses `simple`, `detailed`, or `academic` in Settings  
 
 ### `transcripts` — YouTube transcript capture
 
-**Files affected:**
+**Files affected:**  
 
 - `includes/class-zsoogi-clipper.php` — `default_content()` and `save_youtube_transcript()` skip transcript processing when not licensed
 - `includes/class-admin-menu.php` — "YouTube Transcript Settings" section only shown when licensed
 
-**Free behaviour:** YouTube video ID and transcript data are ignored even if the bookmarklet sends them
+**Free behaviour:** YouTube video ID and transcript data are ignored even if the bookmarklet sends them  
 
-**Premium behaviour:** transcript excerpt added to post content; full transcript saved to `_youtube_transcript` post meta
+**Premium behaviour:** transcript excerpt added to post content; full transcript saved to `_youtube_transcript` post meta  
 
 ---
 

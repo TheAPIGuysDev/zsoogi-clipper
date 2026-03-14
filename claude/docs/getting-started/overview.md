@@ -20,6 +20,7 @@ No jQuery dependency means faster load times and better compatibility with moder
 
 ### Custom Post Type
 Zsoogi clips are stored as a custom post type called `zsoogiclips`. This means:
+
 - Full WordPress editor support
 - Native search functionality
 - Works with any theme
@@ -30,6 +31,7 @@ Clips can be organized using the "Zsoogi Type" taxonomy (like categories). Premi
 
 ### Bookmarklet Capture
 The bookmarklet captures:
+
 - Page URL and title
 - Selected text (as blockquote)
 - First meaningful image (auto-sets as featured image)

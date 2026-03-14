@@ -11,9 +11,10 @@ The best place for free users to get help from the community.
 
 [WordPress.org Forum](https://wordpress.org/support/plugin/zsoogi-clipper/)
 
-**Response Time:** Community-driven (typically 1-3 days)
+**Response Time:** Community-driven (typically 1-3 days)  
 
-**What to include in your post:**
+**What to include in your post:**  
+
 - WordPress version
 - PHP version
 - Active theme and plugins
@@ -26,12 +27,14 @@ Report bugs and feature requests on GitHub.
 
 [GitHub Issues](https://github.com/TheAPIGuysDev/zsoogi-clipper/issues)
 
-**Best for:**
+**Best for:**  
+
 - Bug reports with technical details
 - Feature requests
 - Code contributions
 
-**Before posting:**
+**Before posting:**  
+
 1. Search existing issues to avoid duplicates
 2. Include error logs if available
 3. Provide reproducible steps
@@ -50,20 +53,22 @@ Check the docs first - your question might already be answered!
 ### Priority Email Support
 Direct email access to our support team.
 
-**Email:** [premium@theapiguys.com](mailto:premium@theapiguys.com)
+**Email:** [premium@theapiguys.com](mailto:premium@theapiguys.com)  
 
-**Response Time:** 24 hours (business days)
+**Response Time:** 24 hours (business days)  
 
-**Support Hours:** Monday-Friday, 9am-5pm EST
+**Support Hours:** Monday-Friday, 9am-5pm EST  
 
-**What's Included:**
+**What's Included:**  
+
 - Plugin installation assistance
 - Configuration help
 - Troubleshooting issues
 - Feature guidance
 - License management
 
-**What's NOT Included:**
+**What's NOT Included:**  
+
 - Custom development
 - Theme/plugin conflict resolution (beyond basic guidance)
 - WordPress core issues
@@ -74,7 +79,8 @@ Access your licenses, downloads, and account.
 
 [Customer Portal](https://theapiguys.com/account)
 
-**Portal Features:**
+**Portal Features:**  
+
 - Download Premium plugin
 - View license keys
 - Manage site activations
@@ -86,7 +92,8 @@ Premium customers get access to our video library.
 
 [Video Tutorials](https://theapiguys.com/videos)
 
-**Topics Covered:**
+**Topics Covered:**  
+
 - Installation walkthrough
 - YouTube transcript capture
 - PDF extraction
@@ -100,54 +107,57 @@ Premium customers get access to our video library.
 ### Priority Email Support
 Fast response for mission-critical issues.
 
-**Email:** [enterprise@theapiguys.com](mailto:enterprise@theapiguys.com)
+**Email:** [enterprise@theapiguys.com](mailto:enterprise@theapiguys.com)  
 
-**Response Time:** 8 hours (business days)
+**Response Time:** 8 hours (business days)  
 
-**Support Hours:** Monday-Friday, 9am-5pm EST
+**Support Hours:** Monday-Friday, 9am-5pm EST  
 
-**Emergency Issues:** 4-hour response for critical bugs (coming Q4 2026)
+**Emergency Issues:** 4-hour response for critical bugs (coming Q4 2026)  
 
 ### Dedicated Slack Channel
 Private Slack channel with the dev team.
 
 **Included with Enterprise license**
 
-**Benefits:**
+**Benefits:**  
+
 - Real-time chat with developers
 - Share screenshots and logs easily
 - Team collaboration
 - Quick answers to questions
 
-**Request Access:** Email enterprise@theapiguys.com after purchasing
+**Request Access:** Email enterprise@theapiguys.com after purchasing  
 
 ### Video Call Support
 Schedule calls for complex issues.
 
 **Included with Enterprise license**
 
-**Use Cases:**
+**Use Cases:**  
+
 - Implementation planning
 - SSO configuration
 - Integration setup
 - Team training
 - Architecture consultation
 
-**Schedule a Call:** [theapiguys.com/schedule](https://theapiguys.com/schedule)
+**Schedule a Call:** [theapiguys.com/schedule](https://theapiguys.com/schedule)  
 
 ### Implementation Services
 One-time setup assistance available.
 
-**Cost:** $500 (optional, not included in license)
+**Cost:** $500 (optional, not included in license)  
 
-**Includes:**
+**Includes:**  
+
 - 1-hour kickoff call
 - SSO/SAML configuration
 - Integration setup (Slack, Teams, etc.)
 - Team training session
 - Custom documentation
 
-**Inquire:** [enterprise@theapiguys.com](mailto:enterprise@theapiguys.com)
+**Inquire:** [enterprise@theapiguys.com](mailto:enterprise@theapiguys.com)  
 
 ---
 
@@ -156,9 +166,10 @@ One-time setup assistance available.
 ### General Sales Questions
 Questions about pricing, features, or choosing a plan?
 
-**Email:** [sales@theapiguys.com](mailto:sales@theapiguys.com)
+**Email:** [sales@theapiguys.com](mailto:sales@theapiguys.com)  
 
-**Topics:**
+**Topics:**  
+
 - Pricing and discounts
 - Feature comparisons
 - Multi-site licensing
@@ -168,9 +179,10 @@ Questions about pricing, features, or choosing a plan?
 ### Enterprise Sales
 For teams, agencies, and organizations.
 
-**Email:** [enterprise@theapiguys.com](mailto:enterprise@theapiguys.com)
+**Email:** [enterprise@theapiguys.com](mailto:enterprise@theapiguys.com)  
 
-**Topics:**
+**Topics:**  
+
 - Enterprise licensing
 - Multi-site/agency licenses
 - Volume discounts
@@ -182,9 +194,10 @@ For teams, agencies, and organizations.
 ### Partnership & Reseller Inquiries
 Interested in reselling or partnering?
 
-**Email:** [partners@theapiguys.com](mailto:partners@theapiguys.com)
+**Email:** [partners@theapiguys.com](mailto:partners@theapiguys.com)  
 
-**Topics:**
+**Topics:**  
+
 - Reseller program
 - Agency partnerships
 - White-label licensing
@@ -203,11 +216,12 @@ See what features are being considered and vote for your favorites.
 ### Submit New Ideas
 Have an idea for a new feature?
 
-**Free Users:** Post in [GitHub Discussions](https://github.com/TheAPIGuysDev/zsoogi-clipper/discussions)
+**Free Users:** Post in [GitHub Discussions](https://github.com/TheAPIGuysDev/zsoogi-clipper/discussions)  
 
-**Premium/Enterprise:** Email premium@theapiguys.com or enterprise@theapiguys.com
+**Premium/Enterprise:** Email premium@theapiguys.com or enterprise@theapiguys.com  
 
-**What to include:**
+**What to include:**  
+
 - Clear description of the feature
 - Use case (how it helps you)
 - Examples from other tools (if applicable)
@@ -237,20 +251,22 @@ Join the conversation:
 
 Found a security vulnerability?
 
-**Email:** [security@theapiguys.com](mailto:security@theapiguys.com)
+**Email:** [security@theapiguys.com](mailto:security@theapiguys.com)  
 
 **Do NOT post security issues publicly on GitHub or forums.**
 
-**What to include:**
+**What to include:**  
+
 - Detailed description of the vulnerability
 - Steps to reproduce
 - Potential impact
 - Suggested fix (if you have one)
 
-**Response Time:** 48 hours for security issues
+**Response Time:** 48 hours for security issues  
 
-**Responsible Disclosure:**
+**Responsible Disclosure:**  
 We follow responsible disclosure practices. If you report a valid security issue:
+
 1. We'll acknowledge within 48 hours
 2. We'll fix the issue ASAP
 3. We'll credit you in release notes (if you wish)
@@ -260,21 +276,21 @@ We follow responsible disclosure practices. If you report a valid security issue
 
 ## Business Information
 
-**Company:** The API Guys
-**Website:** [theapiguys.com](https://theapiguys.com)
-**Support Site:** [theapiguys.com/support](https://theapiguys.com/support)
+**Company:** The API Guys  
+**Website:** [theapiguys.com](https://theapiguys.com)  
+**Support Site:** [theapiguys.com/support](https://theapiguys.com/support)  
 
-**Address:**
+**Address:**  
 The API Guys
 [Address TBD]
 [City, State, ZIP]
 United States
 
-**Business Hours:**
+**Business Hours:**  
 Monday - Friday: 9am - 5pm EST
 Saturday - Sunday: Closed (no support)
 
-**Holidays:**
+**Holidays:**  
 We're closed on US federal holidays. Response times may be longer during holiday weeks.
 
 ---
@@ -315,6 +331,7 @@ Save time by trying these first:
 
 ### 4. Gather Information
 Before contacting support, collect:
+
 - WordPress version
 - PHP version
 - Zsoogi Clipper version
@@ -340,6 +357,7 @@ Before contacting support, collect:
 
 ### Include Screenshots
 A picture is worth 1000 words. Use screenshots to show:
+
 - Error messages
 - Console errors (F12 in browser)
 - Settings configuration
@@ -353,12 +371,13 @@ Our support team is here to help! Being courteous leads to faster, better suppor
 ## Feedback
 
 We love feedback! Tell us:
+
 - What you love about Zsoogi Clipper
 - What could be better
 - Features you'd like to see
 - How you use the plugin
 
-**Email:** [feedback@theapiguys.com](mailto:feedback@theapiguys.com)
+**Email:** [feedback@theapiguys.com](mailto:feedback@theapiguys.com)  
 
 ---
 

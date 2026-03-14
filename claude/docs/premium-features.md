@@ -1,9 +1,9 @@
 # Zsoogi Clipper - Premium Edition
 
-**Version:** 3.0.0 (Planned)
-**Price:** $79/year
-**Distribution:** Purchase from theapiguys.com
-**Target Audience:** Power users, researchers, content creators, academics
+**Version:** 3.0.0 (Planned)  
+**Price:** $79/year  
+**Distribution:** Purchase from theapiguys.com  
+**Target Audience:** Power users, researchers, content creators, academics  
 
 ---
 
@@ -12,7 +12,7 @@
 ### Everything in Free, PLUS:
 
 #### 1. YouTube Transcript Capture 🔥
-**Status:** ✅ Already Built (ProVersion branch v2.4.3)
+**Status:** ✅ Already Built (ProVersion branch v2.4.3)  
 
 - **Full Transcript Scraping:** Automatically captures complete video transcripts from YouTube
 - **Searchable Storage:** Transcripts stored in post metadata for easy searching
@@ -21,7 +21,8 @@
 - **Time Savings:** ~15 minutes per video vs. manual transcription
 - **Value:** Save 12.5 hours/year capturing 50 transcripts = **$625 value at $50/hr**
 
-**Use Cases:**
+**Use Cases:**  
+
 - Academic research with video sources
 - Content creation research
 - Podcast/interview note-taking
@@ -29,7 +30,7 @@
 - Training material compilation
 
 #### 2. Advanced Citation Formats
-**Status:** 📋 Planned Q2 2026
+**Status:** 📋 Planned Q2 2026  
 
 - **Multiple Styles:** Simple, Detailed, Academic (MLA, APA, Chicago, IEEE)
 - **Custom Templates:** Build your own citation format with template builder
@@ -37,14 +38,15 @@
 - **Export Options:** Export to BibTeX, Zotero, EndNote
 - **In-Text Citations:** Shortcodes for inserting citations in posts/pages
 
-**Example Formats:**
+**Example Formats:**  
+
 - **Simple:** `Source: [Title](URL)`
 - **Detailed:** `Source: [Title](URL) - Captured on Jan 30, 2026`
 - **Academic APA:** `Author. (2026). Title. Retrieved from URL`
 - **Chicago:** `Title. Accessed January 30, 2026. URL.`
 
 #### 3. PDF Content Extraction
-**Status:** 📋 Planned Q2 2026
+**Status:** 📋 Planned Q2 2026  
 
 - **Text Extraction:** Pull text content from PDF files via URL or upload
 - **Image Extraction:** Capture images embedded in PDFs
@@ -53,7 +55,7 @@
 - **Archive PDFs:** Option to download and store PDFs on your server
 
 #### 4. Enhanced Content Capture
-**Status:** 📋 Planned Q2-Q3 2026
+**Status:** 📋 Planned Q2-Q3 2026  
 
 - **Multi-Image Capture:** Capture multiple images with gallery support
 - **Full-Page Screenshots:** Capture entire page as image (via API)
@@ -62,20 +64,21 @@
 - **Better Image Detection:** AI-powered detection of meaningful content images
 
 #### 5. Custom Branding
-**Status:** ✅ Available (removed from free version)
+**Status:** ✅ Available (removed from free version)  
 
 - **Custom Menu Labels:** Change "Zsoogi Clips" to your preferred name
 - **Custom Post Type Labels:** Rename throughout WordPress admin
 - **Your Brand:** Use your company/project name instead of "Zsoogi"
 
-**Example Use Cases:**
+**Example Use Cases:**  
+
 - "Research Library" for academic institutions
 - "Client Projects" for agencies
 - "Case Studies" for consultants
 - "Content Ideas" for writers
 
 #### 6. Enhanced Organization
-**Status:** 📋 Planned Q3 2026
+**Status:** 📋 Planned Q3 2026  
 
 - **Unlimited Taxonomies:** Create multiple custom taxonomies beyond "Zsoogi Type"
 - **Custom Fields:** Add metadata fields for tracking custom information
@@ -84,7 +87,7 @@
 - **Smart Folders:** Dynamic collections based on rules
 
 #### 7. Priority Support
-**Status:** ✅ Available immediately upon purchase
+**Status:** ✅ Available immediately upon purchase  
 
 - **Email Support:** Direct email access to development team
 - **Response Time:** 24-hour response guarantee on business days
@@ -98,6 +101,7 @@
 
 ### Annual Subscription
 **$79/year** ($6.58/month)
+
 - All Premium features
 - Priority email support
 - Automatic updates
@@ -106,12 +110,14 @@
 
 ### Launch Pricing (Limited Time)
 **$55/year** (30% off first year)
+
 - Lock in launch pricing
 - Renews at regular price
 - Early adopter benefits
 
 ### Educational Discount
 **$47/year** (40% off with .edu email)
+
 - Verify .edu email address
 - For students, faculty, researchers
 - Renewable annually with verification
@@ -140,19 +146,22 @@
 
 ### Delivery Method
 
-**Distribution Channel:** Direct download from theapiguys.com customer portal
+**Distribution Channel:** Direct download from theapiguys.com customer portal  
 
-**Plugin Type:** Separate plugin from free version
+**Plugin Type:** Separate plugin from free version  
+
 - **Plugin Name:** `zsoogi-clipper-premium`
 - **Cannot Run Simultaneously:** Deactivate free version before activating Premium
 - **Data Migration:** All your clips automatically migrate from free to premium
 
-**Updates:**
+**Updates:**  
+
 - Automatic updates via built-in update system
 - Update checks twice daily
 - One-click updates from WordPress admin
 
-**License Management:**
+**License Management:**  
+
 - Managed via theapiguys.com API
 - License key validates on activation
 - Annual renewal required for updates/support
@@ -178,8 +187,8 @@
 6. **Verify all clips intact**
 7. **Delete free version** (optional, after confirming everything works)
 
-**Migration Time:** ~5 minutes
-**Downtime:** None (content remains accessible throughout)
+**Migration Time:** ~5 minutes  
+**Downtime:** None (content remains accessible throughout)  
 
 ---
 
@@ -243,30 +252,35 @@
 ### Premium is Perfect For:
 
 ✅ **Academic Researchers**
+
 - Multiple citation format requirements
 - YouTube video source documentation
 - PDF research paper capture
 - Bibliography generation
 
 ✅ **Content Creators**
+
 - Video research with transcripts
 - Competitive content analysis
 - Source material organization
 - Quick reference lookup
 
 ✅ **Journalists & Writers**
+
 - Interview transcript capture
 - Source citation management
 - Multi-source research
 - Fact-checking references
 
 ✅ **Students**
+
 - Lecture video transcripts
 - Research paper references
 - Study material organization
 - Citation format compliance
 
 ✅ **Consultants & Professionals**
+
 - Client research documentation
 - Branded knowledge base
 - Professional citations
@@ -285,6 +299,7 @@
 ## Return Policy
 
 **30-Day Money-Back Guarantee**
+
 - Try Premium risk-free for 30 days
 - Full refund if not satisfied, no questions asked
 - Keep using free version if you downgrade

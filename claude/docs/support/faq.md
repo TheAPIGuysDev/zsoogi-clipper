@@ -28,17 +28,20 @@ A bookmarklet is a small JavaScript program stored as a bookmark. Unlike browser
 
 ### Which version should I choose?
 
-**Choose Free if:**
+**Choose Free if:**  
+
 - You're an individual user
 - Basic web clipping is enough
 - You don't need YouTube transcripts
 
-**Choose Premium if:**
+**Choose Premium if:**  
+
 - You need YouTube transcript capture
 - You work with PDFs
 - You want multiple citation formats
 
-**Choose Enterprise if:**
+**Choose Enterprise if:**  
+
 - You have a team
 - You need collaboration features
 - You want AI-powered tools
@@ -47,9 +50,9 @@ A bookmarklet is a small JavaScript program stored as a bookmark. Unlike browser
 
 ### Can I install on multiple sites?
 
-**Free:** Yes, unlimited sites
-**Premium:** 1 license = 1 site (additional sites $29/year)
-**Enterprise:** Multi-site licensing available
+**Free:** Yes, unlimited sites  
+**Premium:** 1 license = 1 site (additional sites $29/year)  
+**Enterprise:** Multi-site licensing available  
 
 ### Does it work with my theme?
 
@@ -102,33 +105,33 @@ This isn't a built-in feature - clips are designed to be private research. You c
 
 ### What citation formats are available?
 
-**Free:** Simple format only (`Source: [Title](URL)`)
-**Premium:** Simple, Detailed, Academic (MLA, APA, Chicago, IEEE), Custom templates
-**Enterprise:** Same as Premium
+**Free:** Simple format only (`Source: [Title](URL)`)  
+**Premium:** Simple, Detailed, Academic (MLA, APA, Chicago, IEEE), Custom templates  
+**Enterprise:** Same as Premium  
 
 ### Does it capture YouTube transcripts?
 
-**Free:** No, only title cleanup and thumbnails
-**Premium:** Yes! Full transcript with timestamps
-**Enterprise:** Yes, same as Premium
+**Free:** No, only title cleanup and thumbnails  
+**Premium:** Yes! Full transcript with timestamps  
+**Enterprise:** Yes, same as Premium  
 
 ### Can it capture PDFs?
 
-**Free:** No
-**Premium:** Yes, text and image extraction from PDFs
-**Enterprise:** Yes, same as Premium
+**Free:** No  
+**Premium:** Yes, text and image extraction from PDFs  
+**Enterprise:** Yes, same as Premium  
 
 ### Does it work with private/authenticated sites?
 
-**Free:** No
-**Premium:** Cookie forwarding planned for future release
-**Enterprise:** Cookie forwarding + authenticated capture
+**Free:** No  
+**Premium:** Cookie forwarding planned for future release  
+**Enterprise:** Cookie forwarding + authenticated capture  
 
 ### Can I capture multiple images?
 
-**Free:** First image only
-**Premium:** Up to 10 images per clip
-**Enterprise:** Unlimited images
+**Free:** First image only  
+**Premium:** Up to 10 images per clip  
+**Enterprise:** Unlimited images  
 
 ---
 
@@ -172,8 +175,8 @@ On your WordPress site's database. Nothing is stored on external servers (except
 
 ### Do you collect usage data?
 
-**Free:** No data collection
-**Premium/Enterprise:** Opt-in telemetry for feature usage (can be disabled)
+**Free:** No data collection  
+**Premium/Enterprise:** Opt-in telemetry for feature usage (can be disabled)  
 
 ### Is my content private?
 
@@ -186,6 +189,7 @@ Yes! Use WordPress's built-in export tool (Tools → Export) or the WordPress RE
 ### What happens if I delete the plugin?
 
 Clips remain in your database. To fully remove:
+
 1. Deactivate and delete the plugin
 2. Manually delete clips from database (not recommended unless you're sure)
 
@@ -199,12 +203,14 @@ Yes. Premium and Enterprise include GDPR compliance tools for data export and de
 
 ### What are the system requirements?
 
-**Minimum:**
+**Minimum:**  
+
 - WordPress 5.8+
 - PHP 7.4+
 - MySQL 5.7+
 
-**Recommended:**
+**Recommended:**  
+
 - WordPress 6.0+
 - PHP 8.0+
 - MySQL 8.0+
@@ -213,8 +219,8 @@ Yes. Premium and Enterprise include GDPR compliance tools for data export and de
 
 ### Does it work on shared hosting?
 
-**Free/Premium:** Yes
-**Enterprise:** VPS or dedicated hosting recommended for optimal performance
+**Free/Premium:** Yes  
+**Enterprise:** VPS or dedicated hosting recommended for optimal performance  
 
 ### Does it require jQuery?
 
@@ -226,8 +232,8 @@ Advanced users can modify `assets/js/bookmarklet.js` in the plugin directory. Ch
 
 ### Does it have an API?
 
-**Free/Premium:** Basic WordPress REST API
-**Enterprise:** Full REST API + optional GraphQL endpoint
+**Free/Premium:** Basic WordPress REST API  
+**Enterprise:** Full REST API + optional GraphQL endpoint  
 
 ### Can I integrate with other plugins?
 
@@ -239,25 +245,29 @@ Yes! Zsoogi Clipper uses standard WordPress hooks and filters. Developers can ex
 
 ### Bookmarklet opens but content isn't pre-filled
 
-**Causes:**
+**Causes:**  
+
 1. JavaScript error on source page
 2. Cross-origin security restrictions
 3. Page structure not compatible
 
-**Solutions:**
+**Solutions:**  
+
 1. Check browser console for errors
 2. Try on a different page to isolate issue
 3. Report issue with page URL to support
 
 ### License won't activate
 
-**Causes:**
+**Causes:**  
+
 1. Wrong license key
 2. License expired
 3. Domain mismatch
 4. API connection issue
 
-**Solutions:**
+**Solutions:**  
+
 1. Copy entire license key (no spaces)
 2. Check expiration at theapiguys.com/account
 3. Verify domain matches license
@@ -265,17 +275,20 @@ Yes! Zsoogi Clipper uses standard WordPress hooks and filters. Developers can ex
 
 ### Clips aren't showing in WordPress admin
 
-**Causes:**
+**Causes:**  
+
 1. Post type not registered (rare)
 2. Permalink conflict
 
-**Solutions:**
+**Solutions:**  
+
 1. Deactivate and reactivate plugin
 2. Go to Settings → Permalinks → Save Changes
 
 ### Performance issues with many clips
 
-**Solutions:**
+**Solutions:**  
+
 1. Upgrade to PHP 8.0+
 2. Enable object caching (Redis/Memcached)
 3. Increase PHP memory limit
@@ -317,14 +330,17 @@ Yes! Remove "Powered by Zsoogi Clipper" branding, customize colors, use your com
 
 ### How do I get help?
 
-**Free Users:**
+**Free Users:**  
+
 - [WordPress.org Support Forum](https://wordpress.org/support/plugin/zsoogi-clipper/)
 - [GitHub Issues](https://github.com/TheAPIGuysDev/zsoogi-clipper/issues)
 
-**Premium Users:**
+**Premium Users:**  
+
 - Email: premium@theapiguys.com (24hr response)
 
-**Enterprise Users:**
+**Enterprise Users:**  
+
 - Email: enterprise@theapiguys.com (8hr response)
 - Dedicated Slack channel
 
@@ -332,9 +348,9 @@ Yes! Remove "Powered by Zsoogi Clipper" branding, customize colors, use your com
 
 ### Can you help me set up my site?
 
-**Free:** Community support only
-**Premium:** Email support for plugin-related questions
-**Enterprise:** Implementation assistance included ($500 one-time setup service available)
+**Free:** Community support only  
+**Premium:** Email support for plugin-related questions  
+**Enterprise:** Implementation assistance included ($500 one-time setup service available)  
 
 ### Do you offer custom development?
 

@@ -2,8 +2,8 @@
 
 > Strategic plan for launching Zsoogi Clipper with a tiered freemium model
 
-**Last Updated:** 2026-01-30
-**Status:** Planning Phase
+**Last Updated:** 2026-01-30  
+**Status:** Planning Phase  
 
 ---
 
@@ -45,7 +45,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [x] Basic settings page
 - [x] WordPress REST API support
 
-**Status:** ✅ Complete (v2.4.0 on main branch)
+**Status:** ✅ Complete (v2.4.0 on main branch)  
 
 ---
 
@@ -53,10 +53,10 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 ### Tier 1: Pro ($49-79/year)
 
-**Target:** Power users, researchers, content creators
+**Target:** Power users, researchers, content creators  
 
 #### 1. YouTube Transcript Capture
-**Priority:** 🔥 High | **Status:** ✅ Built (ProVersion branch)
+**Priority:** 🔥 High | **Status:** ✅ Built (ProVersion branch)  
 
 - [ ] Merge ProVersion branch transcript functionality
 - [ ] Full transcript scraping from YouTube pages
@@ -64,10 +64,10 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Automatic timestamp links in content
 - [ ] Transcript excerpt in post content
 
-**Technical Notes:** Already implemented in ProVersion v2.4.3. See [GitHub Issue #5](https://github.com/pbrocks/zsoogi-clipper/issues/5) for implementation details.
+**Technical Notes:** Already implemented in ProVersion v2.4.3. See [GitHub Issue #5](https://github.com/pbrocks/zsoogi-clipper/issues/5) for implementation details.  
 
 #### 2. Advanced Content Capture
-**Priority:** 🔥 High | **Status:** 📋 Planned
+**Priority:** 🔥 High | **Status:** 📋 Planned  
 
 - [ ] PDF content extraction (text and images)
 - [ ] Archive.org integration for wayback machine captures
@@ -76,7 +76,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Multi-image capture with gallery support
 
 #### 3. Enhanced Organization
-**Priority:** 🟡 Medium | **Status:** 📋 Planned
+**Priority:** 🟡 Medium | **Status:** 📋 Planned  
 
 - [ ] Unlimited custom taxonomies
 - [ ] Custom fields for metadata
@@ -85,7 +85,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Smart folders/collections
 
 #### 4. Citation Management
-**Priority:** 🟡 Medium | **Status:** 📋 Planned
+**Priority:** 🟡 Medium | **Status:** 📋 Planned  
 
 - [ ] Custom citation template builder
 - [ ] Multiple citation styles (MLA, APA, Chicago, IEEE)
@@ -97,10 +97,10 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 ### Tier 2: Business ($149-199/year)
 
-**Target:** Teams, small-to-medium businesses, research groups
+**Target:** Teams, small-to-medium businesses, research groups  
 
 #### 5. Team Collaboration
-**Priority:** 🔥 High | **Status:** 📋 Planned
+**Priority:** 🔥 High | **Status:** 📋 Planned  
 
 - [ ] Role-based access control (not just admin-only)
 - [ ] Assignment and approval workflows
@@ -110,7 +110,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] @mentions in comments
 
 #### 6. AI-Powered Features
-**Priority:** 🔥 High | **Status:** 💡 Research
+**Priority:** 🔥 High | **Status:** 💡 Research  
 
 - [ ] Automatic content summarization (OpenAI/Anthropic API)
 - [ ] Smart tag suggestions based on content
@@ -120,7 +120,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Key phrase extraction
 
 #### 7. Advanced Integrations
-**Priority:** 🟡 Medium | **Status:** 📋 Planned
+**Priority:** 🟡 Medium | **Status:** 📋 Planned  
 
 - [ ] Slack notifications for new clips
 - [ ] API webhooks for custom workflows
@@ -131,7 +131,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Email digest notifications
 
 #### 8. Analytics Dashboard
-**Priority:** 🟢 Low | **Status:** 📋 Planned
+**Priority:** 🟢 Low | **Status:** 📋 Planned  
 
 - [ ] Most captured sources tracking
 - [ ] Popular clips analytics
@@ -144,10 +144,10 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 ### Tier 3: Enterprise ($399+/year)
 
-**Target:** Large organizations, agencies, enterprise clients
+**Target:** Large organizations, agencies, enterprise clients  
 
 #### 9. White Label
-**Priority:** 🟢 Low | **Status:** 📋 Planned
+**Priority:** 🟢 Low | **Status:** 📋 Planned  
 
 - [ ] Custom branding options
 - [ ] Remove plugin attribution
@@ -156,7 +156,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Branded exports
 
 #### 10. Advanced Security
-**Priority:** 🟡 Medium | **Status:** 📋 Planned
+**Priority:** 🟡 Medium | **Status:** 📋 Planned  
 
 - [ ] Comprehensive audit logs
 - [ ] SSO integration (SAML, OAuth)
@@ -166,7 +166,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] GDPR compliance tools
 
 #### 11. API Access
-**Priority:** 🟡 Medium | **Status:** 📋 Planned
+**Priority:** 🟡 Medium | **Status:** 📋 Planned  
 
 - [ ] Full REST API for custom integrations
 - [ ] API rate limiting controls
@@ -180,7 +180,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 ## Feature Priority Matrix
 
 ### Phase 1: Launch (Q1 2026)
-**Goal:** Get free version on WordPress.org
+**Goal:** Get free version on WordPress.org  
 
 - [x] Polish free version (v2.4.0)
 - [ ] Create WordPress.org listing
@@ -189,40 +189,46 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Create demo video
 
 ### Phase 2: Pro Launch (Q2 2026)
-**Goal:** Launch Pro tier with high-value features
+**Goal:** Launch Pro tier with high-value features  
 
-**Must Have (MVP):**
+**Must Have (MVP):**  
+
 1. [ ] YouTube Transcript Capture (already built!)
 2. [ ] License management system (Freemius)
 3. [ ] PDF content extraction
 4. [ ] Auto-update system
 
-**Nice to Have:**
+**Nice to Have:**  
+
 - [ ] Enhanced organization features
 - [ ] Citation management basics
 
 ### Phase 3: Business Features (Q3 2026)
-**Goal:** Enable team collaboration
+**Goal:** Enable team collaboration  
 
-**Must Have:**
+**Must Have:**  
+
 1. [ ] Role-based access control
 2. [ ] AI summarization (OpenAI integration)
 3. [ ] Slack integration
 4. [ ] Comments/annotations
 
-**Nice to Have:**
+**Nice to Have:**  
+
 - [ ] Analytics dashboard
 - [ ] Additional integrations
 
 ### Phase 4: Enterprise (Q4 2026)
-**Goal:** Target larger organizations
+**Goal:** Target larger organizations  
 
-**Must Have:**
+**Must Have:**  
+
 1. [ ] SSO integration
 2. [ ] API access
 3. [ ] Audit logs
 
-**Nice to Have:**
+**Nice to Have:**  
+
 - [ ] White label options
 - [ ] Advanced security features
 
@@ -285,23 +291,27 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 ### Psychological Pricing
 
 **Pro Tier: $49-79/year**
+
 - Entry price point: $49/year ($4/month)
 - Value proposition: "Save hours manually transcribing YouTube videos"
 - Target conversion: 20-30% of free users
 
 **Business Tier: $149-199/year**
+
 - Team price point: $149/year (~$12/month)
 - Value proposition: "10x your team's research productivity"
 - Target conversion: 5-10% of Pro users
 
 **Enterprise Tier: $399+/year**
+
 - Enterprise price point: Custom pricing, starting at $399/year
 - Value proposition: "Enterprise-grade security and compliance"
 - Target conversion: 1-3% of Business users
 
 ### Value-Based Pricing Calculation
 
-**Time Savings Example:**
+**Time Savings Example:**  
+
 - Manual YouTube transcript: ~15 minutes per video
 - With Zsoogi Clipper Pro: ~30 seconds
 - If capturing 50 transcripts/year: **12.5 hours saved**
@@ -345,7 +355,8 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 ### Analytics Tracking
 
-**Must Track:**
+**Must Track:**  
+
 - [ ] Which features drive upgrades (in-app surveys)
 - [ ] Where users drop off in onboarding
 - [ ] Most-used premium features
@@ -429,7 +440,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 ---
 
-**Document Owner:** pbrocks
-**Contributors:** Claude Code
-**Version:** 1.0
-**License:** Internal use only 
+**Document Owner:** pbrocks  
+**Contributors:** Claude Code  
+**Version:** 1.0  
+**License:** Internal use only  

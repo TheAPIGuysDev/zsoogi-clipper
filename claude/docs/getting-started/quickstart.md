@@ -17,6 +17,7 @@ If your bookmarks bar isn't visible:
 ### 1.2 Navigate to Installation Page
 
 In your WordPress admin:
+
 1. Click **Zsoogi Clips** in the left menu
 2. Click **Grab Zsoogi** submenu
 3. You'll see a big button with your site name
@@ -39,7 +40,8 @@ Drag the bookmarklet button to your bookmarks bar. It should say something like:
 
 Open a new tab and go to any article, blog post, or YouTube video you want to capture.
 
-**Try this example:**
+**Try this example:**  
+
 - Visit [Wikipedia](https://en.wikipedia.org/wiki/Research)
 - Or any YouTube video with captions/transcript
 
@@ -54,13 +56,14 @@ Highlight any text you want to capture. This will become a blockquote in your cl
 
 Click the bookmarklet in your bookmarks bar.
 
-**What happens:**
+**What happens:**  
+
 1. A new window/tab opens
 2. WordPress new post editor appears
 3. Content is pre-filled:
-   - Selected text (as blockquote)
-   - Source citation with link
-   - Notes section ready for your commentary
+    - Selected text (as blockquote)
+    - Source citation with link
+    - Notes section ready for your commentary
 
 ### 2.4 Add Your Notes & Publish
 
@@ -82,6 +85,7 @@ Go to **Zsoogi Clips → All Zsoogi Clips** to see your captured content.
 ### 3.2 Add Taxonomies
 
 Click **Edit** on any clip and use the "Zsoogi Type" taxonomy to organize:
+
 - Research
 - Articles
 - Videos
@@ -104,10 +108,12 @@ Go to **Zsoogi Clips → Settings** to customize:
 ### Basic Settings
 
 **Auto-Set Featured Image**
+
 - ✅ Recommended: Keep this ON
 - Automatically sets captured image as featured image
 
 **Include Page Metadata**
+
 - Optional: Shows capture date/time in content
 - Useful for tracking when research was gathered
 
@@ -134,11 +140,13 @@ Go to **Zsoogi Clips → Settings** to customize:
 
 ### YouTube Video Research
 
-**Free Version:**
+**Free Version:**  
+
 - Captures clean title and thumbnail
 - Links to video
 
-**Premium Version:**
+**Premium Version:**  
+
 - Also captures full transcript
 - Searchable transcript text
 - Timestamp links
@@ -177,6 +185,7 @@ Free version captures the first meaningful image. Premium can capture multiple i
 ### Edit After Capture
 
 The bookmarklet just pre-fills content. You can edit everything before publishing:
+
 - Change the title
 - Edit blockquotes
 - Add more content
@@ -185,6 +194,7 @@ The bookmarklet just pre-fills content. You can edit everything before publishin
 ### Search Your Clips
 
 Use WordPress search to find clips by:
+
 - Title keywords
 - Content
 - Source URL
@@ -208,6 +218,7 @@ Use WordPress search to find clips by:
 ### Upgrade
 
 Ready for more features?
+
 - [Compare all plans](../pricing-comparison.md)
 - [Upgrade to Premium](https://theapiguys.com/zsoogi-clipper/premium)
 - [Upgrade to Enterprise](https://theapiguys.com/zsoogi-clipper/enterprise)

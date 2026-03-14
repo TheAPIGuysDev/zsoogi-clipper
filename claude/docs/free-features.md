@@ -1,9 +1,9 @@
 # Zsoogi Clipper - Free (Community) Edition
 
-**Version:** 2.4.0
-**Price:** Free
-**Distribution:** WordPress.org Plugin Repository
-**Target Audience:** Individual users, bloggers, casual researchers
+**Version:** 2.4.0  
+**Price:** Free  
+**Distribution:** WordPress.org Plugin Repository  
+**Target Audience:** Individual users, bloggers, casual researchers  
 
 ---
 
@@ -74,14 +74,14 @@
 ### Installation
 
 1. **From WordPress.org:**
-   - Go to WordPress Admin → Plugins → Add New
-   - Search for "Zsoogi Clipper"
-   - Click "Install Now" then "Activate"
+    - Go to WordPress Admin → Plugins → Add New
+    - Search for "Zsoogi Clipper"
+    - Click "Install Now" then "Activate"
 
 2. **Manual Installation:**
-   - Download from [wordpress.org/plugins/zsoogi-clipper](https://wordpress.org/plugins/zsoogi-clipper)
-   - Upload to `/wp-content/plugins/` directory
-   - Activate through the WordPress Plugins menu
+    - Download from [wordpress.org/plugins/zsoogi-clipper](https://wordpress.org/plugins/zsoogi-clipper)
+    - Upload to `/wp-content/plugins/` directory
+    - Activate through the WordPress Plugins menu
 
 ### Setup
 
@@ -94,11 +94,11 @@
 
 ## Delivery Method
 
-**Distribution:** Standard WordPress plugin from WordPress.org repository
-**Updates:** Automatic via WordPress update system
-**License:** GPL v2 or later (Open Source)
-**Support:** WordPress.org community support forum
-**Documentation:** Free documentation at theapiguys.com/docs
+**Distribution:** Standard WordPress plugin from WordPress.org repository  
+**Updates:** Automatic via WordPress update system  
+**License:** GPL v2 or later (Open Source)  
+**Support:** WordPress.org community support forum  
+**Documentation:** Free documentation at theapiguys.com/docs  
 
 ---
 
@@ -115,14 +115,16 @@
 
 ### Want More Features?
 
-**Premium ($79/year):**
+**Premium ($79/year):**  
+
 - YouTube transcript capture
 - PDF content extraction
 - Multiple citation styles
 - Custom branding options
 - Priority email support
 
-**Enterprise ($199/year):**
+**Enterprise ($199/year):**  
+
 - Everything in Premium
 - Team collaboration features
 - AI-powered content summarization
@@ -151,22 +153,26 @@
 
 ### Free Version Constraints
 
-**Content Capture:**
+**Content Capture:**  
+
 - Single image per capture (no galleries)
 - Text selection only (no full-page capture)
 - Basic citation format only
 
-**Organization:**
+**Organization:**  
+
 - Single taxonomy (Zsoogi Type)
 - No custom fields
 - No content templates
 
-**Access Control:**
+**Access Control:**  
+
 - Administrator-only (no granular permissions)
 - No team collaboration features
 - No user assignment workflows
 
-**Integration:**
+**Integration:**  
+
 - Basic WordPress REST API only
 - No third-party integrations
 - No webhook support

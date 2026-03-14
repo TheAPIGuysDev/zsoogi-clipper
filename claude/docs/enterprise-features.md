@@ -1,9 +1,9 @@
 # Zsoogi Clipper - Enterprise Edition
 
-**Version:** 3.5.0 (Planned)
-**Price:** $199/year
-**Distribution:** Purchase from theapiguys.com
-**Target Audience:** Teams, organizations, agencies, research groups, large businesses
+**Version:** 3.5.0 (Planned)  
+**Price:** $199/year  
+**Distribution:** Purchase from theapiguys.com  
+**Target Audience:** Teams, organizations, agencies, research groups, large businesses  
 
 ---
 
@@ -12,7 +12,7 @@
 ### Everything in Premium, PLUS:
 
 #### 1. Team Collaboration 🔥
-**Status:** 📋 Planned Q3 2026 | **Priority:** High
+**Status:** 📋 Planned Q3 2026 | **Priority:** High  
 
 ##### Role-Based Access Control
 - **Custom Roles:** Create roles beyond just "Administrator"
@@ -32,7 +32,8 @@
 - **Activity Tracking:** See who created, edited, or commented on clips
 - **Shared Collections:** Collaborate on shared clip libraries
 
-**Use Cases:**
+**Use Cases:**  
+
 - Marketing teams researching competitors
 - Academic research groups
 - Newsrooms collecting sources
@@ -40,7 +41,7 @@
 - Corporate knowledge bases
 
 #### 2. AI-Powered Features 🤖
-**Status:** 💡 Research Phase Q3 2026 | **Priority:** High
+**Status:** 💡 Research Phase Q3 2026 | **Priority:** High  
 
 ##### Content Intelligence
 - **Auto-Summarization:** AI generates summaries of captured content
@@ -74,13 +75,14 @@
 - **Model Selection:** Choose GPT-4, GPT-3.5, Claude Sonnet, etc.
 - **Privacy Options:** Process locally or via API (your choice)
 
-**Monthly AI Costs (Estimate):**
+**Monthly AI Costs (Estimate):**  
+
 - Light use (50 clips/mo): ~$5-10 in API costs
 - Medium use (200 clips/mo): ~$20-30 in API costs
 - Heavy use (500 clips/mo): ~$50-75 in API costs
 
 #### 3. Advanced Integrations
-**Status:** 📋 Planned Q3-Q4 2026 | **Priority:** Medium
+**Status:** 📋 Planned Q3-Q4 2026 | **Priority:** Medium  
 
 ##### Communication Tools
 - **Slack Integration:**
@@ -127,7 +129,7 @@
 - **API Access:** Full REST API for custom integrations (see API Access below)
 
 #### 4. Analytics Dashboard 📊
-**Status:** 📋 Planned Q4 2026 | **Priority:** Low-Medium
+**Status:** 📋 Planned Q4 2026 | **Priority:** Low-Medium  
 
 ##### Usage Analytics
 - **Capture Metrics:**
@@ -157,7 +159,7 @@
 - **Data Visualization:** Charts and graphs for trend analysis
 
 #### 5. White Label Options
-**Status:** 📋 Planned Q4 2026 | **Priority:** Low
+**Status:** 📋 Planned Q4 2026 | **Priority:** Low  
 
 ##### Branding Customization
 - **Remove Attribution:** Remove "Powered by Zsoogi Clipper" branding
@@ -167,14 +169,15 @@
 - **Custom Icons:** Replace plugin icons with your logo
 - **Branded Exports:** PDFs and exports include your company branding
 
-**Use Cases:**
+**Use Cases:**  
+
 - Agencies white-labeling for clients
 - Consulting firms with custom tools
 - Large organizations with brand guidelines
 - SaaS platforms embedding research tools
 
 #### 6. Advanced Security & Compliance
-**Status:** 📋 Planned Q4 2026 | **Priority:** Medium
+**Status:** 📋 Planned Q4 2026 | **Priority:** Medium  
 
 ##### Enterprise Security
 - **Single Sign-On (SSO):**
@@ -217,7 +220,7 @@
 - **Disaster Recovery:** Off-site backup storage option
 
 #### 7. Full REST API Access
-**Status:** 📋 Planned Q4 2026 | **Priority:** Medium
+**Status:** 📋 Planned Q4 2026 | **Priority:** Medium  
 
 ##### API Features
 - **Complete CRUD Operations:** Create, read, update, delete clips via API
@@ -234,7 +237,8 @@
 - **Sandbox Environment:** Test API without affecting production
 - **Webhook Testing:** Test webhooks before deployment
 
-**Use Cases:**
+**Use Cases:**  
+
 - Custom dashboards and interfaces
 - Mobile app development
 - Integration with proprietary systems
@@ -242,7 +246,7 @@
 - Data science and analytics
 
 #### 8. Premium Support & Services
-**Status:** ✅ Available immediately upon purchase
+**Status:** ✅ Available immediately upon purchase  
 
 ##### Support Level
 - **Priority Support:** 8-hour response time (business hours)
@@ -263,6 +267,7 @@
 
 ### Annual Subscription
 **$199/year** (~$16.58/month)
+
 - All Premium features
 - All Enterprise features (except AI API costs)
 - Priority support (8hr response)
@@ -320,27 +325,31 @@
 
 ### Delivery Method
 
-**Distribution Channel:** Direct download from theapiguys.com enterprise portal
+**Distribution Channel:** Direct download from theapiguys.com enterprise portal  
 
-**Plugin Type:** Separate enterprise-grade plugin
+**Plugin Type:** Separate enterprise-grade plugin  
+
 - **Plugin Name:** `zsoogi-clipper-enterprise`
 - **Replaces:** Free and Premium versions (cannot run simultaneously)
 - **Data Migration:** Automatic migration from Free/Premium
 - **Zero Downtime:** Seamless upgrade process
 
-**Updates:**
+**Updates:**  
+
 - Automatic priority updates (enterprise features first)
 - Beta access to new features
 - Dedicated update channel (more stable than general releases)
 - Rollback capability if issues occur
 
-**License Management:**
+**License Management:**  
+
 - Multi-site license dashboard
 - Transfer licenses between domains
 - Usage analytics per site
 - Centralized billing
 
-**Integration Delivery:**
+**Integration Delivery:**  
+
 - Some features require external API keys (your keys):
   - OpenAI/Anthropic for AI features
   - Slack/Teams app installation
@@ -369,8 +378,8 @@
 6. **Invite team members** to WordPress
 7. **Configure new Enterprise features** (SSO, integrations, etc.)
 
-**Migration Time:** ~15-30 minutes (including team setup)
-**Data Loss:** None - all clips, settings, and metadata preserved
+**Migration Time:** ~15-30 minutes (including team setup)  
+**Data Loss:** None - all clips, settings, and metadata preserved  
 
 ---
 
@@ -391,19 +400,22 @@
 - **Caching:** Object caching (Redis/Memcached) for optimal performance
 
 ### External Service Requirements
-**Included (No Additional Cost):**
+**Included (No Additional Cost):**  
+
 - License validation API (theapiguys.com)
 - Update server (theapiguys.com)
 - YouTube transcript API (free public API)
 
-**Your API Keys Required (Enterprise Features):**
+**Your API Keys Required (Enterprise Features):**  
+
 - OpenAI API key for AI features (optional)
 - Anthropic API key for Claude AI (optional)
 - Slack app credentials (optional)
 - Microsoft Teams app credentials (optional)
 - Zapier account (optional)
 
-**Estimated External Costs:**
+**Estimated External Costs:**  
+
 - OpenAI API: $5-50/month (depends on usage)
 - Slack: Free (or existing workspace)
 - Microsoft Teams: Included with Microsoft 365
@@ -446,36 +458,42 @@
 ### Enterprise is Perfect For:
 
 ✅ **Marketing & Content Teams**
+
 - Collaborative competitor research
 - Content ideation and research
 - Campaign research organization
 - Team workflow management
 
 ✅ **Research Organizations**
+
 - Academic research groups
 - Think tanks and policy institutes
 - Market research firms
 - Scientific collaboration
 
 ✅ **Agencies & Consulting Firms**
+
 - Client research management
 - White-label solutions for clients
 - Multi-client organization
 - Team collaboration across projects
 
 ✅ **Corporate Teams**
+
 - Knowledge management systems
 - Product research documentation
 - Competitive intelligence
 - Internal documentation libraries
 
 ✅ **Newsrooms & Media**
+
 - Source tracking for journalists
 - Collaborative investigations
 - Fact-checking workflows
 - Editorial team coordination
 
 ✅ **Large Organizations**
+
 - SSO/SAML requirements
 - Audit and compliance needs
 - Advanced security requirements

@@ -65,6 +65,7 @@ nav:
       - Settings & Admin: settings.md
       - Development: development.md
       - Freemium Development: freemium-development.md
+      - Docs Branch Strategy: docs-branch-strategy.md
   - Support:
       - FAQ: support/faq.md
       - Contact: support/contact.md

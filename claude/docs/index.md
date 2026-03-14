@@ -50,7 +50,7 @@ Zsoogi Clipper is a powerful web research tool for WordPress that lets you captu
 - Simple citations
 - Admin-only access
 
-**Price:** Free forever
+**Price:** Free forever  
 
 **[Download from WordPress.org →](https://wordpress.org/plugins/zsoogi-clipper)**
 
@@ -65,7 +65,7 @@ Zsoogi Clipper is a powerful web research tool for WordPress that lets you captu
 - Custom branding
 - Priority support
 
-**Price:** $79/year
+**Price:** $79/year  
 
 **[Learn More →](premium-features.md)**
 
@@ -80,7 +80,7 @@ Zsoogi Clipper is a powerful web research tool for WordPress that lets you captu
 - White-label options
 - SSO authentication
 
-**Price:** $199/year
+**Price:** $199/year  
 
 **[Learn More →](enterprise-features.md)**
 
@@ -152,7 +152,7 @@ Check our [FAQ](support/faq.md) for common questions.
 
 Zsoogi Clipper is open source software licensed under the [GPL v2 or later](https://www.gnu.org/licenses/gpl-2.0.html).
 
-**Previous Name:** Originally developed as "Wiki Clipper" by [pbrocks](https://github.com/pbrocks/wiki-clipper)
+**Previous Name:** Originally developed as "Wiki Clipper" by [pbrocks](https://github.com/pbrocks/wiki-clipper)  
 
 ---
 
@@ -180,3 +180,12 @@ Zsoogi Clipper is open source software licensed under the [GPL v2 or later](http
 - [Post Type & Taxonomy](post-type.md) — CPT/taxonomy registration, frontend access
 - [Settings & Admin](settings.md) — settings page, options, admin menu
 - [Development](development.md) — Composer, PHPCS, build process
+
+
+---
+
+## Formatting Notes
+
+- Python-Markdown treats consecutive lines without a blank line between them as one paragraph.
+- To force a line break within a paragraph, **each line needs two trailing spaces**.
+- Without them, all four labels run together horizontally
