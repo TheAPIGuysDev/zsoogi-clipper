@@ -1,5 +1,6 @@
 #!/bin/bash
 # Build and deploy the mkdocs site to the remote server via rsync.
+# Served at https://tagsites.mystagingwebsite.com/dev/zsoogi-clipper/site/.
 #
 # Usage:
 #   ./claude/mkdocs-deploy.sh           # build + deploy
