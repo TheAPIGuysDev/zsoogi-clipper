@@ -1,9 +1,9 @@
 # Docs Branch Strategy
 
-**Branch:** `premium` is the source of truth
-**Deploy from:** `premium` only
-**Merge direction:** `premium` → `main` (never the reverse)
-**Deploy targets:** vangeek.life/mkdocs/ (internal) + vangeek.life/mkdocs/site (client)
+**Branch:** `premium` is the source of truth  
+**Deploy from:** `premium` only  
+**Merge direction:** `premium` → `main` (never the reverse)  
+**Deploy targets:** vangeek.life/mkdocs/ (internal) + vangeek.life/mkdocs/site (client)  
 
 ---
 
