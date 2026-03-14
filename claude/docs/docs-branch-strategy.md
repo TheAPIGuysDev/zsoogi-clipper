@@ -3,6 +3,7 @@
 **Branch:** `premium` is the source of truth
 **Deploy from:** `premium` only
 **Merge direction:** `premium` → `main` (never the reverse)
+**Deploy targets:** vangeek.life (internal) + staging.diligentdealers.net (client)
 
 ---
 
@@ -18,10 +19,39 @@ main     ──────────────────●────�
 
 ---
 
+## Deploy Targets
+
+Two separate deploy scripts, both run from `premium`:
+
+| Script | Target | URL | Auth |
+|--------|--------|-----|------|
+| `claude/mkdocs-deploy.sh` | vangeek.life (internal) | `vangeek.life/mkdocs/` | None |
+| `claude/mkdocs-deploy-client.sh` | AWS staging (client) | `staging.diligentdealers.net/mkdocs/` | Laravel auth |
+
+Both scripts build from the same `claude/site/` directory. Run them independently or together:
+
+```bash
+# Deploy to both
+./claude/mkdocs-deploy.sh
+./claude/mkdocs-deploy-client.sh --deploy   # reuse existing site/, skip rebuild
+```
+
+Required `.env` vars for client deploy:
+
+```
+DOCS_CLIENT_SSH_HOST=<alias from ~/.ssh/config>
+DOCS_CLIENT_SSH_USER=<remote user>
+DOCS_CLIENT_SSH_PRIVATE_KEY=/Users/you/.ssh/id_rsa
+DOCS_CLIENT_SSH_PATH=/path/to/laravel/storage/app/mkdocs
+DOCS_CLIENT_SSH_PORT=22   # optional, default 22
+```
+
+---
+
 ## Rules
 
 1. **All doc edits on `premium`** — never edit `claude/docs/` directly on `main`
-2. **Deploy from `premium`** — run `./claude/mkdocs-deploy.sh` from `premium`
+2. **Deploy from `premium`** — run deploy scripts from `premium` only
 3. **`main` gets docs via merge** — `git merge premium` at release time brings code and docs together
 4. **Doc updates travel with feature commits** — when you gate a new feature behind `License::has_feature()`, update the relevant `.md` in the same commit
 
