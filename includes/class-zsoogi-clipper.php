@@ -222,8 +222,11 @@ class Zsoogi_Clipper {
 		$selection = isset( $GLOBALS['zsoogi_clipper_selection'] ) ? $GLOBALS['zsoogi_clipper_selection'] : '';
 
 		// Get settings.
-		$citation_format    = get_option( 'zsoogi_clipper_citation_format', 'detailed' );
-		$include_metadata   = get_option( 'zsoogi_clipper_include_metadata', false );
+		// Citation format is a premium feature — free version always uses 'simple'.
+		$citation_format  = License::has_feature( 'citation_formats' )
+			? get_option( 'zsoogi_clipper_citation_format', 'detailed' )
+			: 'simple';
+		$include_metadata = get_option( 'zsoogi_clipper_include_metadata', false );
 
 		// Build the content.
 		$new_content = '';
@@ -249,11 +252,11 @@ class Zsoogi_Clipper {
 			$new_content .= "\n<!-- /wp:paragraph -->\n\n";
 		}
 
-		// Process YouTube transcript if available.
-		$youtube_video_id = isset( $GLOBALS['zsoogi_clipper_youtube_video_id'] ) ? $GLOBALS['zsoogi_clipper_youtube_video_id'] : '';
+		// Process YouTube transcript if available — requires premium license.
+		$youtube_video_id   = isset( $GLOBALS['zsoogi_clipper_youtube_video_id'] ) ? $GLOBALS['zsoogi_clipper_youtube_video_id'] : '';
 		$youtube_transcript = isset( $GLOBALS['zsoogi_clipper_youtube_transcript_text'] ) ? $GLOBALS['zsoogi_clipper_youtube_transcript_text'] : '';
 
-		if ( ! empty( $youtube_video_id ) ) {
+		if ( ! empty( $youtube_video_id ) && License::has_feature( 'transcripts' ) ) {
 			// Check if YouTube transcripts are enabled.
 			$transcripts_enabled = get_option( 'zsoogi_clipper_youtube_transcripts_enabled', false );
 

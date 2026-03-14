@@ -62,6 +62,7 @@ function zsoogi_clipper_load_autoloader() {
  */
 function zsoogi_clipper_load_includes() {
 	$includes = array(
+		'includes/class-license.php',
 		'includes/class-zsoogi-clips.php',
 		'includes/class-admin-menu.php',
 		'includes/class-zsoogi-clipper.php',

@@ -143,24 +143,34 @@ class Admin_Menu {
 			'zsoogi_clipper'
 		);
 
-		// Citation format.
-		register_setting(
-			self::OPTION_GROUP,
-			'zsoogi_clipper_citation_format',
-			array(
-				'type'              => 'string',
-				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => 'simple',
-			)
-		);
+		// Citation format — premium feature.
+		if ( License::has_feature( 'citation_formats' ) ) {
+			register_setting(
+				self::OPTION_GROUP,
+				'zsoogi_clipper_citation_format',
+				array(
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+					'default'           => 'simple',
+				)
+			);
 
-		add_settings_field(
-			'zsoogi_clipper_citation_format',
-			__( 'Citation Format', 'zsoogi-clipper' ),
-			array( __CLASS__, 'render_citation_format_field' ),
-			self::PAGE_SLUG,
-			'zsoogi_clipper'
-		);
+			add_settings_field(
+				'zsoogi_clipper_citation_format',
+				__( 'Citation Format', 'zsoogi-clipper' ),
+				array( __CLASS__, 'render_citation_format_field' ),
+				self::PAGE_SLUG,
+				'zsoogi_clipper'
+			);
+		} else {
+			add_settings_field(
+				'zsoogi_clipper_citation_format_locked',
+				__( 'Citation Format', 'zsoogi-clipper' ),
+				array( __CLASS__, 'render_premium_upsell_field' ),
+				self::PAGE_SLUG,
+				'zsoogi_clipper'
+			);
+		}
 
 		// Include metadata.
 		register_setting(
@@ -180,6 +190,9 @@ class Admin_Menu {
 			self::PAGE_SLUG,
 			'zsoogi_clipper'
 		);
+
+		// YouTube Transcript Settings — premium feature.
+		if ( License::has_feature( 'transcripts' ) ) :
 
 		// Register YouTube Transcript Settings section.
 		add_settings_section(
@@ -244,6 +257,34 @@ class Admin_Menu {
 			array( __CLASS__, 'render_youtube_language_field' ),
 			self::PAGE_SLUG,
 			'zsoogi_clipper_youtube'
+		);
+
+		endif; // License::has_feature( 'transcripts' ).
+
+		// License section — always visible so users can enter/manage their key.
+		add_settings_section(
+			'zsoogi_clipper_license',
+			__( 'Premium License', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_license_section' ),
+			self::PAGE_SLUG
+		);
+
+		register_setting(
+			self::OPTION_GROUP,
+			License::OPTION_KEY,
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_license_key' ),
+				'default'           => '',
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_license_key',
+			__( 'License Key', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_license_key_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_license'
 		);
 	}
 
@@ -671,6 +712,93 @@ class Admin_Menu {
 			</div>
 		</div>
 		<?php
+	}
+
+	/**
+	 * Render a locked "premium feature" placeholder for non-licensed users.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_premium_upsell_field() {
+		?>
+		<p style="color:#666;">
+			🔒 <?php esc_html_e( 'Available in the Premium edition.', 'zsoogi-clipper' ); ?>
+			<a href="https://theapiguys.com/zsoogi-clipper" target="_blank" rel="noopener">
+				<?php esc_html_e( 'Upgrade →', 'zsoogi-clipper' ); ?>
+			</a>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the license settings section description.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_license_section() {
+		$status = License::get_status();
+		$badge  = '';
+
+		if ( 'valid' === $status ) {
+			$badge = '<span style="color:#46b450;font-weight:bold;">✓ ' . esc_html__( 'Active', 'zsoogi-clipper' ) . '</span>';
+		} elseif ( 'inactive' === $status ) {
+			$badge = '<span style="color:#dc3232;font-weight:bold;">✗ ' . esc_html__( 'Inactive', 'zsoogi-clipper' ) . '</span>';
+		}
+		?>
+		<p>
+			<?php esc_html_e( 'Enter your license key to unlock premium features (YouTube transcripts, citation formats).', 'zsoogi-clipper' ); ?>
+			<?php if ( $badge ) : ?>
+				&nbsp; <?php echo wp_kses( $badge, array( 'span' => array( 'style' => array() ) ) ); ?>
+			<?php endif; ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the license key input field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_license_key_field() {
+		?>
+		<input
+			type="text"
+			name="<?php echo esc_attr( License::OPTION_KEY ); ?>"
+			value="<?php echo esc_attr( License::get_display_key() ); ?>"
+			class="regular-text"
+			placeholder="XXXX-XXXX-XXXX-XXXX"
+			autocomplete="off"
+		/>
+		<p class="description">
+			<?php esc_html_e( 'Save settings to activate. Leave blank to deactivate.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Sanitize and activate/deactivate the license key on save.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $value Raw input from the settings form.
+	 * @return string Sanitized key (empty string clears the license).
+	 */
+	public static function sanitize_license_key( $value ) {
+		$key = sanitize_text_field( $value );
+
+		if ( empty( $key ) ) {
+			License::deactivate();
+			return '';
+		}
+
+		License::activate( $key );
+		return $key;
 	}
 
 	/**

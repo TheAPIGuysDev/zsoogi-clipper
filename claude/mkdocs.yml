@@ -63,6 +63,7 @@ nav:
       - Post Type & Taxonomy: post-type.md
       - Settings & Admin: settings.md
       - Development: development.md
+      - Freemium Development: freemium-development.md
   - Support:
       - FAQ: support/faq.md
       - Contact: support/contact.md
