@@ -101,6 +101,8 @@ echo ""
 # ── Build ────────────────────────────────────────────────────────────────────
 
 if [ "$DO_BUILD" = true ]; then
+    cd "$CLAUDE_DIR"
+
     echo -e "${YELLOW}Fixing markdown formatting...${NC}"
     python3 "$HOME/.claude/scripts/fix-markdown.py"
 
@@ -108,7 +110,6 @@ if [ "$DO_BUILD" = true ]; then
     pip3 install --quiet --break-system-packages pymdown-extensions
 
     echo -e "${YELLOW}Building mkdocs site...${NC}"
-    cd "$CLAUDE_DIR"
     mkdocs build --clean
 
     if [ ! -d "$SITE_DIR" ]; then

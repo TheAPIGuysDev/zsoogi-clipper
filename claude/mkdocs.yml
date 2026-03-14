@@ -57,6 +57,7 @@ nav:
       - Enterprise Edition: enterprise-features.md
   - Roadmap:
       - Development Roadmap: freemium-roadmap.md
+      - Freemium Model: freemium-model.md
   - Developer Docs:
       - Architecture: architecture.md
       - Bookmarklet: bookmarklet.md
