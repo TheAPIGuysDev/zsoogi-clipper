@@ -14,6 +14,10 @@ use_directory_urls: true
 # Copyright
 copyright: Copyright &copy; 2026 The API Guys
 
+# Version injection hook
+hooks:
+  - hooks.py
+
 # Documentation directory
 docs_dir: docs
 
