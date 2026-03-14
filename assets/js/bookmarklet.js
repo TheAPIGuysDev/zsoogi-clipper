@@ -6,38 +6,52 @@
  * - Page URL and title
  * - Selected text
  * - First meaningful image (or YouTube thumbnail for YouTube videos)
+ * - YouTube video transcripts (when transcript panel is open)
  *
  * @package Zsoogi_Clipper
- * @version 2.4.2
+ * @version 2.5.0
  */
 
 (function() {
 	// Capture the current page URL
-	const u = encodeURIComponent(location.href);
+	const rawUrl = location.href;
 
 	// Clean up YouTube titles if needed
 	// Removes view count prefix like "(153) " and "- YouTube" suffix
 	const rawTitle = location.href.includes('youtube')
 		? document.title.replace(/^\(\d+\)\s*/, '').replace(/\s*-\s*YouTube\s*$/, '')
 		: document.title;
-	const t = encodeURIComponent(rawTitle);
 
 	// Capture any selected text on the page
-	const s = encodeURIComponent(window.getSelection().toString());
+	const rawSelection = window.getSelection().toString();
 
 	// Plugin version (will be replaced by PHP)
 	const v = '__VERSION__';
 
 	// Capture image - prioritize YouTube thumbnails for YouTube videos
 	let img = '';
+	let videoId = '';
+	let transcript = '';
 
 	// YouTube video ID regex pattern
 	const ytRegex = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|live)\/|.*[?&]v=)|youtu\.be\/)([^&?\/\s]{11})/i;
-	const match = location.href.match(ytRegex);
+	const match = rawUrl.match(ytRegex);
 
 	if (match && match[1]) {
-		// If it's a YouTube video, get the high-quality thumbnail
-		img = encodeURIComponent('https://i.ytimg.com/vi/' + match[1] + '/maxresdefault.jpg');
+		// If it's a YouTube video, get the video ID and thumbnail
+		videoId = match[1];
+		img = 'https://i.ytimg.com/vi/' + videoId + '/maxresdefault.jpg';
+
+		// Try to capture YouTube transcript if available
+		// Transcript is only available if the user has opened the transcript panel
+		const segments = document.querySelectorAll('ytd-transcript-segment-renderer .segment-text');
+		if (segments.length > 0) {
+			// Combine all transcript segments and limit to 8000 characters
+			transcript = Array.from(segments)
+				.map(seg => seg.textContent.trim())
+				.join(' ')
+				.substring(0, 8000);
+		}
 	} else {
 		// For non-YouTube pages, find the first meaningful image
 		// Filter out small images, icons, logos, and avatars
@@ -50,21 +64,27 @@
 		);
 
 		if (images.length > 0) {
-			img = encodeURIComponent(images[0].src);
+			img = images[0].src;
 		}
 	}
 
-	// Build the WordPress post-new URL with all captured data
-	const postUrl = '__SITE_URL__/wp-admin/post-new.php?post_type=zsoogiclips' +
-		'&title=' + t +
-		'&url=' + u +
-		'&selection=' + s +
-		(img ? '&image=' + img : '') +
-		'&clipper_version=' + v;
+	// Build the target URL
+	const targetUrl = '__SITE_URL__/wp-admin/post-new.php?post_type=zsoogiclips&clipper_data=1';
+
+	// Package all data as JSON for window.name bridge
+	const clipperData = JSON.stringify({
+		title: rawTitle,
+		url: rawUrl,
+		selection: rawSelection,
+		image: img,
+		clipper_version: v,
+		youtube_video_id: videoId,
+		youtube_transcript: transcript
+	});
 
 	// Open the new post window
 	const w = window.open(
-		postUrl,
+		'about:blank',
 		'_blank',
 		'width=900,height=700,menubar=no,toolbar=no,location=no,status=no'
 	);
@@ -72,5 +92,15 @@
 	// Alert if popup was blocked
 	if (!w) {
 		alert('Please allow popups for this site to use Zsoogi Clipper');
+		return;
 	}
+
+	// Use window.name as a bridge to pass data (avoids GET URL length limits)
+	w.name = clipperData;
+
+	// After a brief delay, navigate to the actual post-new URL
+	// The window.name persists across navigation
+	setTimeout(function() {
+		w.location.href = targetUrl;
+	}, 100);
 })();

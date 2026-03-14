@@ -18,6 +18,7 @@ Project docs live in `claude/docs/` (MkDocs). Key references:
 - `claude/docs/post-type.md` — CPT/taxonomy registration, frontend access, REST API
 - `claude/docs/settings.md` — settings options, admin menu, bookmarklet install page
 - `claude/docs/development.md` — Composer, PHPCS, build process, MkDocs serve/deploy
+- `claude/docs/freemium-development.md` — License class, feature flags, adding premium features
 
 When starting a new session on an unfamiliar area, read the relevant doc first.
 
@@ -63,6 +64,7 @@ The plugin follows a modular architecture with clear separation of concerns:
 - **Namespace**: All classes use the `Zsoogi` namespace with PSR-4 autoloading via `includes/` directory
 
 - **Key Classes**:
+  - `Zsoogi\License`: Premium feature gating — `License::is_premium()`, `License::has_feature('slug')`
   - `Zsoogi\Zsoogi_Clips`: Registers the custom post type (`zsoogiclips`) and taxonomy (`zsoogi_type`) - keeping original names for backward compatibility
   - `Zsoogi\Admin_Menu`: Manages the settings page under the custom post type menu
   - `Zsoogi\Zsoogi_Clipper`: Handles bookmarklet content capture and processing
@@ -127,9 +129,8 @@ Settings registered via WordPress Settings API:
 - Option Group: `zsoogi_clipper_settings`
 - Options:
   - `zsoogi_clipper_auto_featured_image` (boolean, default: true)
+  - `zsoogi_clipper_citation_format` (string, default: 'simple') - Options: simple, detailed, academic
   - `zsoogi_clipper_include_metadata` (boolean, default: false)
-
-**Note:** Citation format is hardcoded to 'simple' format (`Source: [Title](URL)`) in the free version for consistent branding.
 
 ## Code Patterns
 
@@ -172,10 +173,12 @@ This is a Local development environment (LocalWP):
 - The plugin registers activation/deactivation hooks that flush rewrite rules
 - When modifying post type or taxonomy registration, flush rewrite rules (visit Settings → Permalinks)
 
-## Branches
+## Freemium Model
 
-### Main Branch (v2.4.0)
-Core functionality with YouTube title cleanup and thumbnail integration. Works uniformly across all URLs.
+Single codebase on the `premium` branch. Premium features are gated via `License::has_feature()` — the same ZIP serves both free and premium users.
 
-### ProVersion Branch (v2.4.3)
-Advanced YouTube features including full transcript capture. See [GitHub Issue #5](https://github.com/pbrocks/zsoogi-clipper/issues/5) for technical details on the `window.name` bridge pattern implementation.
+- **Free users**: get `simple` citation format, no YouTube transcripts, license section shows upgrade prompt
+- **Premium users**: unlock `citation_formats` and `transcripts` features via license key in Settings
+- **Local dev**: `define( 'ZSOOGI_PREMIUM_LICENSE', true )` in `wp-config.php` to bypass license checks
+
+See `claude/docs/freemium-development.md` for adding new premium features.

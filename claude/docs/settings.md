@@ -13,11 +13,11 @@ Both require `manage_options` capability.
 
 ## Settings Page
 
-**Location:** Zsoogi Clips → Settings
+**Location:** Zsoogi Clips → Settings  
 
-**Option Group:** `zsoogi_clipper_settings`
+**Option Group:** `zsoogi_clipper_settings`  
 
-**Settings Section:** `zsoogi_clipper`
+**Settings Section:** `zsoogi_clipper`  
 
 ### Options
 
@@ -42,7 +42,7 @@ Both require `manage_options` capability.
 
 ## Bookmarklet Installation Page
 
-**Location:** Zsoogi Clips → Grab Zsoogi
+**Location:** Zsoogi Clips → Grab Zsoogi  
 
 Shows:
 

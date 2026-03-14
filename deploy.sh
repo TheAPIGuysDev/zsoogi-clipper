@@ -11,7 +11,7 @@ source .env
 # Load environment variables from .env file
 if [ ! -f .env ]; then
     echo "Error: .env file not found"
-    exit 1 
+    exit 1
 fi
 
 # Export variables from .env
@@ -137,8 +137,6 @@ esac
 
 echo ""
 echo -e "${GREEN}=== Deployment Complete ===${NC}"
-echo -e "Plugin Version: ${YELLOW}${PLUGIN_VERSION}${NC}"
-
 if [ "$DEPLOY_MODE" = "ssh" ]; then
     echo -e "Plugin deployed to: ${YELLOW}${TAG_SSH_PATH}${NC}"
 else

@@ -33,7 +33,7 @@ The Zsoogi Clipper bookmarklet is a self-contained vanilla JavaScript snippet th
 
 When the page URL matches a YouTube video pattern, special handling applies:
 
-**Title cleanup:**
+**Title cleanup:**  
 
 ```js
 // Removes "(153) " view count prefix and "- YouTube" suffix
@@ -44,7 +44,7 @@ document.title
 
 Example: `(153) How to Build APIs - YouTube` → `How to Build APIs`
 
-**Thumbnail:** Uses `maxresdefault.jpg` from YouTube's image CDN:
+**Thumbnail:** Uses `maxresdefault.jpg` from YouTube's image CDN:  
 
 ```
 https://i.ytimg.com/vi/{VIDEO_ID}/maxresdefault.jpg
@@ -105,8 +105,8 @@ If the popup is blocked, an `alert()` prompts the user to allow popups from the 
 
 ## Troubleshooting
 
-**Popup blocked:** User must allow popups from the site they are clipping from.
+**Popup blocked:** User must allow popups from the site they are clipping from.  
 
-**Content not pre-filled:** Verify the user is logged in as administrator and the post type in the URL is `zsoogiclips`.
+**Content not pre-filled:** Verify the user is logged in as administrator and the post type in the URL is `zsoogiclips`.  
 
-**Wrong image captured:** The first `>200px` image that isn't an icon/logo/avatar is used. For YouTube, the API thumbnail is always preferred.
+**Wrong image captured:** The first `>200px` image that isn't an icon/logo/avatar is used. For YouTube, the API thumbnail is always preferred.  

@@ -1,14 +1,6 @@
 <?php
-/**
- * Admin Menu - Settings Page
- *
- * @package Zsoogi_Clipper
- */
 
 namespace Zsoogi;
-
-// Exit if accessed directly.
-defined( 'ABSPATH' ) || exit;
 
 /**
  * Zsoogi Clipper Admin Menu - Settings page administration.
@@ -39,7 +31,7 @@ class Admin_Menu {
 	 *
 	 * Hooks into WordPress admin_menu action to add the settings page.
 	 *
-	 * @since 0.9.0
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -53,15 +45,20 @@ class Admin_Menu {
 	 *
 	 * Creates a submenu page under the Zsoogi Clipper custom post type.
 	 *
-	 * @since 0.9.0
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
 	public static function add_admin_menu() {
-		$plugin_version = ZSOOGI_CLIPPER_VERSION;
+		$plugin_version = ZSOOGI_CLIPS_VERSION;
+		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
-			__( 'Zsoogi Clips - Install Bookmarklet', 'zsoogi-clipper' ),
+			sprintf(
+				/* translators: %s: Post type label name */
+				__( '%s - Install Bookmarklet', 'zsoogi-clipper' ),
+				$label_name
+			),
 			__( 'Grab Zsoogi', 'zsoogi-clipper' ),
 			'manage_options',
 			'zsoogi-clipper-bookmarklet',
@@ -70,8 +67,9 @@ class Admin_Menu {
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
 			sprintf(
-				/* translators: %s: Plugin version */
-				__( 'Zsoogi Clips Settings - v%s', 'zsoogi-clipper' ),
+				/* translators: 1: Post type label name, 2: Plugin version */
+				__( '%1$s Settings - v%2$s', 'zsoogi-clipper' ),
+				$label_name,
 				$plugin_version
 			),
 			__( 'Settings', 'zsoogi-clipper' ),
@@ -86,11 +84,38 @@ class Admin_Menu {
 	 *
 	 * Registers settings, sections, and fields for the settings page.
 	 *
-	 * @since 0.9.0
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
 	public static function register_settings() {
+		// Register General Settings section.
+		add_settings_section(
+			'zsoogi_clipper_general',
+			__( 'General Settings', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_general_section' ),
+			self::PAGE_SLUG
+		);
+
+		// Custom label name.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clips_label',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => 'Zsoogi Clips',
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clips_label',
+			__( 'Menu Label', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_label_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_general'
+		);
+
 		// Register Zsoogi Clipper settings section.
 		add_settings_section(
 			'zsoogi_clipper',
@@ -118,6 +143,35 @@ class Admin_Menu {
 			'zsoogi_clipper'
 		);
 
+		// Citation format — premium feature.
+		if ( License::has_feature( 'citation_formats' ) ) {
+			register_setting(
+				self::OPTION_GROUP,
+				'zsoogi_clipper_citation_format',
+				array(
+					'type'              => 'string',
+					'sanitize_callback' => 'sanitize_text_field',
+					'default'           => 'simple',
+				)
+			);
+
+			add_settings_field(
+				'zsoogi_clipper_citation_format',
+				__( 'Citation Format', 'zsoogi-clipper' ),
+				array( __CLASS__, 'render_citation_format_field' ),
+				self::PAGE_SLUG,
+				'zsoogi_clipper'
+			);
+		} else {
+			add_settings_field(
+				'zsoogi_clipper_citation_format_locked',
+				__( 'Citation Format', 'zsoogi-clipper' ),
+				array( __CLASS__, 'render_premium_upsell_field' ),
+				self::PAGE_SLUG,
+				'zsoogi_clipper'
+			);
+		}
+
 		// Include metadata.
 		register_setting(
 			self::OPTION_GROUP,
@@ -136,12 +190,108 @@ class Admin_Menu {
 			self::PAGE_SLUG,
 			'zsoogi_clipper'
 		);
+
+		// YouTube Transcript Settings — premium feature.
+		if ( License::has_feature( 'transcripts' ) ) :
+
+		// Register YouTube Transcript Settings section.
+		add_settings_section(
+			'zsoogi_clipper_youtube',
+			__( 'YouTube Transcript Settings', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_section' ),
+			self::PAGE_SLUG
+		);
+
+		// Enable YouTube transcripts.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clipper_youtube_transcripts_enabled',
+			array(
+				'type'              => 'boolean',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_checkbox' ),
+				'default'           => false,
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_youtube_transcripts_enabled',
+			__( 'Enable YouTube Transcript Capture', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_enabled_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_youtube'
+		);
+
+		// YouTube transcript excerpt length.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clipper_youtube_excerpt_length',
+			array(
+				'type'              => 'integer',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_excerpt_length' ),
+				'default'           => 500,
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_youtube_excerpt_length',
+			__( 'Transcript Excerpt Length', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_excerpt_length_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_youtube'
+		);
+
+		// YouTube transcript language.
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clipper_youtube_language',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => 'en',
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_youtube_language',
+			__( 'Preferred Transcript Language', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_youtube_language_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_youtube'
+		);
+
+		endif; // License::has_feature( 'transcripts' ).
+
+		// License section — always visible so users can enter/manage their key.
+		add_settings_section(
+			'zsoogi_clipper_license',
+			__( 'Premium License', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_license_section' ),
+			self::PAGE_SLUG
+		);
+
+		register_setting(
+			self::OPTION_GROUP,
+			License::OPTION_KEY,
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => array( __CLASS__, 'sanitize_license_key' ),
+				'default'           => '',
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clipper_license_key',
+			__( 'License Key', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_license_key_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_license'
+		);
 	}
 
 	/**
 	 * Sanitize checkbox input.
 	 *
-	 * @since 0.9.0
+	 * @since 1.0.0
 	 *
 	 * @param mixed $value The input value to sanitize.
 	 * @return bool Sanitized boolean value.
@@ -151,11 +301,26 @@ class Admin_Menu {
 	}
 
 	/**
+	 * Sanitize excerpt length input.
+	 *
+	 * Ensures the value is an integer between 100 and 5000.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param mixed $value The input value to sanitize.
+	 * @return int Sanitized integer value between 100 and 5000.
+	 */
+	public static function sanitize_excerpt_length( $value ) {
+		$value = intval( $value );
+		return max( 100, min( 5000, $value ) );
+	}
+
+	/**
 	 * Render the settings page.
 	 *
 	 * Outputs the HTML for the settings page including form and fields.
 	 *
-	 * @since 0.9.0
+	 * @since 1.0.0
 	 *
 	 * @return void
 	 */
@@ -200,7 +365,7 @@ class Admin_Menu {
 				<h2><?php esc_html_e( 'Plugin Information', 'zsoogi-clipper' ); ?></h2>
 				<p>
 					<strong><?php esc_html_e( 'Version:', 'zsoogi-clipper' ); ?></strong>
-					<?php echo esc_html( ZSOOGI_CLIPPER_VERSION ); ?>
+					<?php echo esc_html( ZSOOGI_CLIPS_VERSION ); ?>
 				</p>
 				<p>
 					<strong><?php esc_html_e( 'Post Type:', 'zsoogi-clipper' ); ?></strong>
@@ -216,9 +381,44 @@ class Admin_Menu {
 	}
 
 	/**
+	 * Render the General settings section description.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @return void
+	 */
+	public static function render_general_section() {
+		?>
+		<p><?php esc_html_e( 'Configure the display name and general settings for your Zsoogi Clip post type.', 'zsoogi-clipper' ); ?></p>
+		<?php
+	}
+
+	/**
+	 * Render the label field.
+	 *
+	 * @since 2.2.0
+	 *
+	 * @return void
+	 */
+	public static function render_label_field() {
+		$value = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
+		?>
+		<input
+			type="text"
+			name="zsoogi_clips_label"
+			value="<?php echo esc_attr( $value ); ?>"
+			class="regular-text"
+		/>
+		<p class="description">
+			<?php esc_html_e( 'This name will appear in the admin menu and post type labels (e.g., "Zsoogi Clips" becomes "Zsoogi Clipper").', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
 	 * Render the Zsoogi Clipper settings section description.
 	 *
-	 * @since 0.9.0
+	 * @since 2.1.4
 	 *
 	 * @return void
 	 */
@@ -254,7 +454,7 @@ class Admin_Menu {
 	/**
 	 * Render the auto-set featured image field.
 	 *
-	 * @since 0.9.0
+	 * @since 2.1.4
 	 *
 	 * @return void
 	 */
@@ -277,9 +477,41 @@ class Admin_Menu {
 	}
 
 	/**
+	 * Render the citation format field.
+	 *
+	 * @since 2.1.4
+	 *
+	 * @return void
+	 */
+	public static function render_citation_format_field() {
+		$value = get_option( 'zsoogi_clipper_citation_format', 'simple' );
+		?>
+		<fieldset>
+			<label>
+				<input type="radio" name="zsoogi_clipper_citation_format" value="simple" <?php checked( 'simple', $value ); ?> />
+				<strong><?php esc_html_e( 'Simple', 'zsoogi-clipper' ); ?></strong> -
+				<?php esc_html_e( 'Source: [Title](URL)', 'zsoogi-clipper' ); ?>
+			</label>
+			<br />
+			<label>
+				<input type="radio" name="zsoogi_clipper_citation_format" value="detailed" <?php checked( 'detailed', $value ); ?> />
+				<strong><?php esc_html_e( 'Detailed', 'zsoogi-clipper' ); ?></strong> -
+				<?php esc_html_e( 'Source: [Title](URL) - Captured on [Date]', 'zsoogi-clipper' ); ?>
+			</label>
+			<br />
+			<label>
+				<input type="radio" name="zsoogi_clipper_citation_format" value="academic" <?php checked( 'academic', $value ); ?> />
+				<strong><?php esc_html_e( 'Academic', 'zsoogi-clipper' ); ?></strong> -
+				<?php esc_html_e( 'Title. URL. Accessed: [Date]', 'zsoogi-clipper' ); ?>
+			</label>
+		</fieldset>
+		<?php
+	}
+
+	/**
 	 * Render the include metadata field.
 	 *
-	 * @since 0.9.0
+	 * @since 2.1.4
 	 *
 	 * @return void
 	 */
@@ -306,7 +538,7 @@ class Admin_Menu {
 	 *
 	 * Reads the bookmarklet.js file and replaces placeholders with actual values.
 	 *
-	 * @since 0.9.0
+	 * @since 2.4.2
 	 *
 	 * @param string $site_url       The site URL.
 	 * @param string $plugin_version The plugin version.
@@ -314,7 +546,7 @@ class Admin_Menu {
 	 */
 	private static function get_bookmarklet_code( $site_url, $plugin_version ) {
 		// Read the bookmarklet JavaScript file.
-		$js_file = ZSOOGI_CLIPPER_PLUGIN_DIR . 'assets/js/bookmarklet.js';
+		$js_file = ZSOOGI_CLIPS_PLUGIN_DIR . 'assets/js/bookmarklet.js';
 
 		if ( ! file_exists( $js_file ) ) {
 			return '';
@@ -339,7 +571,7 @@ class Admin_Menu {
 	/**
 	 * Render the bookmarklet installation page.
 	 *
-	 * @since 0.9.0
+	 * @since 2.2.3
 	 *
 	 * @return void
 	 */
@@ -349,10 +581,11 @@ class Admin_Menu {
 			return;
 		}
 
+		$label_name     = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 		$site_name      = get_option( 'blogname' );
 		$site_url       = esc_url( admin_url( 'post-new.php' ) );
 		$site_url       = str_replace( '/wp-admin/post-new.php', '', $site_url );
-		$plugin_version = ZSOOGI_CLIPPER_VERSION;
+		$plugin_version = ZSOOGI_CLIPS_VERSION;
 
 		// Generate the bookmarklet code.
 		$bookmarklet_code = self::get_bookmarklet_code( $site_url, $plugin_version );
@@ -392,9 +625,9 @@ class Admin_Menu {
 			</style>
 
 			<div class="bookmarklet-page">
-				<h1>📚 <?php esc_html_e( 'Zsoogi Clips', 'zsoogi-clipper' ); ?> - v<?php echo esc_html( $plugin_version ); ?></h1>
+				<h1>📚 <?php echo esc_html( $label_name ); ?> - v<?php echo esc_html( $plugin_version ); ?></h1>
 
-				<p><?php esc_html_e( 'A modern, jQuery-free bookmarklet for capturing web research into your Zsoogi Clips, an admin-only post-type. Others trying to view will be redirected to the homepage, keeping your research private.', 'zsoogi-clipper' ); ?></p>
+				<p><?php printf( esc_html__( 'A modern, jQuery-free bookmarklet for capturing web research into your %s, an admin-only post-type. Others trying to view will be redirected to the homepage, keeping your research private.', 'zsoogi-clipper' ), esc_html( $label_name ) ); ?></p>
 
 				<h2><?php esc_html_e( 'Installation', 'zsoogi-clipper' ); ?></h2>
 				<div class="bookmarklet-instructions">
@@ -433,6 +666,7 @@ class Admin_Menu {
 					<li>✅ <?php esc_html_e( 'Smart image detection (filters out icons, logos, avatars)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Auto-set featured image (configurable in settings)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Customizable blockquote and citation formatting', 'zsoogi-clipper' ); ?></li>
+					<li>✅ <?php esc_html_e( 'YouTube transcript capture (when transcript panel is open)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Works with the 2025 theme (or any theme)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Creates posts as zsoogiclips post type', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Perfect for web research and note-taking', 'zsoogi-clipper' ); ?></li>
@@ -457,8 +691,9 @@ class Admin_Menu {
 					<li><strong><?php esc_html_e( 'Title:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'The page title (used as your Zsoogi Clip title)', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Selection:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'Any text you\'ve selected on the page', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Image:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'First meaningful image (>200px, excludes icons/logos)', 'zsoogi-clipper' ); ?></li>
+					<li><strong><?php esc_html_e( 'YouTube Transcripts:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'For YouTube videos, captures transcript text when the transcript panel is open (enable in settings)', 'zsoogi-clipper' ); ?></li>
 				</ul>
-				<p><?php esc_html_e( 'Then it opens a new window to create a Zsoogi Clip with these details passed as URL parameters. The Zsoogi Clipper plugin processes them with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
+				<p><?php esc_html_e( 'Then it opens a new window to create a Zsoogi Clip with these details. For large data (like transcripts), the window.name bridge is used to avoid URL length limits. The Zsoogi Clipper plugin processes everything with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
 
 				<h2><?php esc_html_e( 'Troubleshooting', 'zsoogi-clipper' ); ?></h2>
 				<h3><?php esc_html_e( 'Popup Blocked?', 'zsoogi-clipper' ); ?></h3>
@@ -476,6 +711,186 @@ class Admin_Menu {
 				</p>
 			</div>
 		</div>
+		<?php
+	}
+
+	/**
+	 * Render a locked "premium feature" placeholder for non-licensed users.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_premium_upsell_field() {
+		?>
+		<p style="color:#666;">
+			🔒 <?php esc_html_e( 'Available in the Premium edition.', 'zsoogi-clipper' ); ?>
+			<a href="https://theapiguys.com/zsoogi-clipper" target="_blank" rel="noopener">
+				<?php esc_html_e( 'Upgrade →', 'zsoogi-clipper' ); ?>
+			</a>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the license settings section description.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_license_section() {
+		$status = License::get_status();
+		$badge  = '';
+
+		if ( 'valid' === $status ) {
+			$badge = '<span style="color:#46b450;font-weight:bold;">✓ ' . esc_html__( 'Active', 'zsoogi-clipper' ) . '</span>';
+		} elseif ( 'inactive' === $status ) {
+			$badge = '<span style="color:#dc3232;font-weight:bold;">✗ ' . esc_html__( 'Inactive', 'zsoogi-clipper' ) . '</span>';
+		}
+		?>
+		<p>
+			<?php esc_html_e( 'Enter your license key to unlock premium features (YouTube transcripts, citation formats).', 'zsoogi-clipper' ); ?>
+			<?php if ( $badge ) : ?>
+				&nbsp; <?php echo wp_kses( $badge, array( 'span' => array( 'style' => array() ) ) ); ?>
+			<?php endif; ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the license key input field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_license_key_field() {
+		?>
+		<input
+			type="text"
+			name="<?php echo esc_attr( License::OPTION_KEY ); ?>"
+			value="<?php echo esc_attr( License::get_display_key() ); ?>"
+			class="regular-text"
+			placeholder="XXXX-XXXX-XXXX-XXXX"
+			autocomplete="off"
+		/>
+		<p class="description">
+			<?php esc_html_e( 'Save settings to activate. Leave blank to deactivate.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Sanitize and activate/deactivate the license key on save.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @param string $value Raw input from the settings form.
+	 * @return string Sanitized key (empty string clears the license).
+	 */
+	public static function sanitize_license_key( $value ) {
+		$key = sanitize_text_field( $value );
+
+		if ( empty( $key ) ) {
+			License::deactivate();
+			return '';
+		}
+
+		License::activate( $key );
+		return $key;
+	}
+
+	/**
+	 * Render the YouTube settings section description.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_section() {
+		?>
+		<p><?php esc_html_e( 'Configure how the Zsoogi Clipper handles YouTube video transcripts.', 'zsoogi-clipper' ); ?></p>
+		<div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0;">
+			<p style="margin: 0;">
+				<strong><?php esc_html_e( 'Note:', 'zsoogi-clipper' ); ?></strong>
+				<?php esc_html_e( 'For YouTube videos, you must open the transcript panel (click "Show transcript" button) before using the bookmarklet to capture transcripts.', 'zsoogi-clipper' ); ?>
+			</p>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Render the YouTube transcripts enabled field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_enabled_field() {
+		$value = get_option( 'zsoogi_clipper_youtube_transcripts_enabled', false );
+		?>
+		<label>
+			<input
+				type="checkbox"
+				name="zsoogi_clipper_youtube_transcripts_enabled"
+				value="1"
+				<?php checked( 1, $value ); ?>
+			/>
+			<?php esc_html_e( 'Automatically capture YouTube video transcripts when available', 'zsoogi-clipper' ); ?>
+		</label>
+		<p class="description">
+			<?php esc_html_e( 'When enabled, the bookmarklet will capture transcript text from YouTube videos (if the transcript panel is open). The full transcript is saved to post metadata and an excerpt is shown in the post content.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the YouTube excerpt length field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_excerpt_length_field() {
+		$value = get_option( 'zsoogi_clipper_youtube_excerpt_length', 500 );
+		?>
+		<input
+			type="number"
+			name="zsoogi_clipper_youtube_excerpt_length"
+			value="<?php echo esc_attr( $value ); ?>"
+			min="100"
+			max="5000"
+			step="50"
+			class="small-text"
+		/>
+		<?php esc_html_e( 'characters', 'zsoogi-clipper' ); ?>
+		<p class="description">
+			<?php esc_html_e( 'Maximum length of the transcript excerpt shown in post content (100-5000 characters). The full transcript is always saved to post metadata.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the YouTube language field.
+	 *
+	 * @since 2.5.0
+	 *
+	 * @return void
+	 */
+	public static function render_youtube_language_field() {
+		$value = get_option( 'zsoogi_clipper_youtube_language', 'en' );
+		?>
+		<input
+			type="text"
+			name="zsoogi_clipper_youtube_language"
+			value="<?php echo esc_attr( $value ); ?>"
+			class="small-text"
+			placeholder="en"
+		/>
+		<p class="description">
+			<?php esc_html_e( 'Preferred language code for transcripts (e.g., "en" for English, "es" for Spanish). This is stored as metadata but does not affect which transcript is captured - YouTube shows the currently selected transcript.', 'zsoogi-clipper' ); ?>
+		</p>
 		<?php
 	}
 }
