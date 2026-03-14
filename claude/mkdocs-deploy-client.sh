@@ -88,7 +88,7 @@ esac
 echo -e "${GREEN}=== MkDocs Client Deploy ===${NC}"
 echo -e "  Source : ${YELLOW}$SITE_DIR${NC}"
 echo -e "  Remote : ${YELLOW}${DOCS_CLIENT_SSH_USER}@${DOCS_CLIENT_SSH_HOST}:${DOCS_CLIENT_SSH_PATH}${NC}"
-echo -e "  URL    : ${YELLOW}https://staging.diligentdealers.net/mkdocs/${NC}"
+echo -e "  URL    : ${YELLOW}https://vangeek.life/mkdocs/${NC}"
 echo -e "  Mode   : ${YELLOW}$([ "$DO_BUILD" = true ] && echo "build + " || echo "")$([ "$DO_DEPLOY" = true ] && echo "deploy" || echo "build only")${NC}"
 echo ""
 
