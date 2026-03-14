@@ -107,7 +107,7 @@ if [ "$DO_BUILD" = true ]; then
     python3 "$HOME/.claude/scripts/fix-markdown.py"
 
     echo -e "${YELLOW}Installing mkdocs dependencies...${NC}"
-    pip3 install --quiet --break-system-packages pymdown-extensions
+    pip3 install --quiet --break-system-packages pymdown-extensions watchdog
 
     echo -e "${YELLOW}Building mkdocs site...${NC}"
     mkdocs build --clean

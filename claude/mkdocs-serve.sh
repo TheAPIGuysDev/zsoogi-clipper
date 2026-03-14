@@ -18,4 +18,12 @@ if [ -n "$EXISTING_PID" ]; then
 fi
 
 cd "$SCRIPT_DIR"
+
+# Ensure watchdog is installed — required for live reload on macOS.
+# Without it mkdocs has no file system event listener and won't detect changes.
+MKDOCS_PYTHON="$(dirname "$(command -v mkdocs)")/python3"
+if [ -x "$MKDOCS_PYTHON" ]; then
+    "$MKDOCS_PYTHON" -m pip install --quiet watchdog 2>/dev/null || true
+fi
+
 mkdocs serve --dev-addr="127.0.0.1:$PORT"
