@@ -3,7 +3,7 @@
 **Branch:** `premium` is the source of truth
 **Deploy from:** `premium` only
 **Merge direction:** `premium` → `main` (never the reverse)
-**Deploy targets:** vangeek.life (internal) + staging.diligentdealers.net (client)
+**Deploy targets:** vangeek.life/mkdocs/ (internal) + vangeek.life/mkdocs/site (client)
 
 ---
 
@@ -26,7 +26,7 @@ Two separate deploy scripts, both run from `premium`:
 | Script | Target | URL | Auth |
 |--------|--------|-----|------|
 | `claude/mkdocs-deploy.sh` | vangeek.life (internal) | `vangeek.life/mkdocs/` | None |
-| `claude/mkdocs-deploy-client.sh` | AWS staging (client) | `staging.diligentdealers.net/mkdocs/` | Laravel auth |
+| `claude/mkdocs-deploy-client.sh` | vangeek.life (client) | `vangeek.life/mkdocs/site` | — |
 
 Both scripts build from the same `claude/site/` directory. Run them independently or together:
 

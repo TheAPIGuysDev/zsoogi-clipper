@@ -1,7 +1,7 @@
 #!/bin/bash
 # mkdocs-deploy-client.sh
 # Build and deploy the mkdocs site to the client staging server (AWS) via rsync.
-# Served at https://staging.diligentdealers.net/mkdocs/ (Laravel auth protected, staging only).
+# Served at https://vangeek.life/mkdocs/site.
 #
 # Usage (run from project root or claude/ directory):
 #   ./claude/mkdocs-deploy-client.sh           # build + deploy
