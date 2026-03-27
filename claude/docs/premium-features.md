@@ -11,8 +11,31 @@
 
 ### Everything in Free, PLUS:
 
-#### 1. YouTube Transcript Capture 🔥
-**Status:** ✅ Already Built (ProVersion branch v2.4.3)  
+#### 1. WordPress Abilities API — AI Agent Integration 🤖
+**Status:** ✅ Built (`premium` branch) | Requires WordPress 6.9+ + MCP Adapter plugin
+
+This is the defining premium feature. Zsoogi Clipper registers itself as a set of **WordPress Abilities**, making your entire clip library accessible to any MCP-connected AI agent — Claude Desktop, Claude Code, Cursor, VS Code — via natural language.
+
+**What you can ask your AI:**
+
+- *"Create a clip from this URL with the title 'Market Research Q2'"*
+- *"Search my clips for anything about competitor pricing"*
+- *"Get the YouTube transcript for clip #42"*
+- *"Export all my clips tagged 'research' as Markdown"*
+
+**Registered Abilities:**
+
+- `zsoogi/create-clip` — Create a new clip from URL, title, and optional excerpt
+- `zsoogi/search-clips` — Search clips by keyword, domain, or tag
+- `zsoogi/get-transcript` — Retrieve the stored YouTube transcript for a clip
+- `zsoogi/export-clips` — Export a filtered clip set to Markdown or JSON
+
+**Why it matters:** Free users have a clip archive. Premium users have an AI-queryable knowledge base. The same clips you've been saving are now reachable by any AI agent with MCP support — no extra tooling, no separate app.
+
+See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
+
+#### 2. YouTube Transcript Capture 🔥
+**Status:** ✅ Built (merged into `premium` branch)  
 
 - **Full Transcript Scraping:** Automatically captures complete video transcripts from YouTube
 - **Searchable Storage:** Transcripts stored in post metadata for easy searching
@@ -29,23 +52,24 @@
 - Educational video reference
 - Training material compilation
 
-#### 2. Advanced Citation Formats
-**Status:** 📋 Planned Q2 2026  
+#### 3. Citation Formats
+**Status:** ✅ Built (simple/detailed/academic) | 📋 Planned Q2 2026 (academic styles + export)  
 
-- **Multiple Styles:** Simple, Detailed, Academic (MLA, APA, Chicago, IEEE)
-- **Custom Templates:** Build your own citation format with template builder
-- **Automatic Bibliography:** Generate formatted bibliographies from your clips
-- **Export Options:** Export to BibTeX, Zotero, EndNote
+**Built and gated now:**  
+
+- **Simple:** `Source: [Title](URL)` ← free tier default
+- **Detailed:** `Source: [Title](URL) - Captured on Mar 26, 2026`
+- **Academic:** Structured citation with author, date, and URL
+
+**Planned Q2 2026:**  
+
+- **Academic Styles:** MLA, APA, Chicago, IEEE
+- **Custom Templates:** Build your own citation format
+- **Automatic Bibliography:** Generate formatted bibliographies from clips
+- **Export Options:** BibTeX, Zotero, EndNote
 - **In-Text Citations:** Shortcodes for inserting citations in posts/pages
 
-**Example Formats:**  
-
-- **Simple:** `Source: [Title](URL)`
-- **Detailed:** `Source: [Title](URL) - Captured on Jan 30, 2026`
-- **Academic APA:** `Author. (2026). Title. Retrieved from URL`
-- **Chicago:** `Title. Accessed January 30, 2026. URL.`
-
-#### 3. PDF Content Extraction
+#### 4. PDF Content Extraction
 **Status:** 📋 Planned Q2 2026  
 
 - **Text Extraction:** Pull text content from PDF files via URL or upload
@@ -54,7 +78,7 @@
 - **Page References:** Include specific page numbers in citations
 - **Archive PDFs:** Option to download and store PDFs on your server
 
-#### 4. Enhanced Content Capture
+#### 5. Enhanced Content Capture
 **Status:** 📋 Planned Q2-Q3 2026  
 
 - **Multi-Image Capture:** Capture multiple images with gallery support
@@ -63,7 +87,7 @@
 - **Authenticated Sites:** Forward cookies to capture content behind logins
 - **Better Image Detection:** AI-powered detection of meaningful content images
 
-#### 5. Custom Branding
+#### 6. Custom Branding
 **Status:** ✅ Available (removed from free version)  
 
 - **Custom Menu Labels:** Change "Zsoogi Clips" to your preferred name
@@ -77,7 +101,7 @@
 - "Case Studies" for consultants
 - "Content Ideas" for writers
 
-#### 6. Enhanced Organization
+#### 7. Enhanced Organization
 **Status:** 📋 Planned Q3 2026  
 
 - **Unlimited Taxonomies:** Create multiple custom taxonomies beyond "Zsoogi Type"
@@ -86,7 +110,7 @@
 - **Bulk Operations:** Bulk tagging, categorization, and editing
 - **Smart Folders:** Dynamic collections based on rules
 
-#### 7. Priority Support
+#### 8. Priority Support
 **Status:** ✅ Available immediately upon purchase  
 
 - **Email Support:** Direct email access to development team
@@ -133,12 +157,7 @@
 2. Complete purchase with credit card or PayPal
 3. Receive license key via email immediately
 
-#### Step 2: Download Plugin
-1. Download Zsoogi Clipper Premium `.zip` file from customer dashboard
-2. Upload to WordPress: Plugins → Add New → Upload Plugin
-3. Activate the plugin
-
-#### Step 3: Activate License
+#### Step 2: Activate License
 1. Navigate to **Zsoogi Clips → Settings → License**
 2. Enter your license key
 3. Click "Activate License"
@@ -146,13 +165,13 @@
 
 ### Delivery Method
 
-**Distribution Channel:** Direct download from theapiguys.com customer portal  
+**Distribution Channel:** WordPress.org (free) or theapiguys.com customer portal (with license key)  
 
-**Plugin Type:** Separate plugin from free version  
+**Plugin Type:** Same plugin as the free version — premium features unlock with a license key  
 
-- **Plugin Name:** `zsoogi-clipper-premium`
-- **Cannot Run Simultaneously:** Deactivate free version before activating Premium
-- **Data Migration:** All your clips automatically migrate from free to premium
+- **Plugin Name:** `zsoogi-clipper` (identical slug, no separate install needed)
+- **No Migration Required:** Enter your license key in Settings → License and features unlock immediately
+- **All data preserved:** No reinstall, no data loss, no downtime
 
 **Updates:**  
 
@@ -178,17 +197,14 @@
 ✅ **No data loss** - Taxonomies and metadata remain intact
 ✅ **Seamless transition** - Premium adds features, doesn't replace data
 
-#### Migration Steps
+#### Upgrade Steps
 1. **Purchase Premium license** from theapiguys.com
-2. **Download Premium plugin** from customer dashboard
-3. **Deactivate free version** (don't delete it yet)
-4. **Upload & activate Premium plugin**
-5. **Enter license key** in settings
-6. **Verify all clips intact**
-7. **Delete free version** (optional, after confirming everything works)
+2. **Navigate to Zsoogi Clips → Settings → License**
+3. **Enter your license key** and click "Activate License"
+4. **Premium features unlock immediately** — no reinstall, no data loss
 
-**Migration Time:** ~5 minutes  
-**Downtime:** None (content remains accessible throughout)  
+**Upgrade Time:** ~1 minute  
+**Downtime:** None  
 
 ---
 
@@ -235,6 +251,7 @@
 |---------|------|---------|
 | Basic Content Capture | ✅ | ✅ |
 | YouTube Title Cleanup | ✅ | ✅ |
+| AI Agent Integration (Abilities API) | ❌ | ✅ |
 | YouTube Transcripts | ❌ | ✅ |
 | Citation Styles | 1 (Simple) | All + Custom |
 | PDF Extraction | ❌ | ✅ |

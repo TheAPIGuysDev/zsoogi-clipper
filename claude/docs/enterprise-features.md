@@ -16,10 +16,10 @@
 
 ##### Role-Based Access Control
 - **Custom Roles:** Create roles beyond just "Administrator"
-  - Viewer: Read-only access to clips
-  - Contributor: Create and edit own clips
-  - Editor: Edit all clips
-  - Manager: Full access + settings
+    - Viewer: Read-only access to clips
+    - Contributor: Create and edit own clips
+    - Editor: Edit all clips
+    - Manager: Full access + settings
 - **Granular Permissions:** Fine-tune what each role can do
 - **User Assignment:** Assign clips to specific team members
 - **Team Workspaces:** Separate collections for different teams/projects
@@ -45,29 +45,29 @@
 
 ##### Content Intelligence
 - **Auto-Summarization:** AI generates summaries of captured content
-  - Powered by OpenAI GPT-4 or Anthropic Claude
-  - Configurable summary length (50, 100, 250 words)
-  - Highlight key points automatically
+    - Powered by OpenAI GPT-4 or Anthropic Claude
+    - Configurable summary length (50, 100, 250 words)
+    - Highlight key points automatically
 
 - **Smart Tag Suggestions:** AI suggests relevant tags based on content
-  - Machine learning-powered categorization
-  - Learns from your existing tagging patterns
-  - One-click tag application
+    - Machine learning-powered categorization
+    - Learns from your existing tagging patterns
+    - One-click tag application
 
 - **Duplicate Detection:** Automatically identify duplicate or similar clips
-  - Fuzzy matching for near-duplicates
-  - Merge suggestions with conflict resolution
-  - Prevent redundant research capture
+    - Fuzzy matching for near-duplicates
+    - Merge suggestions with conflict resolution
+    - Prevent redundant research capture
 
 - **Related Content:** AI finds related clips in your library
-  - Semantic search beyond keyword matching
-  - "More like this" recommendations
-  - Cross-reference discovery
+    - Semantic search beyond keyword matching
+    - "More like this" recommendations
+    - Cross-reference discovery
 
 - **Key Phrase Extraction:** Automatically extract important phrases
-  - SEO keyword identification
-  - Topic modeling
-  - Entity recognition (people, places, organizations)
+    - SEO keyword identification
+    - Topic modeling
+    - Entity recognition (people, places, organizations)
 
 ##### AI Configuration
 - **Bring Your Own API Key:** Use your own OpenAI/Anthropic API key
@@ -86,41 +86,41 @@
 
 ##### Communication Tools
 - **Slack Integration:**
-  - New clip notifications in Slack channels
-  - Search clips from Slack with slash commands
-  - Share clips directly to conversations
+    - New clip notifications in Slack channels
+    - Search clips from Slack with slash commands
+    - Share clips directly to conversations
 
 - **Microsoft Teams Integration:**
-  - Teams channel notifications
-  - Clip search within Teams
-  - Collaborative clip review
+    - Teams channel notifications
+    - Clip search within Teams
+    - Collaborative clip review
 
 ##### Productivity Platforms
 - **Notion Export:**
-  - One-click export clips to Notion databases
-  - Maintain formatting and metadata
-  - Automatic page creation
+    - One-click export clips to Notion databases
+    - Maintain formatting and metadata
+    - Automatic page creation
 
 - **Confluence Integration:**
-  - Export clips to Confluence pages
-  - Maintain wiki-style linking
-  - Template support
+    - Export clips to Confluence pages
+    - Maintain wiki-style linking
+    - Template support
 
 - **Google Workspace:**
-  - Export to Google Docs
-  - Save to Google Drive
-  - Share via Gmail
+    - Export to Google Docs
+    - Save to Google Drive
+    - Share via Gmail
 
 ##### Automation Tools
 - **Zapier Integration:**
-  - Trigger workflows when clips are created
-  - Send to 5000+ apps
-  - Custom automation recipes
+    - Trigger workflows when clips are created
+    - Send to 5000+ apps
+    - Custom automation recipes
 
 - **Make.com (Integromat):**
-  - Visual workflow builder
-  - Complex multi-step automations
-  - Data transformation
+    - Visual workflow builder
+    - Complex multi-step automations
+    - Data transformation
 
 ##### Content Delivery
 - **RSS Feed Generation:** Auto-generated RSS feeds from clip collections
@@ -133,24 +133,24 @@
 
 ##### Usage Analytics
 - **Capture Metrics:**
-  - Total clips created per day/week/month
-  - Most active team members
-  - Capture volume trends over time
+    - Total clips created per day/week/month
+    - Most active team members
+    - Capture volume trends over time
 
 - **Content Analytics:**
-  - Most captured domains/sources
-  - Popular tags and categories
-  - Content type distribution (YouTube, PDFs, web pages)
+    - Most captured domains/sources
+    - Popular tags and categories
+    - Content type distribution (YouTube, PDFs, web pages)
 
 - **Search Analytics:**
-  - Most searched terms
-  - Search success rate
-  - Popular filters and taxonomies
+    - Most searched terms
+    - Search success rate
+    - Popular filters and taxonomies
 
 - **Team Insights:**
-  - Team member contributions
-  - Response time on assignments
-  - Collaboration patterns
+    - Team member contributions
+    - Response time on assignments
+    - Collaboration patterns
 
 ##### Reporting
 - **Exportable Reports:** CSV, PDF, Excel formats
@@ -181,38 +181,38 @@
 
 ##### Enterprise Security
 - **Single Sign-On (SSO):**
-  - SAML 2.0 support
-  - OAuth integration
-  - Active Directory / LDAP
-  - Azure AD, Okta, OneLogin support
+    - SAML 2.0 support
+    - OAuth integration
+    - Active Directory / LDAP
+    - Azure AD, Okta, OneLogin support
 
 - **Two-Factor Authentication (2FA):**
-  - TOTP (Google Authenticator, Authy)
-  - SMS backup codes
-  - Enforce 2FA for all users
+    - TOTP (Google Authenticator, Authy)
+    - SMS backup codes
+    - Enforce 2FA for all users
 
 - **IP Whitelisting:**
-  - Restrict access by IP address
-  - Support for IP ranges
-  - Per-user IP restrictions
+    - Restrict access by IP address
+    - Support for IP ranges
+    - Per-user IP restrictions
 
 ##### Audit & Compliance
 - **Comprehensive Audit Logs:**
-  - Track all user actions (create, edit, delete, view)
-  - Exportable audit trail
-  - Retention policies (1 year, 3 years, forever)
-  - Tamper-proof logging
+    - Track all user actions (create, edit, delete, view)
+    - Exportable audit trail
+    - Retention policies (1 year, 3 years, forever)
+    - Tamper-proof logging
 
 - **Content Encryption:**
-  - Encryption at rest for sensitive clips
-  - Encrypted metadata storage
-  - Key management tools
+    - Encryption at rest for sensitive clips
+    - Encrypted metadata storage
+    - Key management tools
 
 - **GDPR Compliance Tools:**
-  - Data export for user requests
-  - Right-to-be-forgotten implementation
-  - Consent management
-  - Privacy policy integration
+    - Data export for user requests
+    - Right-to-be-forgotten implementation
+    - Consent management
+    - Privacy policy integration
 
 ##### Backup & Recovery
 - **Automated Backups:** Daily automated clip backups
@@ -327,12 +327,12 @@
 
 **Distribution Channel:** Direct download from theapiguys.com enterprise portal  
 
-**Plugin Type:** Separate enterprise-grade plugin  
+**Plugin Type:** Separate enterprise-grade plugin *(planned — not yet built)*  
 
-- **Plugin Name:** `zsoogi-clipper-enterprise`
+- **Plugin Name:** `zsoogi-clipper-enterprise` (planned)
 - **Replaces:** Free and Premium versions (cannot run simultaneously)
-- **Data Migration:** Automatic migration from Free/Premium
-- **Zero Downtime:** Seamless upgrade process
+- **Data Migration:** Automatic migration from Free/Premium (planned)
+- **Zero Downtime:** Seamless upgrade process (planned)
 
 **Updates:**  
 
@@ -351,9 +351,9 @@
 **Integration Delivery:**  
 
 - Some features require external API keys (your keys):
-  - OpenAI/Anthropic for AI features
-  - Slack/Teams app installation
-  - Zapier/Make.com accounts
+    - OpenAI/Anthropic for AI features
+    - Slack/Teams app installation
+    - Zapier/Make.com accounts
 - All integrations configured via settings panel
 - No code required for standard integrations
 

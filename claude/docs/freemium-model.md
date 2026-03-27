@@ -56,15 +56,14 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 **Target:** Power users, researchers, content creators  
 
 #### 1. YouTube Transcript Capture
-**Priority:** 🔥 High | **Status:** ✅ Built (ProVersion branch)  
+**Priority:** 🔥 High | **Status:** ✅ Built (merged into `premium` branch)  
 
-- [ ] Merge ProVersion branch transcript functionality
-- [ ] Full transcript scraping from YouTube pages
-- [ ] Searchable transcript storage in post metadata
-- [ ] Automatic timestamp links in content
-- [ ] Transcript excerpt in post content
+- [x] Full transcript scraping from YouTube pages
+- [x] Searchable transcript storage in post metadata
+- [x] Automatic timestamp links in content
+- [x] Transcript excerpt in post content
 
-**Technical Notes:** Already implemented in ProVersion v2.4.3. See [GitHub Issue #5](https://github.com/pbrocks/zsoogi-clipper/issues/5) for implementation details.  
+**Technical Notes:** Originally built in `ProVersion` v2.4.3, now merged into the `premium` branch. Uses a `window.name` bridge pattern for cross-origin data passing.  
 
 #### 2. Advanced Content Capture
 **Priority:** 🔥 High | **Status:** 📋 Planned  
@@ -281,7 +280,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Announce on WordPress forums
 - [ ] Product Hunt launch
 - [ ] Blog post announcement
-- [ ] Email existing ProVersion users
+- [ ] Email existing premium users
 - [ ] Social media campaign
 
 ---
@@ -408,7 +407,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 1. [ ] Finalize pricing structure
 2. [ ] Set up Freemius account
 3. [ ] Create WordPress.org account
-4. [ ] Review ProVersion branch for merge readiness
+4. [x] Merge ProVersion transcript features into `premium` branch (done)
 5. [ ] Draft WordPress.org plugin description
 
 ### Short Term (This Month)
@@ -429,7 +428,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 - **Original Plugin:** Wiki Clipper (https://github.com/pbrocks/wiki-clipper)
 - **Current Repository:** https://github.com/TheAPIGuysDev/zsoogi-clipper
-- **ProVersion Branch:** Contains YouTube transcript feature (v2.4.3)
+- **Premium Branch:** Contains YouTube transcript feature (merged from ProVersion v2.4.3)
 - **License Management:** Freemius (recommended for WordPress plugins)
 - **Payment Processing:** Stripe + PayPal integration via Freemius
 

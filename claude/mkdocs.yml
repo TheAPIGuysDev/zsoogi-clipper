@@ -66,6 +66,8 @@ nav:
       - Development: development.md
       - Freemium Development: freemium-development.md
       - Docs Branch Strategy: docs-branch-strategy.md
+      - Branch & Distribution Strategy: branching-strategy.md
+      - AI-Ready WordPress (MCP): ai-ready-wordpress.md
   - Support:
       - FAQ: support/faq.md
       - Contact: support/contact.md

@@ -1,8 +1,8 @@
 # Docs Branch Strategy
 
-**Branch:** `premium` is the source of truth
-**Deploy from:** `premium` only
-**Merge direction:** `premium` → `main` (never the reverse)
+**Branch:** `premium` is the source of truth  
+**Deploy from:** `premium` only  
+**Merge direction:** `premium` → `main` (never the reverse)  
 
 ---
 

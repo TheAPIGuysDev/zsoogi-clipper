@@ -44,9 +44,10 @@ Features are declared in `License::$features`:
 
 ```php
 private static $features = array(
-    'citation_formats' => 'premium',
-    'transcripts'      => 'premium',
-    'pdf_extraction'   => 'premium',
+    'abilities'        => 'premium', // WordPress Abilities API / MCP integration
+    'transcripts'      => 'premium', // YouTube transcript capture
+    'citation_formats' => 'premium', // detailed + academic citation styles
+    'pdf_extraction'   => 'premium', // PDF content extraction (future)
 );
 ```
 
@@ -115,6 +116,29 @@ if ( License::has_feature( 'your_feature' ) ) {
 ---
 
 ## Currently Gated Features
+
+### `abilities` — WordPress Abilities API / MCP integration
+
+**File:** `includes/class-abilities.php`
+
+Registers four WordPress Abilities so MCP-connected AI agents can interact with the clip library via natural language.
+
+**Free behaviour:** `Abilities::init()` returns immediately; no abilities registered.
+
+**Premium behaviour:** Registers on `wp_abilities_api_init`. Bails silently if `wp_register_ability()` doesn't exist (pre-WP 6.9).
+
+**Registered abilities:**
+
+| Ability | Requires |
+|---|---|
+| `zsoogi/create-clip` | `abilities` feature |
+| `zsoogi/search-clips` | `abilities` feature |
+| `zsoogi/get-transcript` | `abilities` + `transcripts` features |
+| `zsoogi/export-clips` | `abilities` feature |
+
+**Setup:** Requires WordPress 6.9+ and the [MCP Adapter plugin](https://github.com/WordPress/mcp-adapter/releases). See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for connecting Claude Desktop or Claude Code.
+
+---
 
 ### `citation_formats` — Multiple citation styles
 

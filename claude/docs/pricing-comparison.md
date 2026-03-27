@@ -45,17 +45,15 @@
 
 1. **Purchase license** at theapiguys.com/zsoogi-clipper/premium
 2. **Receive license key** via email immediately
-3. **Download plugin** from customer dashboard (theapiguys.com/account)
-4. **Upload to WordPress** (Plugins → Add New → Upload Plugin)
-5. **Activate plugin** and **enter license key** in Settings → License
-6. Premium features unlock instantly
+3. **Go to Zsoogi Clips → Settings → License** in your existing WordPress install
+4. **Enter license key** and click "Activate License"
+5. Premium features unlock instantly — no reinstall required
 
 **Plugin Details:**  
 
-- **Plugin Slug:** `zsoogi-clipper-premium`
-- **Separate Plugin:** Not an add-on, replaces free version
-- **License Validation:** Contacts theapiguys.com API on activation
-- **Cannot Coexist:** Deactivate free version before installing Premium
+- **Plugin Slug:** `zsoogi-clipper` (same as free — no separate install)
+- **Same plugin, unlocked by key:** Premium features are gated at runtime via license check
+- **License Validation:** Contacts theapiguys.com API on activation, cached for 24 hours
 
 **Updates:**  
 
@@ -92,11 +90,10 @@
     - Add AI API keys (optional - your OpenAI/Anthropic keys)
 7. **Optional:** Schedule onboarding call with support team
 
-**Plugin Details:**  
+**Plugin Details (planned — Enterprise not yet built):**  
 
-- **Plugin Slug:** `zsoogi-clipper-enterprise`
-- **Separate Plugin:** Enterprise-grade version
-- **Replaces:** Free and Premium (cannot run simultaneously)
+- **Plugin Slug:** `zsoogi-clipper-enterprise` (planned separate plugin for Enterprise tier)
+- **Replaces:** Free and Premium versions when installed
 - **Multi-Site Support:** Single license can activate on multiple sites (depending on license tier)
 
 **Updates:**  
@@ -109,19 +106,19 @@
 **External API Requirements:**  
 
 - **Included (No extra cost):**
-  - License validation API (theapiguys.com)
-  - Update server (theapiguys.com)
-  - YouTube transcript API (public, free)
+    - License validation API (theapiguys.com)
+    - Update server (theapiguys.com)
+    - YouTube transcript API (public, free)
 
 - **Your API Keys (Optional for AI features):**
-  - OpenAI API key (~$5-50/month depending on usage)
-  - Anthropic API key (alternative to OpenAI)
+    - OpenAI API key (~$5-50/month depending on usage)
+    - Anthropic API key (alternative to OpenAI)
 
 - **Your Credentials (Optional for integrations):**
-  - Slack workspace app
-  - Microsoft Teams app
-  - Zapier account
-  - Make.com account
+    - Slack workspace app
+    - Microsoft Teams app
+    - Zapier account
+    - Make.com account
 
 ---
 
@@ -221,15 +218,15 @@
 ⚠️ **Some feature data lost:**
 
 - **Preserved:**
-  - All clips (custom post type)
-  - Basic taxonomies
-  - Featured images
-  - Core metadata
+    - All clips (custom post type)
+    - Basic taxonomies
+    - Featured images
+    - Core metadata
 - **Lost access to:**
-  - YouTube transcripts (still stored, just not accessible)
-  - Advanced citation formats (reverts to simple)
-  - Team collaboration features
-  - AI-generated summaries (still stored as metadata)
+    - YouTube transcripts (still stored, just not accessible)
+    - Advanced citation formats (reverts to simple)
+    - Team collaboration features
+    - AI-generated summaries (still stored as metadata)
 
 You can re-upgrade later and regain access to all Premium/Enterprise data.
 
@@ -316,9 +313,9 @@ You can re-upgrade later and regain access to all Premium/Enterprise data.
 ### Payment Methods
 - **Free:** No payment required
 - **Premium/Enterprise:**
-  - Credit card (Stripe)
-  - PayPal
-  - Invoice/PO (Enterprise only, Net-30)
+    - Credit card (Stripe)
+    - PayPal
+    - Invoice/PO (Enterprise only, Net-30)
 
 ### Billing Cycle
 - **Annual subscriptions** (no monthly option currently)

@@ -66,6 +66,7 @@ function zsoogi_clipper_load_includes() {
 		'includes/class-zsoogi-clips.php',
 		'includes/class-admin-menu.php',
 		'includes/class-zsoogi-clipper.php',
+		'includes/class-abilities.php',
 	);
 
 	foreach ( $includes as $file ) {
@@ -127,6 +128,11 @@ function zsoogi_clipper_init() {
 	// Initialize Zsoogi Clipper (modern bookmarklet functionality).
 	if ( class_exists( 'Zsoogi\Zsoogi_Clipper' ) ) {
 		\Zsoogi\Zsoogi_Clipper::init();
+	}
+
+	// Initialize Abilities API integration (premium — WP 6.9+).
+	if ( class_exists( 'Zsoogi\Abilities' ) ) {
+		\Zsoogi\Abilities::init();
 	}
 }
 
