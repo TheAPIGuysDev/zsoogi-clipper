@@ -35,8 +35,8 @@ class Zsoogi_Clipper {
 		// Set featured image after post is created.
 		add_action( 'save_post_' . Zsoogi_Clips::POST_TYPE, array( __CLASS__, 'set_featured_image' ), 10, 3 );
 
-		// Save YouTube transcript data.
-		add_action( 'save_post_' . Zsoogi_Clips::POST_TYPE, array( __CLASS__, 'save_youtube_transcript' ), 10, 3 );
+		// Fire action after clip is saved — add-on plugins hook here for extra processing.
+		add_action( 'save_post_' . Zsoogi_Clips::POST_TYPE, array( __CLASS__, 'after_save_clip' ), 20, 3 );
 	}
 
 	/**
@@ -222,10 +222,8 @@ class Zsoogi_Clipper {
 		$selection = isset( $GLOBALS['zsoogi_clipper_selection'] ) ? $GLOBALS['zsoogi_clipper_selection'] : '';
 
 		// Get settings.
-		// Citation format is a premium feature — free version always uses 'simple'.
-		$citation_format  = License::has_feature( 'citation_formats' )
-			? get_option( 'zsoogi_clipper_citation_format', 'detailed' )
-			: 'simple';
+		// Citation format: free default is 'simple'; pro plugin can override via this filter.
+		$citation_format  = apply_filters( 'zsoogi_clipper/citation_format', 'simple' );
 		$include_metadata = get_option( 'zsoogi_clipper_include_metadata', false );
 
 		// Build the content.
@@ -252,49 +250,8 @@ class Zsoogi_Clipper {
 			$new_content .= "\n<!-- /wp:paragraph -->\n\n";
 		}
 
-		// Process YouTube transcript if available — requires premium license.
-		$youtube_video_id   = isset( $GLOBALS['zsoogi_clipper_youtube_video_id'] ) ? $GLOBALS['zsoogi_clipper_youtube_video_id'] : '';
-		$youtube_transcript = isset( $GLOBALS['zsoogi_clipper_youtube_transcript_text'] ) ? $GLOBALS['zsoogi_clipper_youtube_transcript_text'] : '';
-
-		if ( ! empty( $youtube_video_id ) && License::has_feature( 'transcripts' ) ) {
-			// Check if YouTube transcripts are enabled.
-			$transcripts_enabled = get_option( 'zsoogi_clipper_youtube_transcripts_enabled', false );
-
-			if ( $transcripts_enabled && ! empty( $youtube_transcript ) ) {
-				// Get excerpt length setting.
-				$excerpt_length = get_option( 'zsoogi_clipper_youtube_excerpt_length', 500 );
-				$excerpt_length = max( 100, min( 5000, intval( $excerpt_length ) ) );
-
-				// Create excerpt from transcript.
-				$transcript_excerpt = mb_substr( $youtube_transcript, 0, $excerpt_length );
-				if ( mb_strlen( $youtube_transcript ) > $excerpt_length ) {
-					$transcript_excerpt .= '...';
-				}
-
-				// Add transcript section.
-				$new_content .= "<!-- wp:heading -->\n";
-				$new_content .= '<h2 class="wp-block-heading">Video Transcript</h2>';
-				$new_content .= "\n<!-- /wp:heading -->\n\n";
-
-				$new_content .= "<!-- wp:quote -->\n";
-				$new_content .= '<blockquote class="wp-block-quote">';
-				$new_content .= '<p>' . esc_html( $transcript_excerpt ) . '</p>';
-				$new_content .= '</blockquote>';
-				$new_content .= "\n<!-- /wp:quote -->\n\n";
-
-				$new_content .= "<!-- wp:paragraph -->\n";
-				$new_content .= '<p><em>Full transcript stored in post metadata.</em></p>';
-				$new_content .= "\n<!-- /wp:paragraph -->\n\n";
-
-				// Store full transcript in global for save hook.
-				$GLOBALS['zsoogi_clipper_youtube_transcript_for_meta'] = $youtube_transcript;
-			} elseif ( empty( $youtube_transcript ) ) {
-				// Video ID exists but no transcript captured.
-				$new_content .= "<!-- wp:paragraph -->\n";
-				$new_content .= '<p><em>To capture transcripts, open the transcript panel on YouTube before clipping.</em></p>';
-				$new_content .= "\n<!-- /wp:paragraph -->\n\n";
-			}
-		}
+		// Allow pro plugin to append extra content (e.g. YouTube transcript block).
+		$new_content = apply_filters( 'zsoogi_clipper/default_content_extra', $new_content );
 
 		// Add notes section.
 		$new_content .= "<!-- wp:heading -->\n";
@@ -305,7 +262,8 @@ class Zsoogi_Clipper {
 		$new_content .= '<p></p>';
 		$new_content .= "\n<!-- /wp:paragraph -->";
 
-		return $new_content;
+		// Allow pro plugin to modify or replace the assembled content entirely.
+		return apply_filters( 'zsoogi_clipper/default_content', $new_content, $post );
 	}
 
 	/**
@@ -385,48 +343,30 @@ class Zsoogi_Clipper {
 	}
 
 	/**
-	 * Save YouTube transcript data to post meta.
+	 * Fire action after a clip is saved.
 	 *
-	 * Stores the full transcript and related metadata when a YouTube video
-	 * is clipped with transcript data.
+	 * Add-on plugins hook here to do extra post-save processing
+	 * (e.g. storing YouTube transcript meta, triggering AI summaries).
 	 *
-	 * @since 2.5.0
+	 * @since 2.6.0
 	 *
 	 * @param int      $post_id Post ID.
-	 * @param \WP_Post $post    Post object (unused but required by hook signature).
-	 * @param bool     $update  Whether this is an update (unused but required by hook signature).
+	 * @param \WP_Post $post    Post object.
+	 * @param bool     $update  Whether this is an update.
 	 * @return void
 	 */
-	public static function save_youtube_transcript( $post_id, $post, $update ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter
-		// Note: $post and $update parameters are required by save_post hook but not used in this function.
-		// Don't run on autosave.
+	public static function after_save_clip( $post_id, $post, $update ) {
 		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 			return;
 		}
 
-		// Check if we have transcript data to save.
-		if ( ! isset( $GLOBALS['zsoogi_clipper_youtube_transcript_for_meta'] ) ) {
-			return;
-		}
-
-		$transcript = $GLOBALS['zsoogi_clipper_youtube_transcript_for_meta'];
-		$video_id   = isset( $GLOBALS['zsoogi_clipper_youtube_video_id'] ) ? $GLOBALS['zsoogi_clipper_youtube_video_id'] : '';
-
-		// Only save if we have both transcript and video ID.
-		if ( empty( $transcript ) || empty( $video_id ) ) {
-			return;
-		}
-
-		// Save YouTube data to post meta.
-		update_post_meta( $post_id, '_youtube_video_id', sanitize_text_field( $video_id ) );
-		update_post_meta( $post_id, '_youtube_transcript', sanitize_textarea_field( $transcript ) );
-		update_post_meta( $post_id, '_youtube_transcript_language', get_option( 'zsoogi_clipper_youtube_language', 'en' ) );
-		update_post_meta( $post_id, '_youtube_transcript_fetched', current_time( 'mysql' ) );
-		update_post_meta( $post_id, '_youtube_transcript_source', 'bookmarklet' );
-
-		// Clear the globals to prevent multiple saves.
-		unset( $GLOBALS['zsoogi_clipper_youtube_transcript_for_meta'] );
-		unset( $GLOBALS['zsoogi_clipper_youtube_video_id'] );
-		unset( $GLOBALS['zsoogi_clipper_youtube_transcript_text'] );
+		/**
+		 * Fires after a Zsoogi Clip is saved.
+		 *
+		 * @param int      $post_id Post ID.
+		 * @param \WP_Post $post    Post object.
+		 * @param bool     $update  True if this is an existing post being updated.
+		 */
+		do_action( 'zsoogi_clipper/clip_saved', $post_id, $post, $update );
 	}
 }

@@ -62,11 +62,9 @@ function zsoogi_clipper_load_autoloader() {
  */
 function zsoogi_clipper_load_includes() {
 	$includes = array(
-		'includes/class-license.php',
 		'includes/class-zsoogi-clips.php',
 		'includes/class-admin-menu.php',
 		'includes/class-zsoogi-clipper.php',
-		'includes/class-abilities.php',
 	);
 
 	foreach ( $includes as $file ) {
@@ -130,10 +128,6 @@ function zsoogi_clipper_init() {
 		\Zsoogi\Zsoogi_Clipper::init();
 	}
 
-	// Initialize Abilities API integration (premium — WP 6.9+).
-	if ( class_exists( 'Zsoogi\Abilities' ) ) {
-		\Zsoogi\Abilities::init();
-	}
 }
 
 /**
