@@ -26,12 +26,12 @@ composer build-zip
 
 ### Dev Dependencies
 
-| Package | Purpose |
-|---|---|
-| `squizlabs/php_codesniffer` | PHP_CodeSniffer |
-| `wp-coding-standards/wpcs` | WordPress Coding Standards |
-| `phpcsstandards/phpcsextra` | Extra PHPCS rules |
-| `phpcsstandards/phpcsutils` | PHPCS utilities |
+| Package                     | Purpose                    |
+| --------------------------- | -------------------------- |
+| `squizlabs/php_codesniffer` | PHP_CodeSniffer            |
+| `wp-coding-standards/wpcs`  | WordPress Coding Standards |
+| `phpcsstandards/phpcsextra` | Extra PHPCS rules          |
+| `phpcsstandards/phpcsutils` | PHPCS utilities            |
 
 ### PSR-4 Autoloading
 
@@ -77,11 +77,11 @@ Version is extracted from the plugin header `Version:` line automatically.
 
 ## Git Branches
 
-| Branch | Version | Description |
-|---|---|---|
-| `main` | v2.4.0 | Stable — YouTube title cleanup + thumbnail integration |
-| `pwa` | current | Active development |
-| `ProVersion` | v2.4.3 | YouTube transcript capture (advanced) |
+| Branch       | Version | Description                                            |
+| ------------ | ------- | ------------------------------------------------------ |
+| `main`       | v2.4.0  | Stable — YouTube title cleanup + thumbnail integration |
+| `pwa`        | current | Active development                                     |
+| `ProVersion` | v2.4.3  | YouTube transcript capture (advanced)                  |
 
 The ProVersion branch uses a `window.name` bridge pattern for cross-origin data passing. See [GitHub Issue #5](https://github.com/pbrocks/zsoogi-clipper/issues/5) for technical details.
 
@@ -155,7 +155,7 @@ wp zsoogi pwa-files
 **Output example:**
 
 ```
-Writing PWA static files to /home/u86-s1n4ntfvg4md/www/laterist.site/public_html/ ...
+Writing PWA static files to /home/u90-108mttff08fo/www/zsooginotes.site/public_html/ ...
 Success: manifest.json and sw.js written to /home/.../public_html/ (plugin v0.9.3)
 ```
 
