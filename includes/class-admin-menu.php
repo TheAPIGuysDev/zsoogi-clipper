@@ -537,15 +537,16 @@ class Admin_Menu {
 				</div>
 
 				<div style="text-align: center; margin: 30px 0;">
-					<a href="javascript:<?php echo esc_js( $bookmarklet_code ); ?>" class="bookmarklet-link">
+					<a id="zsoogi-bookmarklet-link" href="#" class="bookmarklet-link">
 						🔖 ZsoogiClips v<?php echo esc_html( $plugin_version ); ?>
 					</a>
 				</div>
-
-				<details style="margin: 20px 0; background: #f8f8f8; border: 1px solid #ccc; padding: 10px;">
-					<summary style="cursor: pointer; font-weight: bold; color: #d63638;">🐛 Debug: raw generated code — paste this into browser console to test</summary>
-					<textarea rows="6" style="width:100%;font-family:monospace;font-size:11px;margin-top:8px;" onclick="this.select()"><?php echo esc_textarea( $bookmarklet_code ); ?></textarea>
-				</details>
+				<script>
+				(function() {
+					var code = <?php echo wp_json_encode( $bookmarklet_code ); ?>;
+					document.getElementById( 'zsoogi-bookmarklet-link' ).href = 'javascript:' + code;
+				})();
+				</script>
 
 				<h2><?php esc_html_e( 'How to Use', 'zsoogi-clipper' ); ?></h2>
 				<div class="bookmarklet-instructions">

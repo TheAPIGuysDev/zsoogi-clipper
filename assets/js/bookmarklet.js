@@ -8,7 +8,7 @@
  * - First meaningful image (or YouTube thumbnail for YouTube videos)
  *
  * @package Zsoogi_Clipper
- * @version 2.4.2
+ * @version 2.4.4
  */
 
 (function () {
@@ -52,11 +52,11 @@
 	}
 
 	const postUrl = '__SITE_URL__/wp-admin/post-new.php?post_type=zsoogiclips' +
-		'&title=' + t +
-		'&url=' + u +
-		'&selection=' + s +
-		( img ? '&image=' + img : '' ) +
-		'&clipper_version=' + v;
+		'\x26title=' + t +
+		'\x26url=' + u +
+		'\x26selection=' + s +
+		( img ? '\x26image=' + img : '' ) +
+		'\x26clipper_version=' + v;
 	console.log( '[ZsoogiClips] opening:', postUrl );
 
 	const w = window.open(
