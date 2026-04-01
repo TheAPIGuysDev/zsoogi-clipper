@@ -12,66 +12,63 @@
  */
 
 (function () {
-	// Capture the current page URL.
-	const u = encodeURIComponent( location.href );
+	console.log( '[ZsoogiClips] bookmarklet start' );
 
-	// Clean up YouTube titles if needed.
-	// Removes view count prefix like "(153) " and "- YouTube" suffix.
+	const u = encodeURIComponent( location.href );
+	console.log( '[ZsoogiClips] url:', location.href );
+
 	const rawTitle = location.href.includes( 'youtube' )
 		? document.title.replace( /^\(\d+\)\s*/, '' ).replace( /\s*-\s*YouTube\s*$/, '' )
 		: document.title;
-	const t        = encodeURIComponent( rawTitle );
+	const t = encodeURIComponent( rawTitle );
+	console.log( '[ZsoogiClips] title:', rawTitle );
 
-	// Capture any selected text on the page.
 	const s = encodeURIComponent( window.getSelection().toString() );
+	console.log( '[ZsoogiClips] selection length:', window.getSelection().toString().length );
 
-	// Plugin version (will be replaced by PHP).
 	const v = '__VERSION__';
-
-	// Capture image - prioritize YouTube thumbnails for YouTube videos.
 	let img = '';
 
-	// YouTube video ID regex pattern.
 	const ytRegex = /(?:youtube(?:-nocookie)?\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|live)\/|.*[?&]v=)|youtu\.be\/)([^&?\/\s]{11})/i;
-	const match   = location.href.match( ytRegex );
+	const match = location.href.match( ytRegex );
 
-	if (match && match[1]) {
-		// If it's a YouTube video, get the high-quality thumbnail.
+	if ( match && match[1] ) {
+		console.log( '[ZsoogiClips] YouTube video id:', match[1] );
 		img = encodeURIComponent( 'https://i.ytimg.com/vi/' + match[1] + '/maxresdefault.jpg' );
 	} else {
-		// For non-YouTube pages, find the first meaningful image.
-		// Filter out small images, icons, logos, and avatars.
 		const images = Array.from( document.querySelectorAll( 'img' ) ).filter(
-			i =>
-			i.naturalWidth > 200 &&
-			i.naturalHeight > 200 &&
-			! i.src.includes( 'icon' ) &&
-			! i.src.includes( 'logo' ) &&
-			! i.src.includes( 'avatar' )
+			function ( i ) {
+				return i.naturalWidth > 200 &&
+					i.naturalHeight > 200 &&
+					i.src.indexOf( 'icon' ) === -1 &&
+					i.src.indexOf( 'logo' ) === -1 &&
+					i.src.indexOf( 'avatar' ) === -1;
+			}
 		);
-
-		if (images.length > 0) {
+		console.log( '[ZsoogiClips] images found:', images.length );
+		if ( images.length > 0 ) {
 			img = encodeURIComponent( images[0].src );
 		}
 	}
 
-	// Build the WordPress post-new URL with all captured data.
 	const postUrl = '__SITE_URL__/wp-admin/post-new.php?post_type=zsoogiclips' +
 		'&title=' + t +
 		'&url=' + u +
 		'&selection=' + s +
-		(img ? '&image=' + img : '') +
+		( img ? '&image=' + img : '' ) +
 		'&clipper_version=' + v;
+	console.log( '[ZsoogiClips] opening:', postUrl );
 
-	// Open the new post window.
 	const w = window.open(
 		postUrl,
 		'_blank',
 		'width=900,height=700,menubar=no,toolbar=no,location=no,status=no'
 	);
 
-	// Alert if popup was blocked.
-	if ( ! w) {
+	if ( !w ) {
+		console.log( '[ZsoogiClips] popup blocked' );
 		alert( 'Please allow popups for this site to use Zsoogi Clipper' );
+	} else {
+		console.log( '[ZsoogiClips] popup opened ok' );
 	}
 })();

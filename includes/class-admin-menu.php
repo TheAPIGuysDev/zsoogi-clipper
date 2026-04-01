@@ -448,9 +448,11 @@ class Admin_Menu {
 		$js_code = str_replace( '__SITE_URL__', $site_url, $js_code );
 
 		// Remove comments and extra whitespace to minify.
-		$js_code = preg_replace( '/\/\*[\s\S]*?\*\//', '', $js_code ); // Remove multi-line comments.
-		$js_code = preg_replace( '/\/\/.*$/m', '', $js_code ); // Remove single-line comments.
-		$js_code = preg_replace( '/\s+/', ' ', $js_code ); // Collapse whitespace.
+		// NOTE: strip comment-only lines (^\s*//) NOT all occurrences of // — the latter
+		// would destroy https:// and other URLs embedded in string literals.
+		$js_code = preg_replace( '/\/\*[\s\S]*?\*\//', '', $js_code ); // Remove block comments.
+		$js_code = preg_replace( '/^\s*\/\/.*$/m', '', $js_code );      // Remove comment-only lines.
+		$js_code = preg_replace( '/\s+/', ' ', $js_code );              // Collapse whitespace.
 		$js_code = preg_replace( '/\s*([{}();,:])\s*/', '$1', $js_code ); // Remove spaces around operators.
 		$js_code = trim( $js_code );
 
@@ -536,9 +538,14 @@ class Admin_Menu {
 
 				<div style="text-align: center; margin: 30px 0;">
 					<a href="javascript:<?php echo esc_js( $bookmarklet_code ); ?>" class="bookmarklet-link">
-						🔖 <?php echo esc_html( $site_name ); ?> ZsoogiClips
+						🔖 ZsoogiClips v<?php echo esc_html( $plugin_version ); ?>
 					</a>
 				</div>
+
+				<details style="margin: 20px 0; background: #f8f8f8; border: 1px solid #ccc; padding: 10px;">
+					<summary style="cursor: pointer; font-weight: bold; color: #d63638;">🐛 Debug: raw generated code — paste this into browser console to test</summary>
+					<textarea rows="6" style="width:100%;font-family:monospace;font-size:11px;margin-top:8px;" onclick="this.select()"><?php echo esc_textarea( $bookmarklet_code ); ?></textarea>
+				</details>
 
 				<h2><?php esc_html_e( 'How to Use', 'zsoogi-clipper' ); ?></h2>
 				<div class="bookmarklet-instructions">
