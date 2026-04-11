@@ -19,6 +19,26 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+// Conflict check: bail if the pro version is in the active plugins list.
+// We check the option directly because pro hasn't loaded yet at this point
+// (free loads first alphabetically), so its functions/constants aren't defined.
+$zsoogi_active = (array) get_option( 'active_plugins', array() );
+if ( in_array( 'zsoogi-clipper-pro/zsoogi-clipper-pro.php', $zsoogi_active, true ) ) {
+	add_action(
+		'admin_notices',
+		function () {
+			echo '<div class="notice notice-warning is-dismissible"><p>';
+			echo wp_kses(
+				__( '<strong>Zsoogi Clipper (free)</strong> is inactive because <strong>Zsoogi Clipper Pro</strong> is already active. You do not need both plugins.', 'zsoogi-clipper' ),
+				array( 'strong' => array() )
+			);
+			echo '</p></div>';
+		}
+	);
+	return;
+}
+unset( $zsoogi_active );
+
 // Define plugin constants.
 if ( ! defined( 'ZSOOGI_CLIPS_VERSION' ) ) {
 	define( 'ZSOOGI_CLIPS_VERSION', '2.4.4' );
