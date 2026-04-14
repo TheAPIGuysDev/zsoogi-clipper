@@ -2,8 +2,8 @@
 
 > Strategic plan for launching Zsoogi Clipper with a tiered freemium model
 
-**Last Updated:** 2026-01-30  
-**Status:** Planning Phase  
+**Last Updated:** 2026-03-26  
+**Status:** Active — Phase 1 complete, Phase 2 (Pro launch) in progress  
 
 ---
 
@@ -55,16 +55,25 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 **Target:** Power users, researchers, content creators  
 
-#### 1. YouTube Transcript Capture
-**Priority:** 🔥 High | **Status:** ✅ Built (ProVersion branch)  
+#### 1. WordPress Abilities API — AI Agent Integration
+**Priority:** 🔥 High | **Status:** ✅ Built (`premium` branch) | Requires WP 6.9+
 
-- [ ] Merge ProVersion branch transcript functionality
-- [ ] Full transcript scraping from YouTube pages
-- [ ] Searchable transcript storage in post metadata
-- [ ] Automatic timestamp links in content
-- [ ] Transcript excerpt in post content
+- [x] `zsoogi/create-clip` — create clip from URL, title, excerpt via AI agent
+- [x] `zsoogi/search-clips` — search clips by keyword, domain, or tag
+- [x] `zsoogi/get-transcript` — retrieve stored YouTube transcript for a clip
+- [x] `zsoogi/export-clips` — export filtered clips as Markdown or JSON
 
-**Technical Notes:** Already implemented in ProVersion v2.4.3. See [GitHub Issue #5](https://github.com/pbrocks/zsoogi-clipper/issues/5) for implementation details.  
+**Technical Notes:** Implemented in `includes/class-abilities.php`. Registers on `wp_abilities_api_init`. Gracefully does nothing on WP < 6.9. Each ability gated behind `License::has_feature('abilities')`. `get-transcript` additionally requires `License::has_feature('transcripts')`.
+
+#### 2. YouTube Transcript Capture
+**Priority:** 🔥 High | **Status:** ✅ Built (merged into `premium` branch)  
+
+- [x] Full transcript scraping from YouTube pages
+- [x] Searchable transcript storage in post metadata
+- [x] Automatic timestamp links in content
+- [x] Transcript excerpt in post content
+
+**Technical Notes:** Implemented via `window.name` bridge pattern for cross-origin data passing. Originally in `ProVersion` branch (v2.4.3), now merged into `premium`.  
 
 #### 2. Advanced Content Capture
 **Priority:** 🔥 High | **Status:** 📋 Planned  
@@ -185,9 +194,9 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 **Goal:** Get free version on WordPress.org  
 
 - [x] Polish free version (v2.4.0)
+- [x] Set up documentation site (MkDocs, this site)
 - [ ] Create WordPress.org listing
 - [ ] Submit to WordPress.org repository
-- [ ] Set up documentation site
 - [ ] Create demo video
 
 ### Phase 2: Pro Launch (Q2 2026)
@@ -283,7 +292,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 - [ ] Announce on WordPress forums
 - [ ] Product Hunt launch
 - [ ] Blog post announcement
-- [ ] Email existing ProVersion users
+- [ ] Email existing premium users
 - [ ] Social media campaign
 
 ---
@@ -410,7 +419,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 1. [ ] Finalize pricing structure
 2. [ ] Set up Freemius account
 3. [ ] Create WordPress.org account
-4. [ ] Review ProVersion branch for merge readiness
+4. [x] Merge ProVersion transcript features into `premium` branch (done)
 5. [ ] Draft WordPress.org plugin description
 
 ### Short Term (This Month)
@@ -431,7 +440,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 - **Original Plugin:** Wiki Clipper (https://github.com/pbrocks/wiki-clipper)
 - **Current Repository:** https://github.com/TheAPIGuysDev/zsoogi-clipper
-- **ProVersion Branch:** Contains YouTube transcript feature (v2.4.3)
+- **Premium Branch:** Contains YouTube transcript feature (merged from ProVersion v2.4.3)
 - **License Management:** Freemius (recommended for WordPress plugins)
 - **Payment Processing:** Stripe + PayPal integration via Freemius
 

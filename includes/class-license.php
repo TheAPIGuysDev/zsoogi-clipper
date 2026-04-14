@@ -50,8 +50,9 @@ class License {
 	 * @var array<string, string>
 	 */
 	private static $features = array(
-		'citation_formats' => 'premium', // detailed + academic citation styles
+		'abilities'        => 'premium', // WordPress Abilities API / MCP integration (class-abilities.php)
 		'transcripts'      => 'premium', // YouTube transcript capture
+		'citation_formats' => 'premium', // detailed + academic citation styles
 		'pdf_extraction'   => 'premium', // PDF content extraction (future)
 	);
 

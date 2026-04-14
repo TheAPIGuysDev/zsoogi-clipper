@@ -19,11 +19,27 @@ fi
 
 cd "$SCRIPT_DIR"
 
-# Ensure watchdog is installed — required for live reload on macOS.
-# Without it mkdocs has no file system event listener and won't detect changes.
-MKDOCS_PYTHON="$(dirname "$(command -v mkdocs)")/python3"
+# Ensure watchdog is installed into the same Python env that mkdocs uses.
+# Required for live-reload on macOS — without it, MkDocs has no filesystem
+# event listener and won't detect saved files.
+#
+# Read the shebang from the mkdocs binary to find its exact Python interpreter.
+# Falling back to $(dirname $(which mkdocs))/python3 is unreliable because
+# on Homebrew the mkdocs wrapper and its Python live in different directories.
+MKDOCS_BIN="$(command -v mkdocs)"
+MKDOCS_PYTHON=""
+if [ -f "$MKDOCS_BIN" ]; then
+    MKDOCS_PYTHON=$(head -1 "$MKDOCS_BIN" | sed 's/^#!//' | awk '{print $1}')
+fi
+
 if [ -x "$MKDOCS_PYTHON" ]; then
     "$MKDOCS_PYTHON" -m pip install --quiet watchdog 2>/dev/null || true
+else
+    # Fallback: try the active python3 in PATH
+    python3 -m pip install --quiet watchdog 2>/dev/null || true
 fi
+
+echo "Fixing markdown formatting..."
+python3 "$HOME/.claude/scripts/fix-markdown.py"
 
 mkdocs serve --dev-addr="127.0.0.1:$PORT"

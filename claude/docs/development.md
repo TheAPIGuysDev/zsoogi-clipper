@@ -2,9 +2,9 @@
 
 ## Environment
 
-- **Local dev:** LocalWP at `zsoogi.local`
-- **Plugin path:** `/Users/pbrocks/Documents/Local/zsoogi/app/public/wp-content/plugins/zsoogi-clipper`
-- **Branch in use:** `pwa` (main branch: `main`)
+- **Local dev:** LocalWP
+- **Plugin path:** `wp-content/plugins/zsoogi-clipper` (relative to WordPress root)
+- **Active branch:** `main` (see [Branch & Distribution Strategy](branching-strategy.md))
 
 ## Composer
 
@@ -77,13 +77,16 @@ Version is extracted from the plugin header `Version:` line automatically.
 
 ## Git Branches
 
-| Branch | Version | Description |
-|---|---|---|
-| `main` | v2.4.0 | Stable — YouTube title cleanup + thumbnail integration |
-| `pwa` | current | Active development |
-| `ProVersion` | v2.4.3 | YouTube transcript capture (advanced) |
+See [Branch & Distribution Strategy](branching-strategy.md) for the full branch map. Short version:
 
-The ProVersion branch uses a `window.name` bridge pattern for cross-origin data passing. See [GitHub Issue #5](https://github.com/pbrocks/zsoogi-clipper/issues/5) for technical details.
+| Branch | Description |
+|---|---|
+| `main` | Stable free version → WordPress.org |
+| `premium` | Premium feature development → Pressable / theapiguys.com |
+| `develop` | Integration branch |
+| `planning` | Non-code planning docs |
+
+`ProVersion` (v2.4.3) no longer exists as a separate branch — that work (YouTube transcripts, `window.name` bridge pattern) has been merged into `premium`.
 
 ## MkDocs (This Site)
 

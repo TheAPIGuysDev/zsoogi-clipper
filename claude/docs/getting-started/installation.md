@@ -172,9 +172,9 @@ After installing, complete these steps:
 **Solution:**  
 
 - Make your bookmarks bar visible:
-  - **Chrome/Edge:** Press `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
-  - **Firefox:** Press `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
-  - **Safari:** View → Show Favorites Bar
+    - **Chrome/Edge:** Press `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
+    - **Firefox:** Press `Ctrl+Shift+B` (Windows) or `Cmd+Shift+B` (Mac)
+    - **Safari:** View → Show Favorites Bar
 
 ### License Won't Activate?
 **Problem:** "Invalid license key" error  

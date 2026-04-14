@@ -131,7 +131,7 @@ Check our [FAQ](support/faq.md) for common questions.
 - Improved bookmarklet performance
 - WordPress 6.0+ compatibility
 
-### Version 2.4.3 (ProVersion Branch)
+### Version 2.4.3 (Premium Branch — license required)
 - YouTube transcript capture
 - Searchable transcript storage
 - Automatic timestamp links

@@ -1,33 +1,20 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Zsoogi Clipper" xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd">
-	<description>Zsoogi Clipper coding standards</description>
+<ruleset name="API Zsoogi Clips PHPCS Configuration">
+    <description>PHPCS configuration for API Zsoogi Clips plugin using WordPress Coding Standards</description>
 
-	<file>.</file>
+    <!-- Show colors and progress -->
+    <arg name="colors"/>
+    <arg value="ps"/>
 
-	<exclude-pattern>vendor/</exclude-pattern>
-	<exclude-pattern>build/</exclude-pattern>
-	<exclude-pattern>dist/</exclude-pattern>
-	<exclude-pattern>node_modules/</exclude-pattern>
+    <!-- Check all PHP files in the plugin directory -->
+    <file>.</file>
 
-	<rule ref="WordPress"/>
+    <!-- Exclude vendor, node_modules, and build directories -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/build/*</exclude-pattern>
+    <exclude-pattern>*/dist/*</exclude-pattern>
 
-	<config name="minimum_supported_wp_version" value="5.0"/>
-
-	<rule ref="WordPress.WP.I18n">
-		<properties>
-			<property name="text_domain" type="array">
-				<element value="zsoogi-clipper"/>
-			</property>
-		</properties>
-	</rule>
-
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<property name="prefixes" type="array">
-				<element value="zsoogi_clipper"/>
-				<element value="Zsoogi"/>
-				<element value="ZSOOGI_CLIPPER"/>
-			</property>
-		</properties>
-	</rule>
+    <!-- Use WordPress Coding Standards -->
+    <rule ref="WordPress"/>
 </ruleset>
