@@ -1,4 +1,12 @@
 <?php
+/**
+ * Zsoogi Clipper Handler
+ *
+ * Processes content captured from the Zsoogi Clipper bookmarklet.
+ *
+ * @package Zsoogi_Clipper
+ * @since 2.1.4
+ */
 
 namespace Zsoogi;
 
@@ -22,9 +30,6 @@ class Zsoogi_Clipper {
 	 * @return void
 	 */
 	public static function init() {
-		// Inject window.name bridge handler for bookmarklet data.
-		add_action( 'admin_head-post-new.php', array( __CLASS__, 'inject_window_name_handler' ) );
-
 		// Only run on post-new.php for our custom post type.
 		add_action( 'load-post-new.php', array( __CLASS__, 'process_bookmarklet' ) );
 
@@ -34,82 +39,14 @@ class Zsoogi_Clipper {
 
 		// Set featured image after post is created.
 		add_action( 'save_post_' . Zsoogi_Clips::POST_TYPE, array( __CLASS__, 'set_featured_image' ), 10, 3 );
-
-		// Fire action after clip is saved — add-on plugins hook here for extra processing.
-		add_action( 'save_post_' . Zsoogi_Clips::POST_TYPE, array( __CLASS__, 'after_save_clip' ), 20, 3 );
-	}
-
-	/**
-	 * Inject JavaScript to handle window.name bridge data from bookmarklet.
-	 *
-	 * When the bookmarklet passes data via window.name (to avoid GET URL length limits),
-	 * this JavaScript reads it and submits it as POST data for processing.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @return void
-	 */
-	public static function inject_window_name_handler() {
-		// Only inject for our post type.
-		global $typenow;
-		if ( Zsoogi_Clips::POST_TYPE !== $typenow ) {
-			return;
-		}
-
-		// Only inject if clipper_data parameter is present.
-		if ( ! isset( $_GET['clipper_data'] ) ) {
-			return;
-		}
-
-		// Inject the window.name bridge handler.
-		?>
-		<script type="text/javascript">
-		(function() {
-			// Check if window.name contains JSON data from the bookmarklet
-			if (window.name && window.name.startsWith('{')) {
-				try {
-					// Parse the JSON data
-					const data = JSON.parse(window.name);
-
-					// Clear window.name to prevent reprocessing on page reload
-					window.name = '';
-
-					// Create a form to submit the data as POST
-					const form = document.createElement('form');
-					form.method = 'POST';
-					form.action = window.location.href.split('?')[0] + '?post_type=<?php echo esc_js( Zsoogi_Clips::POST_TYPE ); ?>';
-
-					// Add each data field as a hidden input
-					for (const key in data) {
-						if (data.hasOwnProperty(key) && data[key]) {
-							const input = document.createElement('input');
-							input.type = 'hidden';
-							input.name = key;
-							input.value = data[key];
-							form.appendChild(input);
-						}
-					}
-
-					// Add the form to the page and submit
-					document.body.appendChild(form);
-					form.submit();
-				} catch (e) {
-					// If JSON parsing fails, just continue normally
-					console.error('Zsoogi Clipper: Failed to parse bookmarklet data', e);
-				}
-			}
-		})();
-		</script>
-		<?php
 	}
 
 	/**
 	 * Process bookmarklet data on post-new.php load.
 	 *
 	 * Validates and sanitizes URL parameters from the Zsoogi Clipper bookmarklet.
-	 * Accepts data from both GET (legacy) and POST (window.name bridge).
 	 *
-	 * Note: This processes GET/POST parameters without nonce verification because
+	 * Note: This processes GET parameters without nonce verification because
 	 * bookmarklets are user-initiated actions from external sites where nonces
 	 * cannot be reliably generated. Security is maintained through capability
 	 * checks (manage_options) in the init function.
@@ -131,45 +68,30 @@ class Zsoogi_Clipper {
 			return;
 		}
 
-		// Merge GET and POST data (POST takes precedence for duplicate keys).
-		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, WordPress.Security.NonceVerification.Missing
-		$data = array_merge( $_GET, $_POST );
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Bookmarklets cannot use nonces as they are user-initiated from external sites. Security maintained through capability checks.
 
 		// Check if we have bookmarklet data.
-		if ( ! isset( $data['url'] ) && ! isset( $data['title'] ) ) {
+		if ( ! isset( $_GET['url'] ) && ! isset( $_GET['title'] ) ) {
 			return;
 		}
 
 		// Sanitize and store in globals for use in filters.
-		if ( isset( $data['title'] ) ) {
-			$GLOBALS['zsoogi_clipper_title'] = sanitize_text_field( wp_unslash( $data['title'] ) );
+		if ( isset( $_GET['title'] ) ) {
+			$GLOBALS['zsoogi_clipper_title'] = sanitize_text_field( wp_unslash( $_GET['title'] ) );
 		}
 
-		if ( isset( $data['url'] ) ) {
-			$GLOBALS['zsoogi_clipper_url'] = esc_url_raw( wp_unslash( $data['url'] ) );
+		if ( isset( $_GET['url'] ) ) {
+			$GLOBALS['zsoogi_clipper_url'] = esc_url_raw( wp_unslash( $_GET['url'] ) );
 		}
 
-		if ( isset( $data['selection'] ) && ! empty( $data['selection'] ) ) {
-			$GLOBALS['zsoogi_clipper_selection'] = wp_kses_post( wp_unslash( $data['selection'] ) );
+		if ( isset( $_GET['selection'] ) && ! empty( $_GET['selection'] ) ) {
+			$GLOBALS['zsoogi_clipper_selection'] = wp_kses_post( wp_unslash( $_GET['selection'] ) );
 		}
 
-		if ( isset( $data['image'] ) && ! empty( $data['image'] ) ) {
-			$GLOBALS['zsoogi_clipper_image'] = esc_url_raw( wp_unslash( $data['image'] ) );
+		if ( isset( $_GET['image'] ) && ! empty( $_GET['image'] ) ) {
+			$GLOBALS['zsoogi_clipper_image'] = esc_url_raw( wp_unslash( $_GET['image'] ) );
 		}
-
-		// Process YouTube video ID.
-		if ( isset( $data['youtube_video_id'] ) && ! empty( $data['youtube_video_id'] ) ) {
-			// Validate YouTube video ID format (11 characters, alphanumeric plus - and _).
-			$video_id = sanitize_text_field( wp_unslash( $data['youtube_video_id'] ) );
-			if ( preg_match( '/^[a-zA-Z0-9_-]{11}$/', $video_id ) ) {
-				$GLOBALS['zsoogi_clipper_youtube_video_id'] = $video_id;
-			}
-		}
-
-		// Process YouTube transcript.
-		if ( isset( $data['youtube_transcript'] ) && ! empty( $data['youtube_transcript'] ) ) {
-			$GLOBALS['zsoogi_clipper_youtube_transcript_text'] = sanitize_textarea_field( wp_unslash( $data['youtube_transcript'] ) );
-		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 	}
 
 	/**
@@ -222,8 +144,7 @@ class Zsoogi_Clipper {
 		$selection = isset( $GLOBALS['zsoogi_clipper_selection'] ) ? $GLOBALS['zsoogi_clipper_selection'] : '';
 
 		// Get settings.
-		// Citation format: free default is 'simple'; pro plugin can override via this filter.
-		$citation_format  = apply_filters( 'zsoogi_clipper/citation_format', 'simple' );
+		$citation_format  = get_option( 'zsoogi_clipper_citation_format', 'detailed' );
 		$include_metadata = get_option( 'zsoogi_clipper_include_metadata', false );
 
 		// Build the content.
@@ -250,9 +171,6 @@ class Zsoogi_Clipper {
 			$new_content .= "\n<!-- /wp:paragraph -->\n\n";
 		}
 
-		// Allow pro plugin to append extra content (e.g. YouTube transcript block).
-		$new_content = apply_filters( 'zsoogi_clipper/default_content_extra', $new_content );
-
 		// Add notes section.
 		$new_content .= "<!-- wp:heading -->\n";
 		$new_content .= '<h2 class="wp-block-heading">Notes</h2>';
@@ -262,8 +180,7 @@ class Zsoogi_Clipper {
 		$new_content .= '<p></p>';
 		$new_content .= "\n<!-- /wp:paragraph -->";
 
-		// Allow pro plugin to modify or replace the assembled content entirely.
-		return apply_filters( 'zsoogi_clipper/default_content', $new_content, $post );
+		return $new_content;
 	}
 
 	/**
@@ -340,33 +257,5 @@ class Zsoogi_Clipper {
 			// Clear the global to prevent multiple attempts.
 			unset( $GLOBALS['zsoogi_clipper_image'] );
 		}
-	}
-
-	/**
-	 * Fire action after a clip is saved.
-	 *
-	 * Add-on plugins hook here to do extra post-save processing
-	 * (e.g. storing YouTube transcript meta, triggering AI summaries).
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param int      $post_id Post ID.
-	 * @param \WP_Post $post    Post object.
-	 * @param bool     $update  Whether this is an update.
-	 * @return void
-	 */
-	public static function after_save_clip( $post_id, $post, $update ) {
-		if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
-			return;
-		}
-
-		/**
-		 * Fires after a Zsoogi Clip is saved.
-		 *
-		 * @param int      $post_id Post ID.
-		 * @param \WP_Post $post    Post object.
-		 * @param bool     $update  True if this is an existing post being updated.
-		 */
-		do_action( 'zsoogi_clipper/clip_saved', $post_id, $post, $update );
 	}
 }

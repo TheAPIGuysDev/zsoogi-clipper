@@ -1,6 +1,8 @@
 .DS_Store
 .env
-/claude/site
 /vendor
+assets/zsoogi-clipper-php-20260205-135957.json
+*.zip
 /claude/samples
-/dist
+claude/site/
+claude/__pycache__/

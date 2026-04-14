@@ -3,7 +3,7 @@
  * Plugin Name: Zsoogi Clipper
  * Plugin URI: https://github.com/TheAPIGuysDev/zsoogi-clipper
  * Description: Create admin-only Zsoogi Clips with a modern jQuery-free bookmarklet for web research.
- * Version: 2.5.0
+ * Version: 2.4.4
  * Author: pbrocks
  * Author URI: https://github.com/pbrocks
  * License: GPL v3
@@ -19,9 +19,29 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
+// Conflict check: bail if the pro version is in the active plugins list.
+// We check the option directly because pro hasn't loaded yet at this point
+// (free loads first alphabetically), so its functions/constants aren't defined.
+$zsoogi_active = (array) get_option( 'active_plugins', array() );
+if ( in_array( 'zsoogi-clipper-pro/zsoogi-clipper-pro.php', $zsoogi_active, true ) ) {
+	add_action(
+		'admin_notices',
+		function () {
+			echo '<div class="notice notice-warning is-dismissible"><p>';
+			echo wp_kses(
+				__( '<strong>Zsoogi Clipper (free)</strong> is inactive because <strong>Zsoogi Clipper Pro</strong> is already active. You do not need both plugins.', 'zsoogi-clipper' ),
+				array( 'strong' => array() )
+			);
+			echo '</p></div>';
+		}
+	);
+	return;
+}
+unset( $zsoogi_active );
+
 // Define plugin constants.
 if ( ! defined( 'ZSOOGI_CLIPS_VERSION' ) ) {
-	define( 'ZSOOGI_CLIPS_VERSION', '2.5.0' );
+	define( 'ZSOOGI_CLIPS_VERSION', '2.4.4' );
 }
 
 if ( ! defined( 'ZSOOGI_CLIPS_PLUGIN_FILE' ) ) {
@@ -72,12 +92,10 @@ function zsoogi_clipper_load_includes() {
 
 		if ( file_exists( $file_path ) ) {
 			require_once $file_path;
-		} else {
+		} elseif ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
 			// Log error only if WP_DEBUG is enabled.
-			if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
-				error_log( 'Zsoogi Clipper: Required file not found - ' . $file );
-			}
+			// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+			error_log( 'Zsoogi Clipper: Required file not found - ' . $file );
 		}
 	}
 }
@@ -85,7 +103,7 @@ function zsoogi_clipper_load_includes() {
 /**
  * Load plugin text domain for translations.
  *
- * @since 2.4.2
+ * @since 2.4.4
  *
  * @return void
  */
@@ -127,7 +145,6 @@ function zsoogi_clipper_init() {
 	if ( class_exists( 'Zsoogi\Zsoogi_Clipper' ) ) {
 		\Zsoogi\Zsoogi_Clipper::init();
 	}
-
 }
 
 /**

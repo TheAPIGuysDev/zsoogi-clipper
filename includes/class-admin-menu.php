@@ -1,4 +1,12 @@
 <?php
+/**
+ * Zsoogi Clipper Admin Menu
+ *
+ * Handles the admin menu and settings page for the Zsoogi Clipper plugin.
+ *
+ * @package Zsoogi_Clipper
+ * @since 2.1.1
+ */
 
 namespace Zsoogi;
 
@@ -51,7 +59,7 @@ class Admin_Menu {
 	 */
 	public static function add_admin_menu() {
 		$plugin_version = ZSOOGI_CLIPS_VERSION;
-		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
+		$label_name     = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
 		add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
 			sprintf(
@@ -198,6 +206,7 @@ class Admin_Menu {
 		}
 
 		// Add settings saved message.
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- WordPress Settings API handles nonce verification.
 		if ( isset( $_GET['settings-updated'] ) ) {
 			add_settings_error(
 				'zsoogi_clipper_messages',
@@ -387,6 +396,7 @@ class Admin_Menu {
 			return '';
 		}
 
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Reading local plugin file, not remote URL.
 		$js_code = file_get_contents( $js_file );
 
 		// Replace placeholders with actual values.
@@ -394,9 +404,11 @@ class Admin_Menu {
 		$js_code = str_replace( '__SITE_URL__', $site_url, $js_code );
 
 		// Remove comments and extra whitespace to minify.
-		$js_code = preg_replace( '/\/\*[\s\S]*?\*\//', '', $js_code ); // Remove multi-line comments.
-		$js_code = preg_replace( '/\/\/.*$/m', '', $js_code ); // Remove single-line comments.
-		$js_code = preg_replace( '/\s+/', ' ', $js_code ); // Collapse whitespace.
+		// NOTE: strip comment-only lines (^\s*//) NOT all occurrences of // — the latter
+		// would destroy https:// and other URLs embedded in string literals.
+		$js_code = preg_replace( '/\/\*[\s\S]*?\*\//', '', $js_code ); // Remove block comments.
+		$js_code = preg_replace( '/^\s*\/\/.*$/m', '', $js_code );      // Remove comment-only lines.
+		$js_code = preg_replace( '/\s+/', ' ', $js_code );              // Collapse whitespace.
 		$js_code = preg_replace( '/\s*([{}();,:])\s*/', '$1', $js_code ); // Remove spaces around operators.
 		$js_code = trim( $js_code );
 
@@ -462,7 +474,15 @@ class Admin_Menu {
 			<div class="bookmarklet-page">
 				<h1>📚 <?php echo esc_html( $label_name ); ?> - v<?php echo esc_html( $plugin_version ); ?></h1>
 
-				<p><?php printf( esc_html__( 'A modern, jQuery-free bookmarklet for capturing web research into your %s, an admin-only post-type. Others trying to view will be redirected to the homepage, keeping your research private.', 'zsoogi-clipper' ), esc_html( $label_name ) ); ?></p>
+				<p>
+				<?php
+				printf(
+					/* translators: %s: Post type label name (e.g. "Zsoogi Clips") */
+					esc_html__( 'A modern, jQuery-free bookmarklet for capturing web research into your %s, an admin-only post-type. Others trying to view will be redirected to the homepage, keeping your research private.', 'zsoogi-clipper' ),
+					esc_html( $label_name )
+				);
+				?>
+			</p>
 
 				<h2><?php esc_html_e( 'Installation', 'zsoogi-clipper' ); ?></h2>
 				<div class="bookmarklet-instructions">
@@ -473,10 +493,16 @@ class Admin_Menu {
 				</div>
 
 				<div style="text-align: center; margin: 30px 0;">
-					<a href="javascript:<?php echo esc_js( $bookmarklet_code ); ?>" class="bookmarklet-link">
-						🔖 <?php echo esc_html( $site_name ); ?> ZsoogiClips
+					<a id="zsoogi-bookmarklet-link" href="#" class="bookmarklet-link">
+						🔖 ZsoogiClips v<?php echo esc_html( $plugin_version ); ?>
 					</a>
 				</div>
+				<script>
+				(function() {
+					var code = <?php echo wp_json_encode( $bookmarklet_code ); ?>;
+					document.getElementById( 'zsoogi-bookmarklet-link' ).href = 'javascript:' + code;
+				})();
+				</script>
 
 				<h2><?php esc_html_e( 'How to Use', 'zsoogi-clipper' ); ?></h2>
 				<div class="bookmarklet-instructions">
