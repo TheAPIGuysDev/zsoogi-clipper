@@ -1,0 +1,73 @@
+site_name: Zsoogi Clipper Documentation
+site_description: WordPress plugin for capturing and organizing web research with a modern bookmarklet
+site_author: The API Guys
+site_url: https://sites.theapiguys.com/zsoogi-clipper/documentation/
+
+# Repository
+repo_name: TheAPIGuysDev/zsoogi-clipper
+repo_url: https://github.com/TheAPIGuysDev/zsoogi-clipper
+edit_uri: edit/main/claude/docs/
+
+# Important: Use directory URLs for clean links
+use_directory_urls: true
+
+# Copyright
+copyright: Copyright &copy; 2026 The API Guys
+
+# Version injection hook
+hooks:
+  - hooks.py
+
+# Documentation directory
+docs_dir: docs
+
+# Theme - using default readthedocs theme
+theme:
+  name: readthedocs
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - php
+    - javascript
+    - bash
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+  - fenced_code
+
+# Plugins
+plugins:
+  - search
+
+# Page tree
+nav:
+  - Home: index.md
+  - Getting Started:
+      - Overview: getting-started/overview.md
+      - Installation: getting-started/installation.md
+      - Quick Start: getting-started/quickstart.md
+  - Pricing & Features:
+      - Compare Plans: pricing-comparison.md
+      - Free Edition: free-features.md
+      - Premium Edition: premium-features.md
+      - Enterprise Edition: enterprise-features.md
+  - Roadmap:
+      - Development Roadmap: freemium-roadmap.md
+      - Freemium Model: freemium-model.md
+  - Developer Docs:
+      - Architecture: architecture.md
+      - Bookmarklet: bookmarklet.md
+      - Post Type & Taxonomy: post-type.md
+      - Settings & Admin: settings.md
+      - Development: development.md
+      - Freemium Development: freemium-development.md
+      - Docs Branch Strategy: docs-branch-strategy.md
+      - Branch & Distribution Strategy: branching-strategy.md
+      - AI-Ready WordPress (MCP): ai-ready-wordpress.md
+  - Support:
+      - FAQ: support/faq.md
+      - Contact: support/contact.md

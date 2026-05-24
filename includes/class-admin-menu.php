@@ -151,25 +151,6 @@ class Admin_Menu {
 			'zsoogi_clipper'
 		);
 
-		// Citation format.
-		register_setting(
-			self::OPTION_GROUP,
-			'zsoogi_clipper_citation_format',
-			array(
-				'type'              => 'string',
-				'sanitize_callback' => 'sanitize_text_field',
-				'default'           => 'simple',
-			)
-		);
-
-		add_settings_field(
-			'zsoogi_clipper_citation_format',
-			__( 'Citation Format', 'zsoogi-clipper' ),
-			array( __CLASS__, 'render_citation_format_field' ),
-			self::PAGE_SLUG,
-			'zsoogi_clipper'
-		);
-
 		// Include metadata.
 		register_setting(
 			self::OPTION_GROUP,
@@ -188,6 +169,13 @@ class Admin_Menu {
 			self::PAGE_SLUG,
 			'zsoogi_clipper'
 		);
+
+		/**
+		 * Allow add-on plugins to register their own settings sections.
+		 *
+		 * @param string $page_slug The settings page slug.
+		 */
+		do_action( 'zsoogi_clipper/settings_sections', self::PAGE_SLUG );
 	}
 
 	/**
@@ -361,38 +349,6 @@ class Admin_Menu {
 		<p class="description">
 			<?php esc_html_e( 'When enabled, the first image captured by the bookmarklet will be set as the post\'s featured image.', 'zsoogi-clipper' ); ?>
 		</p>
-		<?php
-	}
-
-	/**
-	 * Render the citation format field.
-	 *
-	 * @since 2.1.4
-	 *
-	 * @return void
-	 */
-	public static function render_citation_format_field() {
-		$value = get_option( 'zsoogi_clipper_citation_format', 'simple' );
-		?>
-		<fieldset>
-			<label>
-				<input type="radio" name="zsoogi_clipper_citation_format" value="simple" <?php checked( 'simple', $value ); ?> />
-				<strong><?php esc_html_e( 'Simple', 'zsoogi-clipper' ); ?></strong> -
-				<?php esc_html_e( 'Source: [Title](URL)', 'zsoogi-clipper' ); ?>
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="zsoogi_clipper_citation_format" value="detailed" <?php checked( 'detailed', $value ); ?> />
-				<strong><?php esc_html_e( 'Detailed', 'zsoogi-clipper' ); ?></strong> -
-				<?php esc_html_e( 'Source: [Title](URL) - Captured on [Date]', 'zsoogi-clipper' ); ?>
-			</label>
-			<br />
-			<label>
-				<input type="radio" name="zsoogi_clipper_citation_format" value="academic" <?php checked( 'academic', $value ); ?> />
-				<strong><?php esc_html_e( 'Academic', 'zsoogi-clipper' ); ?></strong> -
-				<?php esc_html_e( 'Title. URL. Accessed: [Date]', 'zsoogi-clipper' ); ?>
-			</label>
-		</fieldset>
 		<?php
 	}
 
@@ -571,6 +527,7 @@ class Admin_Menu {
 					<li>✅ <?php esc_html_e( 'Smart image detection (filters out icons, logos, avatars)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Auto-set featured image (configurable in settings)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Customizable blockquote and citation formatting', 'zsoogi-clipper' ); ?></li>
+					<li>✅ <?php esc_html_e( 'YouTube transcript capture (when transcript panel is open)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Works with the 2025 theme (or any theme)', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Creates posts as zsoogiclips post type', 'zsoogi-clipper' ); ?></li>
 					<li>✅ <?php esc_html_e( 'Perfect for web research and note-taking', 'zsoogi-clipper' ); ?></li>
@@ -595,8 +552,9 @@ class Admin_Menu {
 					<li><strong><?php esc_html_e( 'Title:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'The page title (used as your Zsoogi Clip title)', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Selection:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'Any text you\'ve selected on the page', 'zsoogi-clipper' ); ?></li>
 					<li><strong><?php esc_html_e( 'Image:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'First meaningful image (>200px, excludes icons/logos)', 'zsoogi-clipper' ); ?></li>
+					<li><strong><?php esc_html_e( 'YouTube Transcripts:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'For YouTube videos, captures transcript text when the transcript panel is open (enable in settings)', 'zsoogi-clipper' ); ?></li>
 				</ul>
-				<p><?php esc_html_e( 'Then it opens a new window to create a Zsoogi Clip with these details passed as URL parameters. The Zsoogi Clipper plugin processes them with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
+				<p><?php esc_html_e( 'Then it opens a new window to create a Zsoogi Clip with these details. For large data (like transcripts), the window.name bridge is used to avoid URL length limits. The Zsoogi Clipper plugin processes everything with your custom formatting settings.', 'zsoogi-clipper' ); ?></p>
 
 				<h2><?php esc_html_e( 'Troubleshooting', 'zsoogi-clipper' ); ?></h2>
 				<h3><?php esc_html_e( 'Popup Blocked?', 'zsoogi-clipper' ); ?></h3>
@@ -616,4 +574,5 @@ class Admin_Menu {
 		</div>
 		<?php
 	}
+
 }
