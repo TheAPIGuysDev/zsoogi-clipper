@@ -63,17 +63,27 @@ vendor/bin/phpcbf   # auto-fix
 
 `build.sh` creates a production-ready ZIP at `dist/zsoogi-clipper-{version}.zip`.
 
-The ZIP excludes:
-
-- `vendor/`
-- `.git/`
-- `.env`
-- `composer.json`, `composer.lock`
-- `build.sh`
-- `phpcs.xml.dist`
-- `claude/` (this docs directory)
-
 Version is extracted from the plugin header `Version:` line automatically.
+
+The ZIP excludes all dev and premium files:
+
+| Excluded | Reason |
+|---|---|
+| `vendor/` | Dev tooling only |
+| `.git/` | Version control |
+| `.env`, `*.env` | Credentials |
+| `composer.json`, `composer.lock` | Dev only |
+| `build.sh`, `deploy.sh` | Build/deploy scripts |
+| `README.md`, `CLAUDE.md` | Dev docs |
+| `phpcs.xml*`, `.gitignore`, `.gitattributes` | Dev config |
+| `claude/` | This MkDocs docs directory |
+| `includes/class-license.php` | Pro only (deleted from free repo) |
+| `includes/class-abilities.php` | Pro only (deleted from free repo) |
+| `assets/cpt-svg-icon.md` | Dev reference only |
+| `assets/screencasts/` | Old screencasts excluded until rebranded |
+| `assets/images/screencasts/` | Same |
+| `assets/screenshot-*.png` | Go to WP.org SVN `assets/` folder, not ZIP |
+| `*.zip` | Build artifacts |
 
 ## Git Branches
 

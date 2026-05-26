@@ -58,6 +58,7 @@ nav:
   - Roadmap:
       - Development Roadmap: freemium-roadmap.md
       - Freemium Model: freemium-model.md
+  - WordPress.org Submission: wp-org-submission.md
   - Developer Docs:
       - Architecture: architecture.md
       - Bookmarklet: bookmarklet.md

@@ -125,18 +125,18 @@ Check our [FAQ](support/faq.md) for common questions.
 
 ## Recent Updates
 
-### Version 2.4.0 (Current - Main Branch)
-- YouTube title cleanup (removes view count prefix)
-- High-quality thumbnail fetching
-- Improved bookmarklet performance
-- WordPress 6.0+ compatibility
+### Version 1.0.0 (Current — WordPress.org release)
+- Initial public release on WordPress.org
+- Modern jQuery-free bookmarklet for web content capture
+- Smart YouTube integration with automatic title cleanup and high-quality thumbnails
+- Admin-only custom post type (`zsoogiclips`) with hierarchical taxonomy (`zsoogi_type`)
+- Auto-set featured images from captured content
+- Customizable menu label via Settings
+- Gutenberg and Classic Editor support
+- REST API enabled
+- Translation-ready
 
-### Version 2.4.3 (Premium Branch — license required)
-- YouTube transcript capture
-- Searchable transcript storage
-- Automatic timestamp links
-
-**[View Full Roadmap →](freemium-roadmap.md)**
+**[View Submission Checklist →](wp-org-submission.md)**
 
 ---
 
