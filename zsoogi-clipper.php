@@ -100,20 +100,6 @@ function zsoogi_clipper_load_includes() {
 	}
 }
 
-/**
- * Load plugin text domain for translations.
- *
- * @since 2.4.5
- *
- * @return void
- */
-function zsoogi_clipper_load_textdomain() {
-	load_plugin_textdomain(
-		'zsoogi-clipper',
-		false,
-		dirname( plugin_basename( ZSOOGI_CLIPS_PLUGIN_FILE ) ) . '/languages'
-	);
-}
 
 /**
  * Initialize plugin classes.
@@ -185,9 +171,6 @@ zsoogi_clipper_load_autoloader();
 
 // Load required files.
 zsoogi_clipper_load_includes();
-
-// Load text domain for translations.
-add_action( 'plugins_loaded', 'zsoogi_clipper_load_textdomain' );
 
 // Initialize plugin on 'plugins_loaded' hook.
 add_action( 'plugins_loaded', 'zsoogi_clipper_init' );

@@ -11,6 +11,9 @@
  * @since 2.3.0
  */
 
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
 // Enqueue custom styles for Zsoogi Clips.
 add_action(
 	'wp_enqueue_scripts',
@@ -110,7 +113,7 @@ while ( have_posts() ) :
 				// Author.
 				printf(
 					'<span class="byline">%s <a href="%s">%s</a></span>',
-					esc_html__( 'By', 'zsoogi-clips' ),
+					esc_html__( 'By', 'zsoogi-clipper' ),
 					esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 					esc_html( get_the_author() )
 				);
@@ -134,7 +137,7 @@ while ( have_posts() ) :
 							esc_html( $term->name )
 						);
 					}
-					echo implode( ', ', $term_links );
+					echo wp_kses_post( implode( ', ', $term_links ) );
 					echo '</span>';
 				}
 				?>
@@ -153,7 +156,7 @@ while ( have_posts() ) :
 
 			wp_link_pages(
 				array(
-					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'zsoogi-clips' ),
+					'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'zsoogi-clipper' ),
 					'after'  => '</div>',
 				)
 			);
@@ -167,7 +170,7 @@ while ( have_posts() ) :
 			edit_post_link(
 				sprintf(
 					/* translators: %s: Post title. Only visible to screen readers. */
-					esc_html__( 'Edit %s', 'zsoogi-clips' ),
+					esc_html__( 'Edit %s', 'zsoogi-clipper' ),
 					'<span class="screen-reader-text">' . get_the_title() . '</span>'
 				),
 				'<span class="edit-link">',
@@ -188,11 +191,12 @@ while ( have_posts() ) :
 					<?php
 					$comments_number = get_comments_number();
 					if ( 1 === $comments_number ) {
-						printf( esc_html__( 'One comment on &ldquo;%s&rdquo;', 'zsoogi-clips' ), esc_html( get_the_title() ) );
+						// translators: %s: Post title.
+						printf( esc_html__( 'One comment on &ldquo;%s&rdquo;', 'zsoogi-clipper' ), esc_html( get_the_title() ) );
 					} else {
 						printf(
 							/* translators: 1: number of comments, 2: post title */
-							esc_html( _n( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $comments_number, 'zsoogi-clips' ) ),
+							esc_html( _n( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $comments_number, 'zsoogi-clipper' ) ),
 							esc_html( number_format_i18n( $comments_number ) ),
 							esc_html( get_the_title() )
 						);
@@ -219,7 +223,7 @@ while ( have_posts() ) :
 			<?php endif; ?>
 
 			<?php if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_type(), 'comments' ) ) : ?>
-				<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'zsoogi-clips' ); ?></p>
+				<p class="no-comments"><?php esc_html_e( 'Comments are closed.', 'zsoogi-clipper' ); ?></p>
 			<?php endif; ?>
 
 			<?php
