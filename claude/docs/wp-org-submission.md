@@ -44,11 +44,12 @@ Tracking the preparation and submission of Zsoogi Clipper v1.0.0 to the WordPres
 
 ## Submission
 
-- [ ] Log in to WordPress.org as `pbarthmaier`
-- [ ] Go to [wordpress.org/plugins/developers/add](https://wordpress.org/plugins/developers/add)
-- [ ] Upload `dist/zsoogi-clipper-1.0.0.zip`
-- [ ] Complete submission form
-- [ ] Await review email (typically 1–14 business days)
+- [x] Log in to WordPress.org as `pbarthmaier`
+- [x] Go to [wordpress.org/plugins/developers/add](https://wordpress.org/plugins/developers/add)
+- [x] Upload `dist/zsoogi-clipper-1.0.0.zip`
+- [x] Complete submission form — submitted 2026-05-26
+- [x] Slug confirmed: `zsoogi-clipper`
+- [ ] Await review email to paul@theapiguys.com — subject: "[WordPress Plugin Directory] Review in Progress: Zsoogi Clipper"
 
 ---
 
