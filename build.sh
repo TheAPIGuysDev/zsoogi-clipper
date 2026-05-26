@@ -41,6 +41,7 @@ rsync -av \
     --exclude='README.md' \
     --exclude='claude/' \
     --exclude='assets/cpt-svg-icon.md' \
+    --exclude='assets/screenshot-*.png' \
     --exclude='assets/screencasts/' \
     --exclude='assets/images/screencasts/' \
     --exclude='*.zip' \
