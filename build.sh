@@ -40,8 +40,6 @@ rsync -av \
     --exclude='deploy.sh' \
     --exclude='README.md' \
     --exclude='claude/' \
-    --exclude='includes/class-license.php' \
-    --exclude='includes/class-abilities.php' \
     --exclude='assets/cpt-svg-icon.md' \
     --exclude='assets/screencasts/' \
     --exclude='assets/images/screencasts/' \

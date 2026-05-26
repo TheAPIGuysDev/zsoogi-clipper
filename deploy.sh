@@ -66,10 +66,15 @@ deploy_ssh() {
         --exclude='.env.bak' \
         --exclude='node_modules' \
         --exclude='.DS_Store' \
+        --exclude='build.sh' \
         --exclude='deploy.sh' \
         --exclude='deploy2.sh' \
         --exclude='*.zip' \
         --exclude='.claude' \
+        --exclude='claude/' \
+        --exclude='CLAUDE.md' \
+        --exclude='README.md' \
+        --exclude='composer.json' \
         --exclude='composer.lock' \
         --exclude='vendor' \
         --exclude='phpcs.xml.dist' \
@@ -96,11 +101,12 @@ deploy_sftp() {
 cd $TAG_SFTP_PATH
 put -r includes
 put -r assets
+put -r languages
+put -r templates
 put zsoogi-clipper.php
 put uninstall.php
-put composer.json
-put README.md
-put CLAUDE.md
+put readme.txt
+put license.txt
 quit
 EOF
 
