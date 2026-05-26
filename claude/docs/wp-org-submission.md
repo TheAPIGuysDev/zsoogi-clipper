@@ -49,7 +49,8 @@ Tracking the preparation and submission of Zsoogi Clipper v1.0.0 to the WordPres
 - [x] Upload `dist/zsoogi-clipper-1.0.0.zip`
 - [x] Complete submission form — submitted 2026-05-26
 - [x] Slug confirmed: `zsoogi-clipper`
-- [ ] Await review email to paul@theapiguys.com — subject: "[WordPress Plugin Directory] Review in Progress: Zsoogi Clipper"
+- [x] Confirmation email received 2026-05-26 — slug `zsoogi-clipper` confirmed, permalink https://wordpress.org/plugins/zsoogi-clipper/
+- [ ] Await review decision email — subject: "[WordPress Plugin Directory] Review in Progress: Zsoogi Clipper"
 
 ---
 
