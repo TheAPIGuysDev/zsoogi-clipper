@@ -1,5 +1,5 @@
 === Zsoogi Clipper ===
-Contributors: pbarthmaier
+Contributors: pbarthmaier, pbrocks
 Tags: documentation, bookmarklet, research, notes, knowledge-base
 Requires at least: 5.0
 Tested up to: 6.9
