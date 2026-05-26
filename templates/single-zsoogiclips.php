@@ -62,9 +62,9 @@ add_action(
 );
 
 // Check if this is a block theme.
-$is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
+$zsoogi_clipper_is_block_theme = function_exists( 'wp_is_block_theme' ) && wp_is_block_theme();
 
-if ( $is_block_theme ) {
+if ( $zsoogi_clipper_is_block_theme ) {
 	// For block themes, manually construct HTML structure with proper WordPress hooks.
 	/**
 	 * Create a block-backed shim for classic header templates.
@@ -125,19 +125,18 @@ while ( have_posts() ) :
 				);
 
 				// Zsoogi Type taxonomy.
-				$terms = get_the_terms( get_the_ID(), 'zsoogi_type' );
-				if ( $terms && ! is_wp_error( $terms ) ) {
+				$zsoogi_clipper_terms = get_the_terms( get_the_ID(), 'zsoogi_type' );
+				if ( $zsoogi_clipper_terms && ! is_wp_error( $zsoogi_clipper_terms ) ) {
 					echo '<span class="zsoogi-types"> &bull; ';
-					$term_links = array();
-				// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- Local variable in foreach loop, not overriding global.
-					foreach ( $terms as $term ) {
-						$term_links[] = sprintf(
+					$zsoogi_clipper_term_links = array();
+					foreach ( $zsoogi_clipper_terms as $term ) {
+						$zsoogi_clipper_term_links[] = sprintf(
 							'<a href="%s">%s</a>',
 							esc_url( get_term_link( $term ) ),
 							esc_html( $term->name )
 						);
 					}
-					echo wp_kses_post( implode( ', ', $term_links ) );
+					echo wp_kses_post( implode( ', ', $zsoogi_clipper_term_links ) );
 					echo '</span>';
 				}
 				?>
@@ -189,15 +188,15 @@ while ( have_posts() ) :
 			<?php if ( have_comments() ) : ?>
 				<h2 class="comments-title">
 					<?php
-					$comments_number = get_comments_number();
-					if ( 1 === $comments_number ) {
+					$zsoogi_clipper_comments_number = get_comments_number();
+					if ( 1 === $zsoogi_clipper_comments_number ) {
 						// translators: %s: Post title.
 						printf( esc_html__( 'One comment on &ldquo;%s&rdquo;', 'zsoogi-clipper' ), esc_html( get_the_title() ) );
 					} else {
 						printf(
 							/* translators: 1: number of comments, 2: post title */
-							esc_html( _n( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $comments_number, 'zsoogi-clipper' ) ),
-							esc_html( number_format_i18n( $comments_number ) ),
+							esc_html( _n( '%1$s comment on &ldquo;%2$s&rdquo;', '%1$s comments on &ldquo;%2$s&rdquo;', $zsoogi_clipper_comments_number, 'zsoogi-clipper' ) ),
+							esc_html( number_format_i18n( $zsoogi_clipper_comments_number ) ),
 							esc_html( get_the_title() )
 						);
 					}
@@ -240,7 +239,7 @@ while ( have_posts() ) :
 
 endwhile;
 
-if ( $is_block_theme ) {
+if ( $zsoogi_clipper_is_block_theme ) {
 	?>
 				</main>
 			</div>
