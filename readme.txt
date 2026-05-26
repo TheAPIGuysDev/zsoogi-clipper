@@ -124,13 +124,6 @@ Yes! Zsoogi Clipper uses WordPress standards and works with any properly coded W
 
 No! Composer is only needed for development (PHP CodeSniffer for linting). The plugin works perfectly in production without any Composer dependencies.
 
-== Screenshots ==
-
-1. Zsoogi clips custom post type in the WordPress admin
-2. Bookmarklet settings page
-3. Captured content pre-formatted in the editor
-4. Zsoogi Type taxonomy for organizing clips
-
 == Changelog ==
 
 = 1.0.0 =
