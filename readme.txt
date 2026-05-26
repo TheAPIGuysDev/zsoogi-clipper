@@ -4,7 +4,7 @@ Tags: documentation, bookmarklet, research, notes, knowledge-base
 Requires at least: 5.0
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 0.9.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,64 +133,21 @@ No! Composer is only needed for development (PHP CodeSniffer for linting). The p
 
 == Changelog ==
 
-= 0.9.0 =
-* Initial beta release on WordPress.org
+= 1.0.0 =
+* Initial release on WordPress.org
 * Modern jQuery-free bookmarklet for web content capture
-* Smart YouTube integration with title cleanup and thumbnail capture
-* Admin-only custom post type with hierarchical taxonomy
+* Smart YouTube integration with automatic title cleanup and high-quality thumbnail capture
+* Admin-only custom post type (`zsoogiclips`) with hierarchical taxonomy (`zsoogi_type`)
 * Auto-set featured images from captured content
+* Customizable menu label via Settings
 * Gutenberg and Classic Editor support
 * REST API enabled
-
-= 2.4.2 (Development) =
-* Added translation support with proper text domain loading
-* Improved code documentation and standards compliance
-* Enhanced error handling for missing files
-
-= 2.4.0 =
-* Added smart YouTube integration with title cleanup
-* Automatic removal of view count prefix from YouTube titles
-* Automatic removal of "- YouTube" suffix from titles
-* High-quality thumbnail capture from YouTube API
-* Enhanced image capture with YouTube-specific handling
-* Improved title sanitization across all URLs
-
-= 2.2.0 =
-* Major rebranding: Renamed plugin to Zsoogi Clipper
-* Replaced Press This with modern jQuery-free bookmarklet
-* Added customizable citation formats (simple, detailed, academic)
-* Added auto-set featured image functionality
-* Added metadata capture options
-* Improved Gutenberg block formatting
-* Enhanced admin settings page
-
-= 2.1.4 =
-* Added Zsoogi Clipper bookmarklet functionality
-* Removed legacy Press This dependencies
-* Improved security and capability checks
-
-= 2.1.1 =
-* Restructured plugin architecture with object-oriented approach
-* Added comprehensive documentation and docblocks
-* Created dedicated Admin Menu class with settings page
-* Improved security and capability checks
-* Added PSR-4 autoloading support
-
-= 2.0.0 =
-* Initial release of Wiki Clipper (original name)
-* Custom post type for wiki-style content
-* Basic Press This integration
+* Translation-ready with full text domain support
 
 == Upgrade Notice ==
 
-= 0.9.0 =
-Initial beta release. Please report any issues on the WordPress.org support forum or GitHub.
-
-= 2.4.0 (Development) =
-Adds smart YouTube integration with automatic title cleanup and high-quality thumbnails. Recommended upgrade for all users.
-
-= 2.2.0 =
-Major update with new name (Zsoogi Clipper) and modern bookmarklet. Backward compatible with existing wiki content.
+= 1.0.0 =
+Initial release.
 
 == Technical Details ==
 
@@ -200,10 +157,10 @@ Major update with new name (Zsoogi Clipper) and modern bookmarklet. Backward com
 **Text Domain:** `zsoogi-clipper`
 
 **Plugin Constants:**
-* `ZSOOGI_CLIPPER_VERSION` - Plugin version
-* `ZSOOGI_CLIPPER_PLUGIN_FILE` - Main plugin file path
-* `ZSOOGI_CLIPPER_PLUGIN_DIR` - Plugin directory path
-* `ZSOOGI_CLIPPER_PLUGIN_URL` - Plugin URL
+* `ZSOOGI_CLIPS_VERSION` - Plugin version
+* `ZSOOGI_CLIPS_PLUGIN_FILE` - Main plugin file path
+* `ZSOOGI_CLIPS_PLUGIN_DIR` - Plugin directory path
+* `ZSOOGI_CLIPS_PLUGIN_URL` - Plugin URL
 
 == Privacy Policy ==
 

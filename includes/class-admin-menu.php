@@ -237,7 +237,7 @@ class Admin_Menu {
 
 			<hr>
 
-			<div class="zsoogi-clipss-info">
+			<div class="zsoogi-clipper-info">
 				<h2><?php esc_html_e( 'Plugin Information', 'zsoogi-clipper' ); ?></h2>
 				<p>
 					<strong><?php esc_html_e( 'Version:', 'zsoogi-clipper' ); ?></strong>
