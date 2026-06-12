@@ -1,150 +1,114 @@
 #!/bin/bash
-# Deploy zsoogi-clipper plugin to Production
-# Usage: ./deploy.sh [sftp]
-#   No argument: Deploy via SSH (rsync) 
-#   sftp: Deploy via SFTP (lftp)
+# Deploy Zsoogi Clipper to a remote site.
+#
+# Builds the plugin via build.sh (single source of truth for what ships),
+# then rsyncs/mirrors the resulting build/zsoogi-clipper/ folder to the server.
+#
+# Usage:
+#   ./deploy.sh         — SSH/rsync deploy (default)
+#   ./deploy.sh sftp    — SFTP deploy (lftp)
 
-# Load environment variables
-source .env
-#!/bin/bash
+set -e
 
-# Load environment variables from .env file
 if [ ! -f .env ]; then
-    echo "Error: .env file not found"
+    echo "Error: .env file not found in $(pwd)"
     exit 1
 fi
 
-# Export variables from .env
-export $(grep -v '^#' .env | xargs)
+# Load .env without exporting comments or blank lines.
+set -a
+# shellcheck disable=SC1091
+source .env
+set +a
 
-# Plugin directory name
-PLUGIN_DIR="zsoogi-clipper"
+# Canonical plugin slug — must match build.sh.
+PLUGIN_SLUG="zsoogi-clipper"
 
-# Colors for output
+# Colors.
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 RED='\033[0;31m'
-NC='\033[0m' # No Color
+NC='\033[0m'
 
-echo -e "${YELLOW}Starting deployment to Production...${NC}"
+# Argument parsing.
+DEPLOY_MODE="ssh"
+for arg in "$@"; do
+    case "$arg" in
+        ssh|sftp) DEPLOY_MODE="$arg" ;;
+        *)
+            echo -e "${RED}Unknown argument: $arg${NC}"
+            echo "Usage: ./deploy.sh [ssh|sftp]"
+            exit 1
+            ;;
+    esac
+done
 
-# Check if SSH key exists
-if [ ! -f "$TAG_SSH_PRIVATE_KEY" ]; then
-    echo -e "${RED}Error: SSH private key not found at $TAG_SSH_PRIVATE_KEY${NC}"
-    exit 1
+echo -e "${GREEN}=== Zsoogi Clipper Deployment ===${NC}"
+echo -e "Mode: ${YELLOW}${DEPLOY_MODE}${NC}"
+
+# Validate the configured target path ends in the canonical plugin slug.
+# Guards against an .env tail segment landing the deploy in a sibling folder.
+if [ "$DEPLOY_MODE" = "ssh" ]; then
+    if [ -z "$TAG_SSH_PATH" ]; then
+        echo -e "${RED}Error: TAG_SSH_PATH is not set in .env${NC}"
+        exit 1
+    fi
+    if [ "$(basename "$TAG_SSH_PATH")" != "$PLUGIN_SLUG" ]; then
+        echo -e "${RED}Error: TAG_SSH_PATH must end in /${PLUGIN_SLUG}${NC}"
+        echo -e "       Current value tail: $(basename "$TAG_SSH_PATH")"
+        echo -e "       Fix .env then retry."
+        exit 1
+    fi
 fi
 
-# Deployment mode: ssh or sftp (default: ssh)
-DEPLOY_MODE=${1:-ssh}
-
-# Extract plugin version from main file
-PLUGIN_VERSION=$(grep -i "Version:" zsoogi-clipper.php | head -1 | awk '{print $3}')
-
-echo -e "${GREEN}=== Plugin Deployment ===${NC}"
-echo -e "Plugin Version: ${YELLOW}${PLUGIN_VERSION}${NC}"
-echo -e "Mode: ${YELLOW}${DEPLOY_MODE}${NC}"
+# Build first. KEEP_BUILD=1 leaves build/zsoogi-clipper/ on disk for rsync.
+echo -e "${YELLOW}Building...${NC}"
+KEEP_BUILD=1 ./build.sh
 echo ""
 
-# Function to deploy via SSH/rsync
 deploy_ssh() {
-    echo -e "${GREEN}Deploying via SSH (rsync)...${NC}"
-
-    # Check if SSH key exists
     if [ ! -f "$TAG_SSH_PRIVATE_KEY" ]; then
-        echo -e "${RED}Error: SSH key not found at $TAG_SSH_PRIVATE_KEY${NC}"
+        echo -e "${RED}Error: SSH private key not found at $TAG_SSH_PRIVATE_KEY${NC}"
         exit 1
     fi
 
-    # Build SSH command with key
-    SSH_CMD="ssh -i $TAG_SSH_PRIVATE_KEY -p ${TAG_SSH_PORT:-22}"
+    local ssh_cmd="ssh -i $TAG_SSH_PRIVATE_KEY -p ${TAG_SSH_PORT:-22}"
 
-    # Execute rsync (use Homebrew rsync for protocol compatibility)
-    echo -e "${YELLOW}Syncing files to $TAG_SSH_HOST...${NC}"
-    /usr/local/bin/rsync -avz --delete --delete-excluded \
-        --exclude='.git' \
-        --exclude='.env' \
-        --exclude='.env.bak' \
-        --exclude='node_modules' \
-        --exclude='.DS_Store' \
-        --exclude='build.sh' \
-        --exclude='deploy.sh' \
-        --exclude='deploy2.sh' \
-        --exclude='*.zip' \
-        --exclude='.claude' \
-        --exclude='claude/' \
-        --exclude='CLAUDE.md' \
-        --exclude='README.md' \
-        --exclude='composer.json' \
-        --exclude='composer.lock' \
-        --exclude='vendor' \
-        --exclude='phpcs.xml.dist' \
-        -e "$SSH_CMD" \
-        ./ \
+    echo -e "${YELLOW}Rsyncing build/${PLUGIN_SLUG}/ → ${TAG_SSH_HOST}:${TAG_SSH_PATH}/${NC}"
+    /usr/local/bin/rsync -avz --delete \
+        -e "$ssh_cmd" \
+        "build/${PLUGIN_SLUG}/" \
         "${TAG_SSH_USER}@${TAG_SSH_HOST}:${TAG_SSH_PATH}/"
 
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓ Deployment successful via SSH${NC}"
-    else
-        echo -e "${RED}✗ Deployment failed${NC}"
-        exit 1
-    fi
+    echo -e "${GREEN}✓ Files synced${NC}"
 }
 
-# Function to deploy via SFTP
 deploy_sftp() {
-    echo -e "${GREEN}Deploying via SFTP...${NC}"
-
-    # Create a temporary batch file for SFTP commands
-    BATCH_FILE=$(mktemp)
-
-    cat > $BATCH_FILE << EOF
-cd $TAG_SFTP_PATH
-put -r includes
-put -r assets
-put -r languages
-put -r templates
-put zsoogi-clipper.php
-put uninstall.php
-put readme.txt
-put license.txt
-quit
-EOF
-
-    echo -e "${YELLOW}Uploading files to $TAG_SFTP_HOST...${NC}"
-
-    # Execute SFTP with batch file
-    sshpass -p "$TAG_SFTP_PASSWORD" sftp -b $BATCH_FILE "${TAG_SFTP_USER}@${TAG_SFTP_HOST}"
-
-    # Clean up
-    rm -f $BATCH_FILE
-
-    if [ $? -eq 0 ]; then
-        echo -e "${GREEN}✓ Deployment successful via SFTP${NC}"
-    else
-        echo -e "${RED}✗ Deployment failed${NC}"
+    if [ -z "$TAG_SFTP_PATH" ]; then
+        echo -e "${RED}Error: TAG_SFTP_PATH is not set in .env${NC}"
         exit 1
     fi
+    if [ "$(basename "$TAG_SFTP_PATH")" != "$PLUGIN_SLUG" ]; then
+        echo -e "${RED}Error: TAG_SFTP_PATH must end in /${PLUGIN_SLUG}${NC}"
+        exit 1
+    fi
+
+    echo -e "${YELLOW}lftp mirror → ${TAG_SFTP_HOST}:${TAG_SFTP_PATH}/${NC}"
+    lftp -u "$TAG_SFTP_USER,$TAG_SFTP_PASSWORD" "sftp://$TAG_SFTP_HOST" <<EOF
+mirror -R --delete --verbose "build/${PLUGIN_SLUG}/" "${TAG_SFTP_PATH}/"
+bye
+EOF
+    echo -e "${GREEN}✓ Files uploaded${NC}"
 }
 
-# Main deployment logic
-case $DEPLOY_MODE in
-    ssh)
-        deploy_ssh
-        ;;
-    sftp)
-        deploy_sftp
-        ;;
-    *)
-        echo -e "${RED}Invalid deployment mode: $DEPLOY_MODE${NC}"
-        echo "Usage: ./deploy.sh [ssh|sftp]"
-        exit 1
-        ;;
+# Run.
+case "$DEPLOY_MODE" in
+    ssh)  deploy_ssh  ;;
+    sftp) deploy_sftp ;;
 esac
+
+# Clean up build staging.
+rm -rf build
 
 echo ""
 echo -e "${GREEN}=== Deployment Complete ===${NC}"
-if [ "$DEPLOY_MODE" = "ssh" ]; then
-    echo -e "Plugin deployed to: ${YELLOW}${TAG_SSH_PATH}${NC}"
-else
-    echo -e "Plugin deployed to: ${YELLOW}${TAG_SFTP_PATH}${NC}"
-fi

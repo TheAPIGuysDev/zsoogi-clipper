@@ -62,6 +62,35 @@ class Zsoogi_Clips {
 		add_action( 'save_post_' . self::POST_TYPE, array( __CLASS__, 'set_default_term' ), 10, 2 );
 		add_action( 'template_redirect', array( __CLASS__, 'restrict_frontend_access' ) );
 		add_filter( 'template_include', array( __CLASS__, 'load_custom_template' ) );
+		add_action( 'pre_get_posts', array( __CLASS__, 'include_in_builtin_archives' ) );
+	}
+
+	/**
+	 * Include Zsoogi Clips in built-in category and tag archives.
+	 *
+	 * WordPress core only queries the `post` post type for category and tag
+	 * archives. This filter adds `zsoogiclips` so clips with assigned
+	 * categories/tags surface alongside regular posts.
+	 *
+	 * @since 2.4.2
+	 *
+	 * @param \WP_Query $query The current query object.
+	 *
+	 * @return void
+	 */
+	public static function include_in_builtin_archives( $query ) {
+		if ( is_admin() || ! $query->is_main_query() ) {
+			return;
+		}
+
+		if ( ! $query->is_category() && ! $query->is_tag() ) {
+			return;
+		}
+
+		// Only logged-in administrators see Zsoogi Clips in category/tag archives.
+		if ( is_user_logged_in() && current_user_can( 'manage_options' ) ) {
+			$query->set( 'post_type', array( 'post', self::POST_TYPE ) );
+		}
 	}
 
 	/**
