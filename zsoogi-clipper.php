@@ -10,7 +10,7 @@
  * License URI: https://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: zsoogi-clipper
  * Domain Path: /languages
- * Requires at least: 5.0
+ * Requires at least: 5.9
  * Requires PHP: 7.4
  *
  * @package Zsoogi_Clipper
