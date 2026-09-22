@@ -264,7 +264,7 @@ Found a security vulnerability?
 
 **Response Time:** 48 hours for security issues  
 
-**Responsible Disclosure:**  
+**Responsible Disclosure:**
 We follow responsible disclosure practices. If you report a valid security issue:
 
 1. We'll acknowledge within 48 hours
@@ -280,17 +280,17 @@ We follow responsible disclosure practices. If you report a valid security issue
 **Website:** [theapiguys.com](https://theapiguys.com)  
 **Support Site:** [theapiguys.com/support](https://theapiguys.com/support)  
 
-**Address:**  
+**Address:**
 The API Guys
 [Address TBD]
 [City, State, ZIP]
 United States
 
-**Business Hours:**  
+**Business Hours:**
 Monday - Friday: 9am - 5pm EST
 Saturday - Sunday: Closed (no support)
 
-**Holidays:**  
+**Holidays:**
 We're closed on US federal holidays. Response times may be longer during holiday weeks.
 
 ---

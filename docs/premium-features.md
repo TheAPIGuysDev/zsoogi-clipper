@@ -12,29 +12,70 @@
 ### Everything in Free, PLUS:
 
 #### 1. WordPress Abilities API — AI Agent Integration 🤖
-**Status:** ✅ Built (`premium` branch) | Requires WordPress 6.9+ + MCP Adapter plugin
+**Status:** ✅ Built (`premium` branch) | Requires WordPress 6.9+ + MCP Adapter plugin  
 
 This is the defining premium feature. Zsoogi Clipper registers itself as a set of **WordPress Abilities**, making your entire clip library accessible to any MCP-connected AI agent — Claude Desktop, Claude Code, Cursor, VS Code — via natural language.
 
-**What you can ask your AI:**
+**What you can ask your AI:**  
 
 - *"Create a clip from this URL with the title 'Market Research Q2'"*
 - *"Search my clips for anything about competitor pricing"*
 - *"Get the YouTube transcript for clip #42"*
 - *"Export all my clips tagged 'research' as Markdown"*
 
-**Registered Abilities:**
+**Registered Abilities:**  
 
 - `zsoogi/create-clip` — Create a new clip from URL, title, and optional excerpt
 - `zsoogi/search-clips` — Search clips by keyword, domain, or tag
 - `zsoogi/get-transcript` — Retrieve the stored YouTube transcript for a clip
 - `zsoogi/export-clips` — Export a filtered clip set to Markdown or JSON
 
-**Why it matters:** Free users have a clip archive. Premium users have an AI-queryable knowledge base. The same clips you've been saving are now reachable by any AI agent with MCP support — no extra tooling, no separate app.
+**Why it matters:** Free users have a clip archive. Premium users have an AI-queryable knowledge base. The same clips you've been saving are now reachable by any AI agent with MCP support — no extra tooling, no separate app.  
 
 See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
 
-#### 2. YouTube Transcript Capture 🔥
+#### 2. Flexible Access Control 🔐
+**Status:** ✅ Built (`premium` branch, 2.6.x)  
+
+The free plugin is strictly administrator-only. Premium opens that up along two
+independent axes, without ever exposing clips publicly.
+
+**Site-wide minimum role**
+
+Set the lowest role that may view clips on the frontend, in Settings → Access Control:
+
+| Tier | Representative capability |
+|---|---|
+| Administrator | `manage_options` |
+| Editor | `edit_others_posts` |
+| Author | `publish_posts` |
+| Contributor | `edit_posts` |
+| Subscriber | `read` |
+
+Tiers are matched by capability rather than role slug, so a custom role is slotted
+into the highest tier whose capability it holds — no per-role configuration needed.
+
+**Per-clip user sharing**
+
+Any individual clip can be shared with named users via the User Access meta box,
+stored in `_zsoogi_shared_users`. Those users may read that clip even if they fall
+below the site-wide minimum role. It is a per-clip grant, not a global one.
+
+**What never changes**
+
+Logged-out visitors are redirected unconditionally. `restrict_frontend_access()`
+bails before the capability check runs, so no combination of settings can make a
+clip publicly readable. Privacy is the plugin's premise, and access control widens
+a private circle — it does not publish.
+
+!!! note "Fixed in 2.6.8"
+
+    Per-clip sharing had no effect on the MCP abilities before 2.6.8: the shared-user
+    list is stored as integers while both ability-side checks compared strings. The
+    failure was closed, not open — shared users were denied rather than over-granted.
+    Frontend sharing was never affected.
+
+#### 3. YouTube Transcript Capture 🔥
 **Status:** ✅ Built (merged into `premium` branch)  
 
 - **Full Transcript Scraping:** Automatically captures complete video transcripts from YouTube
@@ -52,7 +93,7 @@ See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
 - Educational video reference
 - Training material compilation
 
-#### 3. Citation Formats
+#### 4. Citation Formats
 **Status:** ✅ Built (simple/detailed/academic) | 📋 Planned Q2 2026 (academic styles + export)  
 
 **Built and gated now:**  
@@ -69,7 +110,7 @@ See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
 - **Export Options:** BibTeX, Zotero, EndNote
 - **In-Text Citations:** Shortcodes for inserting citations in posts/pages
 
-#### 4. PDF Content Extraction
+#### 5. PDF Content Extraction
 **Status:** 📋 Planned Q2 2026  
 
 - **Text Extraction:** Pull text content from PDF files via URL or upload
@@ -78,7 +119,7 @@ See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
 - **Page References:** Include specific page numbers in citations
 - **Archive PDFs:** Option to download and store PDFs on your server
 
-#### 5. Enhanced Content Capture
+#### 6. Enhanced Content Capture
 **Status:** 📋 Planned Q2-Q3 2026  
 
 - **Multi-Image Capture:** Capture multiple images with gallery support
@@ -87,7 +128,7 @@ See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
 - **Authenticated Sites:** Forward cookies to capture content behind logins
 - **Better Image Detection:** AI-powered detection of meaningful content images
 
-#### 6. Custom Branding
+#### 7. Custom Branding
 **Status:** ✅ Available (removed from free version)  
 
 - **Custom Menu Labels:** Change "Zsoogi Clips" to your preferred name
@@ -101,7 +142,7 @@ See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
 - "Case Studies" for consultants
 - "Content Ideas" for writers
 
-#### 7. Enhanced Organization
+#### 8. Enhanced Organization
 **Status:** 📋 Planned Q3 2026  
 
 - **Unlimited Taxonomies:** Create multiple custom taxonomies beyond "Zsoogi Type"
@@ -110,7 +151,7 @@ See [AI-Ready WordPress (MCP)](ai-ready-wordpress.md) for setup details.
 - **Bulk Operations:** Bulk tagging, categorization, and editing
 - **Smart Folders:** Dynamic collections based on rules
 
-#### 8. Priority Support
+#### 9. Priority Support
 **Status:** ✅ Available immediately upon purchase  
 
 - **Email Support:** Direct email access to development team

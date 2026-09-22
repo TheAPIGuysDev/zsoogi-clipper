@@ -101,7 +101,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 #### 5. Team Collaboration
 **Priority:** 🔥 High | **Status:** 📋 Planned  
 
-- [ ] Role-based access control (not just admin-only)
+- [x] Role-based access control (not just admin-only) — shipped 2.6.x
 - [ ] Assignment and approval workflows
 - [ ] Comments and annotations on clips
 - [ ] Shared clip collections
@@ -207,7 +207,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 **Must Have:**  
 
-1. [ ] Role-based access control
+1. [x] Role-based access control — shipped 2.6.x
 2. [ ] AI summarization (OpenAI integration)
 3. [ ] Slack integration
 4. [ ] Comments/annotations

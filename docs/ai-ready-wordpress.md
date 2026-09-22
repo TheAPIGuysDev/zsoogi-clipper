@@ -204,15 +204,63 @@ Any MCP-compliant model (Claude, OpenAI, Gemini) can use any MCP-compliant serve
     - Review which abilities third-party plugins register before connecting an AI client
     - Consider STDIO transport for local/staging; HTTP transport for production with OAuth
 
+### How Zsoogi Clipper gates ability access
+
+An AI agent is not a separate principal. Every ability runs inside WordPress as an
+authenticated user, and the agent's reach is exactly that user's reach — so the
+credential an agent holds *is* the security boundary. An Application Password
+belonging to an administrator grants administrator reach.
+
+Enforcement happens at two levels:
+
+1. **Invocation** — every ability declares `permission_callback => current_user_can( 'edit_posts' )`,
+   so Contributor is the floor for calling anything at all.
+
+2. **Per clip** — `zsoogi/get-clip` and `zsoogi/get-transcript` call `can_read_clip()`;
+   `zsoogi/search-clips` and `zsoogi/export-clips` constrain the query through
+   `apply_access_control()` so excluded clips never enter the result set.
+
+`can_read_clip()` allows a read when any of the following holds: the user can
+`edit_post` that clip, the user meets the site-wide minimum access capability, or
+the user's ID appears in that clip's `_zsoogi_shared_users` list.
+
+`zsoogi/export-clips` deserves the most care. A single call can pull a filtered set
+of clips as Markdown or JSON, which makes it the highest-leverage ability in the set.
+
+### What capability checks cannot cover
+
+Capability checks gate **retrieval**. They cannot govern what happens to the text
+afterwards.
+
+When an agent calls `zsoogi/get-transcript`, WordPress correctly decides *this user
+may read this clip* — and then returns the content to the agent, which sends it on to
+its model provider. At that point the text has left your site and is subject to that
+provider's data handling and retention.
+
+This is inherent to exposing content over MCP, not a defect in the implementation.
+But for a plugin whose premise is that clips stay private, it is a disclosure
+obligation rather than a footnote: say plainly that abilities respect WordPress
+access rules, *and* that content sent to an agent leaves the site.
+
 ---
 
 ## 7. Relevance to Zsoogi Clipper
 
-The Abilities API is a natural fit for Zsoogi Clipper premium features. Potential abilities to register:
+Zsoogi Clipper Pro registers seven abilities, gated behind `License::has_feature( 'abilities' )`:
 
-- `zsoogi/create-clip` — create a clip from structured data (URL, title, excerpt)
-- `zsoogi/search-clips` — search clips by keyword, tag, or domain
-- `zsoogi/get-transcript` — retrieve the stored YouTube transcript for a clip
-- `zsoogi/export-clips` — export a filtered set of clips to Markdown or JSON
+| Ability | Purpose |
+|---|---|
+| `zsoogi/create-clip` | Create a clip from structured data (URL, title, excerpt) |
+| `zsoogi/get-clip` | Retrieve a single clip |
+| `zsoogi/update-clip` | Update title, content (replace or append), or tags |
+| `zsoogi/search-clips` | Search by keyword, tag, or source domain |
+| `zsoogi/export-clips` | Export a filtered set to Markdown or JSON |
+| `zsoogi/get-transcript` | Retrieve a stored YouTube transcript |
+| `zsoogi/sideload-clip-images` | Pull external `<img>` sources into the Media Library |
 
-These would allow AI assistants to search and manage a user's clip library via natural language — a compelling premium differentiator that fits naturally into the existing `License::has_feature()` gating pattern.
+`zsoogi/get-transcript` additionally requires `License::has_feature( 'transcripts' )`.
+
+Together these let an AI assistant search and manage a clip library in natural
+language — the defining premium differentiator. See
+[How Zsoogi Clipper gates ability access](#how-zsoogi-clipper-gates-ability-access)
+for the enforcement model and its limits.

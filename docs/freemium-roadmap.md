@@ -56,14 +56,14 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 **Target:** Power users, researchers, content creators  
 
 #### 1. WordPress Abilities API — AI Agent Integration
-**Priority:** 🔥 High | **Status:** ✅ Built (`premium` branch) | Requires WP 6.9+
+**Priority:** 🔥 High | **Status:** ✅ Built (`premium` branch) | Requires WP 6.9+  
 
 - [x] `zsoogi/create-clip` — create clip from URL, title, excerpt via AI agent
 - [x] `zsoogi/search-clips` — search clips by keyword, domain, or tag
 - [x] `zsoogi/get-transcript` — retrieve stored YouTube transcript for a clip
 - [x] `zsoogi/export-clips` — export filtered clips as Markdown or JSON
 
-**Technical Notes:** Implemented in `includes/class-abilities.php`. Registers on `wp_abilities_api_init`. Gracefully does nothing on WP < 6.9. Each ability gated behind `License::has_feature('abilities')`. `get-transcript` additionally requires `License::has_feature('transcripts')`.
+**Technical Notes:** Implemented in `includes/class-abilities.php`. Registers on `wp_abilities_api_init`. Gracefully does nothing on WP < 6.9. Each ability gated behind `License::has_feature('abilities')`. `get-transcript` additionally requires `License::has_feature('transcripts')`.  
 
 #### 2. YouTube Transcript Capture
 **Priority:** 🔥 High | **Status:** ✅ Built (merged into `premium` branch)  
@@ -111,7 +111,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 #### 5. Team Collaboration
 **Priority:** 🔥 High | **Status:** 📋 Planned  
 
-- [ ] Role-based access control (not just admin-only)
+- [x] Role-based access control (not just admin-only) — shipped 2.6.x
 - [ ] Assignment and approval workflows
 - [ ] Comments and annotations on clips
 - [ ] Shared clip collections
@@ -219,7 +219,7 @@ Keep the plugin genuinely useful for individual users while creating clear upgra
 
 **Must Have:**  
 
-1. [ ] Role-based access control
+1. [x] Role-based access control — shipped 2.6.x
 2. [ ] AI summarization (OpenAI integration)
 3. [ ] Slack integration
 4. [ ] Comments/annotations
