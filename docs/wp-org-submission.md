@@ -36,8 +36,8 @@ Tracking the preparation and submission of Zsoogi Clipper v1.0.0 to the WordPres
 
 ### Build
 
-- [x] `build.sh` excludes: `claude/`, `deploy.sh`, `README.md`, premium classes, screencasts, `screenshot-*.png`
-- [x] `deploy.sh` excludes: `build.sh`, `CLAUDE.md`, `claude/`, `README.md`, `composer.json`
+- [x] `build.sh` excludes: `docs/`, `mkdocs.yml`, `hooks.py`, `mkdocs-*.sh`, `site/`, `deploy.sh`, `README.md`, premium classes, screencasts, `screenshot-*.png`
+- [x] `deploy.sh` excludes: `build.sh`, `CLAUDE.md`, `docs/` + MkDocs toolchain, `README.md`, `composer.json`
 - [x] Final ZIP: `dist/zsoogi-clipper-1.0.0.zip` (~115KB, clean)
 
 ---

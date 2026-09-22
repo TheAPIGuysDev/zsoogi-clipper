@@ -1,10 +1,10 @@
 #!/bin/bash
 # Serve MkDocs docs locally with live-reload.
-# Run from the project root or claude/ directory.
+# Run from the project root.
 #
 # Usage:
-#   ./claude/mkdocs-serve.sh           # serves on port 8000
-#   ./claude/mkdocs-serve.sh 8001      # serves on a custom port
+#   ./mkdocs-serve.sh           # serves on port 8000
+#   ./mkdocs-serve.sh 8001      # serves on a custom port
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PORT="${1:-8000}"

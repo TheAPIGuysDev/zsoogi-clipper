@@ -20,12 +20,11 @@ zsoogi-clipper/
 │   └── single-zsoogiclips.php      # Custom single-post template
 ├── languages/
 │   └── index.php                   # Empty index for security
-└── claude/
-    ├── mkdocs.yml                  # MkDocs config
-    ├── hooks.py                    # Version injection hook
-    ├── mkdocs-serve.sh             # Local dev server
-    ├── mkdocs-deploy.sh            # Build + rsync deploy
-    └── docs/                       # This documentation
+├── docs/                           # This documentation
+├── mkdocs.yml                      # MkDocs config
+├── hooks.py                        # Version injection hook
+├── mkdocs-serve.sh                 # Local dev server
+└── mkdocs-deploy.sh                # Build + rsync deploy
 ```
 
 ## Class Responsibilities

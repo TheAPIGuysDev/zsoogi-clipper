@@ -10,19 +10,19 @@ The plugin was originally developed as Wiki Clipper (https://github.com/pbrocks/
 
 ## Documentation
 
-Project docs live in `claude/docs/` (MkDocs). Key references:
+Project docs live in `docs/` (MkDocs). Key references:
 
-- `claude/docs/index.md` — project overview, quick start, key slugs
-- `claude/docs/architecture.md` — class structure, initialization flow, hooks, security model
-- `claude/docs/bookmarklet.md` — JS source, YouTube handling, image capture, PHP processing
-- `claude/docs/post-type.md` — CPT/taxonomy registration, frontend access, REST API
-- `claude/docs/settings.md` — settings options, admin menu, bookmarklet install page
-- `claude/docs/development.md` — Composer, PHPCS, build process, MkDocs serve/deploy
-- `claude/docs/freemium-development.md` — License class, feature flags, adding premium features
+- `docs/index.md` — project overview, quick start, key slugs
+- `docs/architecture.md` — class structure, initialization flow, hooks, security model
+- `docs/bookmarklet.md` — JS source, YouTube handling, image capture, PHP processing
+- `docs/post-type.md` — CPT/taxonomy registration, frontend access, REST API
+- `docs/settings.md` — settings options, admin menu, bookmarklet install page
+- `docs/development.md` — Composer, PHPCS, build process, MkDocs serve/deploy
+- `docs/freemium-development.md` — License class, feature flags, adding premium features
 
 When starting a new session on an unfamiliar area, read the relevant doc first.
 
-Local preview: `./claude/mkdocs-serve.sh` → http://127.0.0.1:8000
+Local preview: `./mkdocs-serve.sh` → http://127.0.0.1:8000
 
 ## Development Commands
 
@@ -181,4 +181,4 @@ Single codebase on the `premium` branch. Premium features are gated via `License
 - **Premium users**: unlock `citation_formats` and `transcripts` features via license key in Settings
 - **Local dev**: `define( 'ZSOOGI_PREMIUM_LICENSE', true )` in `wp-config.php` to bypass license checks
 
-See `claude/docs/freemium-development.md` for adding new premium features.
+See `docs/freemium-development.md` for adding new premium features.

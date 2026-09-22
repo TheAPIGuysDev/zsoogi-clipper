@@ -4,7 +4,7 @@
 /vendor
 assets/zsoogi-clipper-php-20260205-135957.json
 *.zip
-/claude/samples
-claude/site/
-claude/__pycache__/
+/samples
+site/
+__pycache__/
 .claude/settings.local.json

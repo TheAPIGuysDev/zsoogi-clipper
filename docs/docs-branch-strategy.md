@@ -8,7 +8,7 @@
 
 ## Overview
 
-All documentation lives in `claude/docs/` and is committed to git alongside the plugin code. The `premium` branch is the primary development branch — all doc edits happen there. The `main` branch receives docs via normal merges at release time; nobody edits docs directly on `main`.
+All documentation lives in `docs/` and is committed to git alongside the plugin code. The `premium` branch is the primary development branch — all doc edits happen there. The `main` branch receives docs via normal merges at release time; nobody edits docs directly on `main`.
 
 ```
 premium  ──●──●──●──●──────●─────►  (all development + doc edits)
@@ -20,8 +20,8 @@ main     ──────────────────●────�
 
 ## Rules
 
-1. **All doc edits on `premium`** — never edit `claude/docs/` directly on `main`
-2. **Deploy from `premium`** — run `./claude/mkdocs-deploy.sh` from `premium`
+1. **All doc edits on `premium`** — never edit `docs/` directly on `main`
+2. **Deploy from `premium`** — run `./mkdocs-deploy.sh` from `premium`
 3. **`main` gets docs via merge** — `git merge premium` at release time brings code and docs together
 4. **Doc updates travel with feature commits** — when you gate a new feature behind `License::has_feature()`, update the relevant `.md` in the same commit
 
@@ -34,21 +34,21 @@ main     ──────────────────●────�
 ```bash
 # Edit code and docs together
 vim includes/class-license.php
-vim claude/docs/freemium-development.md
+vim docs/freemium-development.md
 
 # Commit both in one shot
-git add includes/class-license.php claude/docs/freemium-development.md
+git add includes/class-license.php docs/freemium-development.md
 git commit -m "Gate PDF extraction behind license; update dev docs"
 
 # Deploy docs at any time
-./claude/mkdocs-deploy.sh
+./mkdocs-deploy.sh
 ```
 
 ### Release to `main`
 
 ```bash
 # On premium — make sure everything is committed and docs are deployed
-./claude/mkdocs-deploy.sh
+./mkdocs-deploy.sh
 
 # Switch to main and merge
 git checkout main
@@ -79,7 +79,7 @@ git cherry-pick <commit-sha>
 | Editing docs on `main` | Creates a divergence; docs on `premium` will overwrite on next merge |
 | Running deploy from `main` | Fine for a one-off but `premium` is canonical — redeploy from there |
 | Separate docs branch | Just another sync problem; unnecessary given single-codebase model |
-| Git subtrees / submodules for docs | Overkill; `claude/` is small and low-churn |
+| Git subtrees / submodules for docs | Overkill; `docs/` is small and low-churn |
 | Cherry-picking doc commits | Tedious and error-prone; normal merges are cleaner |
 
 ---
@@ -98,7 +98,7 @@ If CI is added, include a doc build check on PRs to `main`:
 
 ```yaml
 - name: Build MkDocs
-  run: cd claude && mkdocs build --clean
+  run: mkdocs build --clean
 ```
 
 This catches broken links, missing nav entries, and `{{ plugin_version }}` injection failures before merge — without deploying.

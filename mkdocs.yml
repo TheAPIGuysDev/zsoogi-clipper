@@ -6,7 +6,7 @@ site_url: https://sites.theapiguys.com/zsoogi-clipper/documentation/
 # Repository
 repo_name: TheAPIGuysDev/zsoogi-clipper
 repo_url: https://github.com/TheAPIGuysDev/zsoogi-clipper
-edit_uri: edit/main/claude/docs/
+edit_uri: edit/main/docs/
 
 # Important: Use directory URLs for clean links
 use_directory_urls: true

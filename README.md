@@ -43,18 +43,18 @@ Perfect for teams building internal documentation, knowledge bases, API document
 
 ## Documentation
 
-Full developer documentation is in [`claude/docs/`](claude/docs/):
+Full developer documentation is in [`docs/`](docs/):
 
-- [Architecture](claude/docs/architecture.md) — class structure, initialization flow, security model
-- [Bookmarklet](claude/docs/bookmarklet.md) — JS details, YouTube integration, image capture
-- [Post Type & Taxonomy](claude/docs/post-type.md) — CPT/taxonomy registration, frontend access
-- [Settings & Admin](claude/docs/settings.md) — settings options, admin menu
-- [Development](claude/docs/development.md) — Composer, PHPCS, build, MkDocs
+- [Architecture](docs/architecture.md) — class structure, initialization flow, security model
+- [Bookmarklet](docs/bookmarklet.md) — JS details, YouTube integration, image capture
+- [Post Type & Taxonomy](docs/post-type.md) — CPT/taxonomy registration, frontend access
+- [Settings & Admin](docs/settings.md) — settings options, admin menu
+- [Development](docs/development.md) — Composer, PHPCS, build, MkDocs
 
 **Local docs preview:**
 
 ```bash
-./claude/mkdocs-serve.sh
+./mkdocs-serve.sh
 # Visit http://127.0.0.1:8000
 ```
 
@@ -146,11 +146,11 @@ zsoogi-clipper/
 │   └── js/bookmarklet.js           # Vanilla JS bookmarklet source
 ├── templates/
 │   └── single-zsoogiclips.php      # Custom single-post template
-├── claude/
-│   ├── mkdocs.yml                  # MkDocs config
-│   ├── mkdocs-serve.sh             # Local docs preview
-│   ├── mkdocs-deploy.sh            # Build + deploy docs
-│   └── docs/                       # Developer documentation
+├── docs/                           # Developer documentation (MkDocs)
+├── mkdocs.yml                      # MkDocs config
+├── hooks.py                        # Version injection hook
+├── mkdocs-serve.sh                 # Local docs preview
+├── mkdocs-deploy.sh                # Build + deploy docs
 └── README.md
 ```
 

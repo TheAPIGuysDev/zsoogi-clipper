@@ -76,7 +76,8 @@ The ZIP excludes all dev and premium files:
 | `build.sh`, `deploy.sh` | Build/deploy scripts |
 | `README.md`, `CLAUDE.md` | Dev docs |
 | `phpcs.xml*`, `.gitignore`, `.gitattributes` | Dev config |
-| `claude/` | This MkDocs docs directory |
+| `docs/`, `site/`, `mkdocs.yml`, `hooks.py`, `mkdocs-*.sh` | MkDocs docs + toolchain |
+| `samples/`, `__pycache__/` | Local scratch / build artifacts |
 | `includes/class-license.php` | Pro only (deleted from free repo) |
 | `includes/class-abilities.php` | Pro only (deleted from free repo) |
 | `assets/cpt-svg-icon.md` | Dev reference only |
@@ -100,13 +101,13 @@ See [Branch & Distribution Strategy](branching-strategy.md) for the full branch 
 
 ## MkDocs (This Site)
 
-All docs live in `claude/docs/`. The `claude/` directory contains:
+All docs live in `docs/` at the plugin root, alongside the MkDocs toolchain:
 
 ```
-claude/
+zsoogi-clipper/
 ├── mkdocs.yml          # Site config
 ├── hooks.py            # Auto-injects plugin version at build time
-├── mkdocs-serve.sh     # Local preview: cd claude/ && mkdocs serve
+├── mkdocs-serve.sh     # Local preview: ./mkdocs-serve.sh
 ├── mkdocs-deploy.sh    # Build + rsync deploy
 └── docs/
     ├── index.md
@@ -121,7 +122,7 @@ claude/
 
 ```bash
 # Requires: pip install mkdocs
-./claude/mkdocs-serve.sh
+./mkdocs-serve.sh
 # Visit http://127.0.0.1:8000
 ```
 
@@ -140,9 +141,9 @@ DOCS_SSH_PORT=22
 Then:
 
 ```bash
-./claude/mkdocs-deploy.sh           # build + deploy
-./claude/mkdocs-deploy.sh --build   # build only
-./claude/mkdocs-deploy.sh --deploy  # deploy only
+./mkdocs-deploy.sh           # build + deploy
+./mkdocs-deploy.sh --build   # build only
+./mkdocs-deploy.sh --deploy  # deploy only
 ```
 
 ## Known Issues / Watch Out For

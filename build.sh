@@ -45,7 +45,13 @@ rsync -av \
     --exclude='vendor/' \
     --exclude='build/' \
     --exclude='dist/' \
-    --exclude='claude/' \
+    --exclude='docs/' \
+    --exclude='site/' \
+    --exclude='samples/' \
+    --exclude='__pycache__/' \
+    --exclude='mkdocs.yml' \
+    --exclude='hooks.py' \
+    --exclude='mkdocs-*.sh' \
     --exclude='.claude/' \
     --exclude='CLAUDE.md' \
     --exclude='README.md' \
