@@ -1,0 +1,78 @@
+/**
+ * Zsoogi Clipper — admin styles.
+ *
+ * Enqueued only on the plugin's own admin screens via
+ * Admin_Menu::enqueue_admin_assets(). Class names are prefixed to avoid
+ * collisions with core and other plugins inside wp-admin.
+ */
+
+/* ── Bookmarklet installation page ──────────────────────────────────────── */
+
+.zsoogi-clipper-page {
+	max-width: 800px;
+}
+
+.zsoogi-clipper-link {
+	display: inline-block;
+	background: #2271b1;
+	color: #fff;
+	padding: 15px 30px;
+	text-decoration: none;
+	border-radius: 5px;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 20px 0;
+}
+
+.zsoogi-clipper-link:hover,
+.zsoogi-clipper-link:focus {
+	background: #135e96;
+	color: #fff;
+}
+
+.zsoogi-clipper-instructions {
+	background: #f9f9f9;
+	border-left: 4px solid #2271b1;
+	padding: 15px;
+	margin: 20px 0;
+}
+
+.zsoogi-clipper-note {
+	background: #fff3cd;
+	border-left: 4px solid #ffc107;
+	padding: 15px;
+	margin: 20px 0;
+}
+
+.zsoogi-clipper-link-wrap {
+	text-align: center;
+	margin: 30px 0;
+}
+
+/* ── Settings page callout ──────────────────────────────────────────────── */
+
+.zsoogi-clipper-callout {
+	background: #f0f6fc;
+	border: 1px solid #0c5460;
+	border-left: 4px solid #2271b1;
+	padding: 15px;
+	margin: 15px 0;
+}
+
+.zsoogi-clipper-callout h4 {
+	margin-top: 0;
+}
+
+.zsoogi-clipper-callout-lead {
+	margin-bottom: 10px;
+}
+
+.zsoogi-clipper-callout-steps {
+	margin-left: 20px;
+}
+
+.zsoogi-clipper-callout-footnote {
+	font-size: 0.9em;
+	color: #666;
+	margin-top: 10px;
+}

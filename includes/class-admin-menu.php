@@ -38,6 +38,22 @@ class Admin_Menu {
 	const OPTION_GROUP = 'zsoogi_clipper_settings';
 
 	/**
+	 * Bookmarklet installation page slug.
+	 *
+	 * @var string
+	 */
+	const BOOKMARKLET_SLUG = 'zsoogi-clipper-bookmarklet';
+
+	/**
+	 * Hook suffixes returned by add_submenu_page(), keyed by page slug.
+	 *
+	 * Used to scope asset enqueueing to this plugin's own screens.
+	 *
+	 * @var array
+	 */
+	private static $page_hooks = array();
+
+	/**
 	 * Initialize the Admin Menu functionality.
 	 *
 	 * Hooks into WordPress admin_menu action to add the settings page.
@@ -49,6 +65,7 @@ class Admin_Menu {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_admin_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_assets' ) );
 	}
 
 	/**
@@ -61,9 +78,9 @@ class Admin_Menu {
 	 * @return void
 	 */
 	public static function add_admin_menu() {
-		$plugin_version = ZSOOGI_CLIPS_VERSION;
-		$label_name     = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
-		add_submenu_page(
+		$plugin_version                             = ZSOOGI_CLIPS_VERSION;
+		$label_name                                 = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
+		self::$page_hooks[ self::BOOKMARKLET_SLUG ] = add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
 			sprintf(
 				/* translators: %s: Post type label name */
@@ -72,10 +89,10 @@ class Admin_Menu {
 			),
 			__( 'Grab Zsoogi', 'zsoogi-clipper' ),
 			'manage_options',
-			'zsoogi-clipper-bookmarklet',
+			self::BOOKMARKLET_SLUG,
 			array( __CLASS__, 'render_bookmarklet_page' )
 		);
-		add_submenu_page(
+		self::$page_hooks[ self::PAGE_SLUG ] = add_submenu_page(
 			'edit.php?post_type=' . Zsoogi_Clips::POST_TYPE,
 			sprintf(
 				/* translators: 1: Post type label name, 2: Plugin version */
@@ -306,14 +323,14 @@ class Admin_Menu {
 		?>
 		<p><?php esc_html_e( 'Configure how the Zsoogi Clipper bookmarklet formats captured content.', 'zsoogi-clipper' ); ?></p>
 
-		<div style="background: #f0f6fc; border: 1px solid #0c5460; border-left: 4px solid #2271b1; padding: 15px; margin: 15px 0;">
-			<h4 style="margin-top: 0;">📚 <?php esc_html_e( 'Install the Zsoogi Clipper Bookmarklet', 'zsoogi-clipper' ); ?></h4>
+		<div class="zsoogi-clipper-callout">
+			<h4>📚 <?php esc_html_e( 'Install the Zsoogi Clipper Bookmarklet', 'zsoogi-clipper' ); ?></h4>
 			<p><?php esc_html_e( 'The Zsoogi Clipper bookmarklet lets you capture content from any webpage directly into your Zsoogi Clips.', 'zsoogi-clipper' ); ?></p>
 
-			<p style="margin-bottom: 10px;">
+			<p class="zsoogi-clipper-callout-lead">
 				<strong><?php esc_html_e( 'To install:', 'zsoogi-clipper' ); ?></strong>
 			</p>
-			<ol style="margin-left: 20px;">
+			<ol class="zsoogi-clipper-callout-steps">
 				<li>
 				Visit the <a href="<?php echo esc_url( $bookmarklet_url ); ?>">
 						<?php esc_html_e( 'Grab Zsoogi bookmarklet installation page', 'zsoogi-clipper' ); ?>
@@ -322,7 +339,7 @@ class Admin_Menu {
 				<li><?php esc_html_e( 'Drag the "Grab Zsoogi" button to your browser\'s bookmarks bar', 'zsoogi-clipper' ); ?></li>
 				<li><?php esc_html_e( 'Click the bookmarklet while viewing any webpage to capture content', 'zsoogi-clipper' ); ?></li>
 			</ol>
-			<p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+			<p class="zsoogi-clipper-callout-footnote">
 				<strong><?php esc_html_e( 'What it captures:', 'zsoogi-clipper' ); ?></strong>
 				<?php esc_html_e( 'Page URL, title, selected text, and images - all automatically formatted based on your settings below.', 'zsoogi-clipper' ); ?>
 			</p>
@@ -381,15 +398,78 @@ class Admin_Menu {
 	}
 
 	/**
-	 * Generate the bookmarklet JavaScript code.
+	 * Enqueue admin styles and scripts for this plugin's own screens.
 	 *
-	 * Reads the bookmarklet.js file and replaces placeholders with actual values.
+	 * Replaces the inline <style> and <script> blocks that previously lived in
+	 * render_bookmarklet_page(), per the WordPress.org plugin guidelines.
 	 *
-	 * @since 2.4.2
+	 * @since 1.0.0
 	 *
-	 * @param string $site_url       The site URL.
-	 * @param string $plugin_version The plugin version.
-	 * @return string The minified bookmarklet code.
+	 * @param string $hook_suffix Current admin page hook suffix.
+	 * @return void
+	 */
+	public static function enqueue_admin_assets( $hook_suffix ) {
+		$bookmarklet_hook = isset( self::$page_hooks[ self::BOOKMARKLET_SLUG ] ) ? self::$page_hooks[ self::BOOKMARKLET_SLUG ] : '';
+		$settings_hook    = isset( self::$page_hooks[ self::PAGE_SLUG ] ) ? self::$page_hooks[ self::PAGE_SLUG ] : '';
+
+		// Only load on this plugin's own admin screens.
+		if ( $hook_suffix !== $bookmarklet_hook && $hook_suffix !== $settings_hook ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'zsoogi-clipper-admin',
+			ZSOOGI_CLIPS_PLUGIN_URL . 'assets/css/admin.css',
+			array(),
+			ZSOOGI_CLIPS_VERSION
+		);
+
+		// The bookmarklet payload is only needed on the installation page.
+		if ( $hook_suffix !== $bookmarklet_hook ) {
+			return;
+		}
+
+		wp_enqueue_script(
+			'zsoogi-clipper-bookmarklet',
+			ZSOOGI_CLIPS_PLUGIN_URL . 'assets/js/admin-bookmarklet.js',
+			array(),
+			ZSOOGI_CLIPS_VERSION,
+			true
+		);
+
+		// wp_add_inline_script() rather than wp_localize_script(): the latter runs
+		// every string through html_entity_decode(), which is unsafe for a raw JS
+		// payload. wp_json_encode() here matches the previous inline behaviour.
+		wp_add_inline_script(
+			'zsoogi-clipper-bookmarklet',
+			'var zsoogiClipperBookmarklet = { code: '
+				. wp_json_encode( self::get_bookmarklet_code( self::get_site_base_url(), ZSOOGI_CLIPS_VERSION ) )
+				. ' };',
+			'before'
+		);
+	}
+
+	/**
+	 * Get the site base URL used when building the bookmarklet payload.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return string Site base URL with no trailing admin path.
+	 */
+	private static function get_site_base_url() {
+		$site_url = esc_url( admin_url( 'post-new.php' ) );
+
+		return str_replace( '/wp-admin/post-new.php', '', $site_url );
+	}
+
+	/**
+	 * Build the minified bookmarklet JavaScript payload.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $site_url       Site base URL.
+	 * @param string $plugin_version Plugin version.
+	 * @return string Minified bookmarklet code.
 	 */
 	private static function get_bookmarklet_code( $site_url, $plugin_version ) {
 		// Read the bookmarklet JavaScript file.
@@ -432,49 +512,12 @@ class Admin_Menu {
 		}
 
 		$label_name     = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
-		$site_name      = get_option( 'blogname' );
-		$site_url       = esc_url( admin_url( 'post-new.php' ) );
-		$site_url       = str_replace( '/wp-admin/post-new.php', '', $site_url );
+		$site_url       = self::get_site_base_url();
 		$plugin_version = ZSOOGI_CLIPS_VERSION;
-
-		// Generate the bookmarklet code.
-		$bookmarklet_code = self::get_bookmarklet_code( $site_url, $plugin_version );
 		?>
 		<div class="wrap">
-			<style>
-				.bookmarklet-page {
-					max-width: 800px;
-				}
-				.bookmarklet-link {
-					display: inline-block;
-					background: #2271b1;
-					color: white;
-					padding: 15px 30px;
-					text-decoration: none;
-					border-radius: 5px;
-					font-size: 18px;
-					font-weight: bold;
-					margin: 20px 0;
-				}
-				.bookmarklet-link:hover {
-					background: #135e96;
-					color: white;
-				}
-				.bookmarklet-instructions {
-					background: #f9f9f9;
-					border-left: 4px solid #2271b1;
-					padding: 15px;
-					margin: 20px 0;
-				}
-				.bookmarklet-note {
-					background: #fff3cd;
-					border-left: 4px solid #ffc107;
-					padding: 15px;
-					margin: 20px 0;
-				}
-			</style>
 
-			<div class="bookmarklet-page">
+			<div class="zsoogi-clipper-page">
 				<h1>📚 <?php echo esc_html( $label_name ); ?> - v<?php echo esc_html( $plugin_version ); ?></h1>
 
 				<p>
@@ -488,27 +531,21 @@ class Admin_Menu {
 			</p>
 
 				<h2><?php esc_html_e( 'Installation', 'zsoogi-clipper' ); ?></h2>
-				<div class="bookmarklet-instructions">
+				<div class="zsoogi-clipper-instructions">
 					<ol>
 						<li><?php esc_html_e( 'Drag the button below to your bookmarks bar (or right-click and "Bookmark This Link")', 'zsoogi-clipper' ); ?></li>
 						<li><?php esc_html_e( 'If your bookmarks bar isn\'t visible, press Ctrl+Shift+B (Windows) or Cmd+Shift+B (Mac)', 'zsoogi-clipper' ); ?></li>
 					</ol>
 				</div>
 
-				<div style="text-align: center; margin: 30px 0;">
-					<a id="zsoogi-bookmarklet-link" href="#" class="bookmarklet-link">
+				<div class="zsoogi-clipper-link-wrap">
+					<a id="zsoogi-clipper-bookmarklet-link" href="#" class="zsoogi-clipper-link">
 						🔖 ZsoogiClips v<?php echo esc_html( $plugin_version ); ?>
 					</a>
 				</div>
-				<script>
-				(function() {
-					var code = <?php echo wp_json_encode( $bookmarklet_code ); ?>;
-					document.getElementById( 'zsoogi-bookmarklet-link' ).href = 'javascript:' + code;
-				})();
-				</script>
 
 				<h2><?php esc_html_e( 'How to Use', 'zsoogi-clipper' ); ?></h2>
-				<div class="bookmarklet-instructions">
+				<div class="zsoogi-clipper-instructions">
 					<ol>
 						<li><strong><?php esc_html_e( 'On any webpage:', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'Select text you want to capture (optional)', 'zsoogi-clipper' ); ?></li>
 						<li><strong><?php esc_html_e( 'Click the bookmarklet', 'zsoogi-clipper' ); ?></strong> <?php esc_html_e( 'in your bookmarks bar', 'zsoogi-clipper' ); ?></li>
@@ -537,7 +574,7 @@ class Admin_Menu {
 					<li>✅ <?php esc_html_e( 'Secure HTTPS connection', 'zsoogi-clipper' ); ?></li>
 				</ul>
 
-				<div class="bookmarklet-note">
+				<div class="zsoogi-clipper-note">
 					<strong><?php esc_html_e( 'Note:', 'zsoogi-clipper' ); ?></strong>
 					<?php
 					printf(
@@ -577,5 +614,4 @@ class Admin_Menu {
 		</div>
 		<?php
 	}
-
 }

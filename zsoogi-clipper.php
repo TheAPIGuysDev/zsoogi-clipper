@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Zsoogi Clipper
- * Plugin URI: https://theapiguys.com/zsoogi-clipper
+ * Plugin URI: https://zsoogiclipper.com
  * Description: Create admin-only Zsoogi Clips with a modern jQuery-free bookmarklet for web research.
  * Version: 1.0.0
  * Author: The API Guys
