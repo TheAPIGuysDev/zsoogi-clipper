@@ -119,6 +119,14 @@ if [ ${#listing_assets[@]} -eq 0 ]; then
 fi
 rsync -a --exclude='.svn/' "${listing_assets[@]}" "${SVN_DIR}/assets/"
 
+# The Playground live-preview blueprint, if present. WP.org reads it from
+# assets/blueprints/blueprint.json — it is listing metadata, not plugin code,
+# so it lives beside the banner and screenshots rather than in trunk.
+if [ -f assets/blueprints/blueprint.json ]; then
+    mkdir -p "${SVN_DIR}/assets/blueprints"
+    rsync -a --exclude='.svn/' assets/blueprints/blueprint.json "${SVN_DIR}/assets/blueprints/"
+fi
+
 rm -rf build
 
 # Stage adds and deletes. The trailing @ guards filenames containing '@'.

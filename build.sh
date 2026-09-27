@@ -67,6 +67,7 @@ rsync -av \
     --exclude='assets/screenshot-*.png' \
     --exclude='assets/banner-*.png' \
     --exclude='assets/icon-*.png' \
+    --exclude='assets/blueprints/' \
     --exclude='assets/screencasts/' \
     --exclude='assets/images/screencasts/' \
     . "build/${PLUGIN_SLUG}/"
