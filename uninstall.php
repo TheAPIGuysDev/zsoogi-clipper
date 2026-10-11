@@ -50,5 +50,11 @@ function zsoogi_clipper_multisite_uninstall() {
 	}
 }
 
+// Zsoogi Clipper Pro shares these option names. If Pro is installed (active
+// or not), deleting the free plugin must not wipe Pro's settings.
+if ( file_exists( WP_PLUGIN_DIR . '/zsoogi-clipper-pro/zsoogi-clipper-pro.php' ) ) {
+	return;
+}
+
 // Run uninstall.
 zsoogi_clipper_multisite_uninstall();

@@ -3,7 +3,7 @@
  * Plugin Name: Zsoogi Clipper
  * Plugin URI: https://zsoogiclipper.com
  * Description: Create admin-only Zsoogi Clips with a modern jQuery-free bookmarklet for web research.
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: The API Guys
  * Author URI: https://theapiguys.com
  * License: GPL v2 or later
@@ -24,16 +24,19 @@ defined( 'ABSPATH' ) || exit;
 // (free loads first alphabetically), so its functions/constants aren't defined.
 $zsoogi_active = (array) get_option( 'active_plugins', array() );
 if ( in_array( 'zsoogi-clipper-pro/zsoogi-clipper-pro.php', $zsoogi_active, true ) ) {
-	add_action(
-		'admin_notices',
-		function () {
-			echo '<div class="notice notice-warning is-dismissible"><p>';
-			echo wp_kses(
-				__( '<strong>Zsoogi Clipper (free)</strong> is inactive because <strong>Zsoogi Clipper Pro</strong> is already active. You do not need both plugins.', 'zsoogi-clipper' ),
-				array( 'strong' => array() )
-			);
-			echo '</p></div>';
-		}
+	// Explain the standby state in this plugin's own row on the Plugins
+	// screen rather than a notice on every admin page. Staying active is
+	// fine — Pro does the work and this plugin keeps receiving updates.
+	add_filter(
+		'plugin_row_meta',
+		function ( $meta, $file ) {
+			if ( plugin_basename( __FILE__ ) === $file ) {
+				$meta[] = esc_html__( 'Standing by — Zsoogi Clipper Pro is active and handling everything. This plugin can stay active.', 'zsoogi-clipper' );
+			}
+			return $meta;
+		},
+		10,
+		2
 	);
 	return;
 }
@@ -41,7 +44,7 @@ unset( $zsoogi_active );
 
 // Define plugin constants.
 if ( ! defined( 'ZSOOGI_CLIPS_VERSION' ) ) {
-	define( 'ZSOOGI_CLIPS_VERSION', '1.0.0' );
+	define( 'ZSOOGI_CLIPS_VERSION', '1.0.1' );
 }
 
 if ( ! defined( 'ZSOOGI_CLIPS_PLUGIN_FILE' ) ) {

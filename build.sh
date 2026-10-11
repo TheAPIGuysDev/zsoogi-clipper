@@ -53,6 +53,7 @@ rsync -av \
     --exclude='hooks.py' \
     --exclude='mkdocs-*.sh' \
     --exclude='.claude/' \
+    --exclude='/claude/' \
     --exclude='CLAUDE.md' \
     --exclude='README.md' \
     --exclude='composer.json' \
@@ -60,11 +61,13 @@ rsync -av \
     --exclude='phpcs.xml*' \
     --exclude='build.sh' \
     --exclude='deploy.sh' \
+    --exclude='svn-deploy.sh' \
     --exclude='*.zip' \
     --exclude='assets/cpt-svg-icon.md' \
     --exclude='assets/screenshot-*.png' \
     --exclude='assets/banner-*.png' \
     --exclude='assets/icon-*.png' \
+    --exclude='assets/blueprints/' \
     --exclude='assets/screencasts/' \
     --exclude='assets/images/screencasts/' \
     . "build/${PLUGIN_SLUG}/"

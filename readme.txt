@@ -4,7 +4,7 @@ Tags: documentation, bookmarklet, research, notes, knowledge-base
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -133,6 +133,10 @@ No! Composer is only needed for development (PHP CodeSniffer for linting). The p
 
 == Changelog ==
 
+= 1.0.1 =
+* Zsoogi Clipper Pro compatibility: when Pro is active this plugin stays on standby and can remain active. The admin notice shown on every page is replaced by a short note in this plugin's row on the Plugins screen.
+* Fix: deleting this plugin no longer removes settings shared with Zsoogi Clipper Pro when Pro is installed.
+
 = 1.0.0 =
 * Initial release on WordPress.org
 * Modern jQuery-free bookmarklet for web content capture
@@ -145,6 +149,9 @@ No! Composer is only needed for development (PHP CodeSniffer for linting). The p
 * Translation-ready with full text domain support
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Can now stay active alongside Zsoogi Clipper Pro; deleting it no longer resets Pro's settings.
 
 = 1.0.0 =
 Initial release.

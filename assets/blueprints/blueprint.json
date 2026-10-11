@@ -1,0 +1,34 @@
+{
+	"$schema": "https://playground.wordpress.net/blueprint-schema.json",
+	"landingPage": "/wp-admin/edit.php?post_type=zsoogiclips&page=zsoogi-clipper-bookmarklet",
+	"plugins": [ "zsoogi-clipper" ],
+	"login": true,
+	"features": {
+		"networking": true
+	},
+	"preferredVersions": {
+		"php": "latest",
+		"wp": "latest"
+	},
+	"steps": [
+		{
+			"step": "setSiteOptions",
+			"options": {
+				"blogname": "Zsoogi Clipper Demo",
+				"permalink_structure": "/%postname%/"
+			}
+		},
+		{
+			"step": "updateUserMeta",
+			"meta": {
+				"admin_color": "modern",
+				"show_welcome_panel": 0
+			},
+			"userId": 1
+		},
+		{
+			"step": "runPHP",
+			"code": "<?php require_once 'wordpress/wp-load.php'; $id = wp_insert_post( array( 'post_type' => 'zsoogiclips', 'post_status' => 'publish', 'post_title' => 'Example Clip: WordPress Plugin Handbook', 'post_content' => \"<!-- wp:paragraph --><p>Clips captured with the bookmarklet arrive pre-filled like this, with the source citation appended automatically.</p><!-- /wp:paragraph -->\\n<!-- wp:paragraph --><p><em>Source: <a href=\\\"https://developer.wordpress.org/plugins/\\\">Plugin Handbook</a></em></p><!-- /wp:paragraph -->\" ) ); wp_set_object_terms( $id, 'Reference', 'zsoogi_type' );"
+		}
+	]
+}
