@@ -133,6 +133,9 @@ No! Composer is only needed for development (PHP CodeSniffer for linting). The p
 
 == Changelog ==
 
+= 1.1.0 =
+* Post type labels now follow Settings throughout WordPress, not just the admin menu. The existing **Label (plural)** setting (formerly "Menu Label") and a new **Label (singular)** setting drive every label: the menu, "All …", "Add New …", "Edit …", "View …", archive titles and the admin bar. Defaults stay "Zsoogi Clips" / "Zsoogi Clip".
+
 = 1.0.1 =
 * Zsoogi Clipper Pro compatibility: when Pro is active this plugin stays on standby and can remain active. The admin notice shown on every page is replaced by a short note in this plugin's row on the Plugins screen.
 * Fix: deleting this plugin no longer removes settings shared with Zsoogi Clipper Pro when Pro is installed.

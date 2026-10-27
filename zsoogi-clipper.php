@@ -3,7 +3,7 @@
  * Plugin Name: Zsoogi Clipper
  * Plugin URI: https://zsoogiclipper.com
  * Description: Create admin-only Zsoogi Clips with a modern jQuery-free bookmarklet for web research.
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: The API Guys
  * Author URI: https://theapiguys.com
  * License: GPL v2 or later
@@ -44,7 +44,7 @@ unset( $zsoogi_active );
 
 // Define plugin constants.
 if ( ! defined( 'ZSOOGI_CLIPS_VERSION' ) ) {
-	define( 'ZSOOGI_CLIPS_VERSION', '1.0.1' );
+	define( 'ZSOOGI_CLIPS_VERSION', '1.1.0' );
 }
 
 if ( ! defined( 'ZSOOGI_CLIPS_PLUGIN_FILE' ) ) {
