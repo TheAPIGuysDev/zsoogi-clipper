@@ -21,6 +21,22 @@ Both require `manage_options` capability.
 
 ### Options
 
+#### `zsoogi_clips_label` — Label (plural)
+
+- **Type:** string
+- **Default:** `'Zsoogi Clips'`
+- **Effect:** Plural post type label: `name`, `menu_name`, "All …", "View …" (plural), "Search …" and the list labels. Read through `Zsoogi_Clips::get_plural_label()`.
+- **Sanitize:** `sanitize_text_field()`
+
+#### `zsoogi_clips_singular_label` — Label (singular) (since 1.1.0)
+
+- **Type:** string
+- **Default:** `'Zsoogi Clip'`
+- **Effect:** Singular post type label: `singular_name`, admin bar, "Add New …", "Edit …", "View …", archives and the "not found" messages. Read through `Zsoogi_Clips::get_singular_label()`.
+- **Sanitize:** `sanitize_text_field()`
+
+The URL slug is fixed at `/zsoogiclips/` in this plugin. Zsoogi Clipper Pro 2.8.0 adds a URL Slug setting.
+
 #### `zsoogi_clipper_auto_featured_image`
 
 - **Type:** boolean

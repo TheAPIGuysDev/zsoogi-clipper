@@ -138,8 +138,26 @@ class Admin_Menu {
 
 		add_settings_field(
 			'zsoogi_clips_label',
-			__( 'Menu Label', 'zsoogi-clipper' ),
+			__( 'Label (plural)', 'zsoogi-clipper' ),
 			array( __CLASS__, 'render_label_field' ),
+			self::PAGE_SLUG,
+			'zsoogi_clipper_general'
+		);
+
+		register_setting(
+			self::OPTION_GROUP,
+			'zsoogi_clips_singular_label',
+			array(
+				'type'              => 'string',
+				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => 'Zsoogi Clip',
+			)
+		);
+
+		add_settings_field(
+			'zsoogi_clips_singular_label',
+			__( 'Label (singular)', 'zsoogi-clipper' ),
+			array( __CLASS__, 'render_singular_label_field' ),
 			self::PAGE_SLUG,
 			'zsoogi_clipper_general'
 		);
@@ -306,7 +324,29 @@ class Admin_Menu {
 			class="regular-text"
 		/>
 		<p class="description">
-			<?php esc_html_e( 'This name will appear in the admin menu and post type labels (e.g., "Zsoogi Clips" becomes "Zsoogi Clipper").', 'zsoogi-clipper' ); ?>
+			<?php esc_html_e( 'Plural name used in the admin menu and post type labels, such as "All …" and archive titles.', 'zsoogi-clipper' ); ?>
+		</p>
+		<?php
+	}
+
+	/**
+	 * Render the singular label field.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return void
+	 */
+	public static function render_singular_label_field() {
+		$value = get_option( 'zsoogi_clips_singular_label', 'Zsoogi Clip' );
+		?>
+		<input
+			type="text"
+			name="zsoogi_clips_singular_label"
+			value="<?php echo esc_attr( $value ); ?>"
+			class="regular-text"
+		/>
+		<p class="description">
+			<?php esc_html_e( 'Singular name used for one item, such as "Add New …", "Edit …" and "View …".', 'zsoogi-clipper' ); ?>
 		</p>
 		<?php
 	}

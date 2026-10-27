@@ -105,41 +105,42 @@ class Zsoogi_Clips {
 	 */
 	public static function register_post_type() {
 
-		$label_name = get_option( 'zsoogi_clips_label', 'Zsoogi Clips' );
+		$plural   = self::get_plural_label();
+		$singular = self::get_singular_label();
 
+		// translators: %s is the singular or plural post type label from Settings (e.g. "Zsoogi Clip").
 		$labels = array(
-			'name'                  => _x( 'Zsoogi Clips', 'Post Type General Name', 'zsoogi-clipper' ),
-			'singular_name'         => _x( 'Zsoogi Clip', 'Post Type Singular Name', 'zsoogi-clipper' ),
-			'menu_name'             => $label_name,
-			'name_admin_bar'        => __( 'Zsoogi Clip', 'zsoogi-clipper' ),
-			'archives'              => __( 'Zsoogi Clip Archives', 'zsoogi-clipper' ),
-			'attributes'            => __( 'Zsoogi Clip Attributes', 'zsoogi-clipper' ),
-			'parent_item_colon'     => __( 'Parent Zsoogi Clip:', 'zsoogi-clipper' ),
-			// translators: %s: Post type label name (e.g. "Zsoogi Clips").
-			'all_items'             => sprintf( __( 'All %s', 'zsoogi-clipper' ), $label_name ),
-			'add_new_item'          => __( 'Add New Zsoogi Clip', 'zsoogi-clipper' ),
-			'add_new'               => __( 'Add New Zsoogi Clip', 'zsoogi-clipper' ),
-			'new_item'              => __( 'New Zsoogi Clip', 'zsoogi-clipper' ),
-			'edit_item'             => __( 'Edit Zsoogi Clip', 'zsoogi-clipper' ),
-			'update_item'           => __( 'Update Zsoogi Clip', 'zsoogi-clipper' ),
-			'view_item'             => __( 'View Zsoogi Clip', 'zsoogi-clipper' ),
-			'view_items'            => __( 'View Zsoogi Clips', 'zsoogi-clipper' ),
-			'search_items'          => __( 'Search Zsoogi Clips', 'zsoogi-clipper' ),
-			'not_found'             => __( 'Zsoogi Clip not found', 'zsoogi-clipper' ),
-			'not_found_in_trash'    => __( 'Zsoogi Clip not found in Trash', 'zsoogi-clipper' ),
+			'name'                  => $plural,
+			'singular_name'         => $singular,
+			'menu_name'             => $plural,
+			'name_admin_bar'        => $singular,
+			'archives'              => sprintf( __( '%s Archives', 'zsoogi-clipper' ), $singular ),
+			'attributes'            => sprintf( __( '%s Attributes', 'zsoogi-clipper' ), $singular ),
+			'parent_item_colon'     => sprintf( __( 'Parent %s:', 'zsoogi-clipper' ), $singular ),
+			'all_items'             => sprintf( __( 'All %s', 'zsoogi-clipper' ), $plural ),
+			'add_new_item'          => sprintf( __( 'Add New %s', 'zsoogi-clipper' ), $singular ),
+			'add_new'               => sprintf( __( 'Add New %s', 'zsoogi-clipper' ), $singular ),
+			'new_item'              => sprintf( __( 'New %s', 'zsoogi-clipper' ), $singular ),
+			'edit_item'             => sprintf( __( 'Edit %s', 'zsoogi-clipper' ), $singular ),
+			'update_item'           => sprintf( __( 'Update %s', 'zsoogi-clipper' ), $singular ),
+			'view_item'             => sprintf( __( 'View %s', 'zsoogi-clipper' ), $singular ),
+			'view_items'            => sprintf( __( 'View %s', 'zsoogi-clipper' ), $plural ),
+			'search_items'          => sprintf( __( 'Search %s', 'zsoogi-clipper' ), $plural ),
+			'not_found'             => sprintf( __( '%s not found', 'zsoogi-clipper' ), $singular ),
+			'not_found_in_trash'    => sprintf( __( '%s not found in Trash', 'zsoogi-clipper' ), $singular ),
 			'featured_image'        => __( 'Featured Image', 'zsoogi-clipper' ),
 			'set_featured_image'    => __( 'Set featured image', 'zsoogi-clipper' ),
 			'remove_featured_image' => __( 'Remove featured image', 'zsoogi-clipper' ),
 			'use_featured_image'    => __( 'Use as featured image', 'zsoogi-clipper' ),
-			'insert_into_item'      => __( 'Insert into Zsoogi Clip', 'zsoogi-clipper' ),
-			'uploaded_to_this_item' => __( 'Uploaded to this Zsoogi Clip', 'zsoogi-clipper' ),
-			'items_list'            => __( 'Zsoogi Clips list', 'zsoogi-clipper' ),
-			'items_list_navigation' => __( 'Zsoogi Clips list navigation', 'zsoogi-clipper' ),
-			'filter_items_list'     => __( 'Filter Zsoogi clips list', 'zsoogi-clipper' ),
+			'insert_into_item'      => sprintf( __( 'Insert into %s', 'zsoogi-clipper' ), $singular ),
+			'uploaded_to_this_item' => sprintf( __( 'Uploaded to this %s', 'zsoogi-clipper' ), $singular ),
+			'items_list'            => sprintf( __( '%s list', 'zsoogi-clipper' ), $plural ),
+			'items_list_navigation' => sprintf( __( '%s list navigation', 'zsoogi-clipper' ), $plural ),
+			'filter_items_list'     => sprintf( __( 'Filter %s list', 'zsoogi-clipper' ), $plural ),
 		);
 
 		$args = array(
-			'label'               => __( 'Zsoogi Clips', 'zsoogi-clipper' ),
+			'label'               => $plural,
 			'description'         => __( 'Zsoogi Clips.', 'zsoogi-clipper' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'thumbnail', 'author', 'comments', 'revisions' ),
@@ -160,6 +161,30 @@ class Zsoogi_Clips {
 		);
 
 		register_post_type( self::POST_TYPE, $args );
+	}
+
+	/**
+	 * Plural post type label, from Settings → Label (plural).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string
+	 */
+	public static function get_plural_label(): string {
+		$label = trim( (string) get_option( 'zsoogi_clips_label', '' ) );
+		return '' !== $label ? $label : __( 'Zsoogi Clips', 'zsoogi-clipper' );
+	}
+
+	/**
+	 * Singular post type label, from Settings → Label (singular).
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string
+	 */
+	public static function get_singular_label(): string {
+		$label = trim( (string) get_option( 'zsoogi_clips_singular_label', '' ) );
+		return '' !== $label ? $label : __( 'Zsoogi Clip', 'zsoogi-clipper' );
 	}
 
 	/**
