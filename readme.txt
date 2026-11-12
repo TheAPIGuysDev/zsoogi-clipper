@@ -4,7 +4,7 @@ Tags: documentation, bookmarklet, research, notes, knowledge-base
 Requires at least: 5.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,9 @@ No! Composer is only needed for development (PHP CodeSniffer for linting). The p
 * Translation-ready with full text domain support
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Post type labels now follow Settings everywhere, with a new singular label. Defaults are unchanged.
 
 = 1.0.1 =
 Can now stay active alongside Zsoogi Clipper Pro; deleting it no longer resets Pro's settings.
