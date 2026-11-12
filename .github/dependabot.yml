@@ -1,0 +1,15 @@
+# Dependabot: security updates only (open-pull-requests-limit: 0 turns off
+# version updates), with conventional commit subjects such as
+# "chore(deps): bump x from 1.0 to 1.1", so its pull requests pass the
+# org-wide commit gate (TheAPIGuysDev/tag-hooks commit-gate.yml).
+# Security updates take commit-message from the entry matching their
+# ecosystem and directory, so every directory with a manifest needs one.
+version: 2
+updates:
+  - package-ecosystem: composer
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: "chore(deps)"
